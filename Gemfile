@@ -11,6 +11,9 @@ gem 'marky_markov'
 gem 'pg'
 gem 'sequel'
 
+# Discord
+gem 'discordrb'
+
 # Development
 gem 'byebug'
 gem 'rubocop',             require: false

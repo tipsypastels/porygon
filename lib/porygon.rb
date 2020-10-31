@@ -10,10 +10,6 @@ module Porygon
     Porygon::Internals::BotClass.new
   end
 
-  def self.prefix
-    ENV.fetch('COMMAND_PREFIX', '!')
-  end
-
   def self.owner_proc
     @owner_proc ||= proc { |msg| ENV['OWNER'] == msg.author.id.to_s }
   end
