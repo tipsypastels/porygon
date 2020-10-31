@@ -7,7 +7,6 @@ Startup.log :load_gems do
   require 'discordrb'
   require 'zeitwerk'
   require 'fast_blank'
-  require 'middleware'
   require 'byebug'
   require 'sequel'
   require 'logger'

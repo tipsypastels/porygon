@@ -16,14 +16,14 @@ gem 'discordrb'
 
 # Development
 gem 'byebug'
-gem 'rubocop',             require: false
-gem 'rubocop-performance', require: false
+gem 'rubocop'
+gem 'rubocop-performance'
 
 # Translation
 gem 'i18n'
 
 # Utility
-gem 'activesupport', require: 'active_support/all'
+gem 'activesupport'
 gem 'colorize'
 gem 'dotenv'
 gem 'fast_blank'
