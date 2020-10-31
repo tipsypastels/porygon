@@ -1,0 +1,20 @@
+en:
+  packages:
+    ai:
+      name: AI
+      description: The `!pory` command for speaking to the bot.
+    games:
+      name: Games
+      description: Random utility or fun commands.
+    games_duck_only:
+      name: Games+ (Duck Communism Only)
+      description: More games, including inside jokes specific to duck communism members. Not available elsewhere.
+    pacman:
+      name: Package Management
+      description: Package for commands related to package management.
+    globals:
+      name: Globals
+      description: Global basic commands that are always available.
+    debug:
+      name: Debug
+      description: Global debug commands for bot developers.

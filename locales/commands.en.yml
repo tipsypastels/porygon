@@ -1,0 +1,49 @@
+en:
+  commands:
+    ping:
+      pong: ':sparkles: Pong! Porygon is online~'
+    calc:
+      missing_arg: I need something to calculate!
+      math_error: That's not math!
+      result: Aaaand the answer is...
+    flip:
+      default:
+        heads: Heads
+        tails: Tails
+      result:
+        title: Coin Flip
+    dice:
+      too_many:
+        title: "You really think I'm rolling %{count} dice?"
+        description: 'Think again! I have a life to live too you know.'
+      threshold:
+        pass: Pass
+        fail: Fail
+      result:
+        title: Dice Roll
+        description: ":game_die: %{outcomes}"
+        total: Total
+        threshold: Pass Threshold
+    guild:
+      title: Server Information
+      name: Name
+      owner: Owner
+      region: Region
+      members: Members
+      roles: Roles
+      emoji: Emoji
+      regions:
+        default: ":flag_white: Unknown"
+        brazil: ":flag_br: Brazil"
+        eu-central: ":flag_eu: Central Europe"
+        eu-west: ":flag_eu: Western Europe"
+        hongkong: ":flag_hk: Hong Kong"
+        japan: ":flag_jp: Japan"
+        russia: ":flag_ru: Russia"
+        singapore: ":flag_sg: Singapore"
+        southafrica: ":flag_za: South Africa"
+        sydney: ":flag_au: Sydney"
+        us-central: ":flag_us: Central US"
+        us-west: ":flag_us: Western US"
+        us-east: ":flag_us: Eastern US"
+        us-south: ":flag_us: Southern US"

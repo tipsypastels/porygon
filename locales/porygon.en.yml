@@ -1,0 +1,26 @@
+en:
+  porygon:
+    internals:
+      startup:
+        check: ✓
+        load_gems:
+          text: Loading gems...
+          color: red
+        load_discordrb_ext:
+          text: Loading discordrb extensions...
+          color: yellow
+        configure_gems:
+          text: Configuring loaded gems...
+          color: light_green
+        load_application:
+          text: Loading bot application...
+          color: green
+        register_commands:
+          text: Registering packages and commands...
+          color: light_blue
+        create_bot:
+          text: Creating Porygon instance..
+          color: blue
+        start_bot:
+          text: Everything is ready, starting Porygon!
+          color: magenta
