@@ -3,7 +3,7 @@ module Commands
   class Calc < Command
     self.tags = %w[calc calculate math]
     self.args = Arguments::Parser.new do |a|
-      a.arg :result, Resolvers.equation_result
+      a.arg :result, EquationResolver
     end
 
     def call

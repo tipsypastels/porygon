@@ -3,7 +3,7 @@ module Commands
   class Pkg < Command
     self.tags = %w[pkg package packageinfo]
     self.args = Arguments::Parser.new do |a|
-      a.arg :package, Resolvers.package
+      a.arg :package, PackageResolver
     end
 
     def call

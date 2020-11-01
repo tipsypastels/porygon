@@ -6,16 +6,16 @@ module Commands
     #   a.arg :values, Resolvers.array_of_strings(3..13, delim: /\s*|\s*/)
     # end
 
-    self.args = Arguments::SwitchParser.new do |o|
-      o.format(:with_options, string_delim: /\s*|\s*/) do |a|
-        a.arg   :question, Resolvers.string
-        # a.array :options, Resolvers.string, size: 2..10
-      end
+    # self.args = Arguments::SwitchParser.new do |o|
+    #   o.format(:with_options, string_delim: /\s*|\s*/) do |a|
+    #     a.arg   :question, Resolvers.string
+    #     # a.array :options, Resolvers.string, size: 2..10
+    #   end
       
-      o.default do |a|
-        a.arg :question, Resolvers.string
-      end
-    end
+    #   o.default do |a|
+    #     a.arg :question, Resolvers.string
+    #   end
+    # end
 
     def call
       question, *options = args.values

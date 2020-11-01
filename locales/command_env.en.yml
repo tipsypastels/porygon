@@ -5,7 +5,7 @@ en:
         missing_tags: "%{command} is missing tags! Provide at least one."
         invalid_package: "%{command} is part of \"%{package}\", which does not exist. Did you forget to define it?"
         parser:
-          multiple_strings: Arguments::Parser does not support multiple non-flag string arguments. Either give one argument a recognizable type, or switch it to a flag.
+          multiple_greedy_resolvers: Arguments::Parser does not support multiple greedy resolvers. Either give one argument a non-greedy type, or switch it to a flag.
           bool_flags_must_be_optional: Arguments::Parser boolean flags must be optional, otherwise there would be no point to providing them.
       resolvers:
         int:
@@ -17,7 +17,7 @@ en:
           missing: "%{value} is not the name of a package."
         command:
           missing: "%{value} is not the name of a command. See a list of commands with `%{prefix}help commands`."
-        equation_result:
+        equation:
           title: "%{value} doesn't look like math to me! _adjusts glasses_"
           description: "%{error}"
       usage:

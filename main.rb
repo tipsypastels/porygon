@@ -32,6 +32,7 @@ Startup.log :load_application do
   Loader.collapse(__dir__ + '/lib/commands/list')
   Loader.collapse(__dir__ + '/lib/commands/list/*')
   Loader.collapse(__dir__ + '/lib/packages/list')
+  Loader.collapse(__dir__ + '/lib/resolvers/list')
   Loader.enable_reloading
   Loader.setup
   Loader.eager_load

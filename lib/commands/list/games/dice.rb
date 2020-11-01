@@ -4,9 +4,9 @@ module Commands
   class Dice < Command
     self.tags = %w[dice roll diceroll rolldice]
     self.args = Arguments::Parser.new do |a|
-      a.arg  :count, Resolvers.int(1..), default: 1
-      a.flag :faces, Resolvers.int(1..), default: 6
-      a.flag :threshold, Resolvers.int(1..), optional: true
+      a.arg  :count, IntResolver[1..], default: 1
+      a.flag :faces, IntResolver[1..], default: 6
+      a.flag :threshold, IntResolver[1..], optional: true
     end
 
     def call

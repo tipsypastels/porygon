@@ -44,7 +44,7 @@ module Arguments
       end
       
       def delete(idx)
-        @tokens.slice!(idx)
+        tokens.slice!(idx)
       end
 
       def clear

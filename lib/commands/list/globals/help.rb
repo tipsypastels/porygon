@@ -4,11 +4,15 @@ module Commands
 
     self.args = Arguments::SwitchParser.new do |f|
       f.format(:command_list) do |a|
-        a.arg :keyword, Resolvers.keyword('commands')
+        a.arg :keyword, KeywordResolver['commands']
       end
 
       f.format(:command_help) do |a|
-        a.arg :command, Resolvers.command
+        a.arg :command, CommandResolver
+      end
+
+      f.format(:package_help) do |a|
+        a.flag :package, PackageResolver
       end
 
       f.default
@@ -20,6 +24,10 @@ module Commands
 
     def call_command_help
       p 'command help'
+    end
+
+    def call_package_help
+      p 'package help'
     end
     
     def call

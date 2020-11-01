@@ -64,7 +64,7 @@ module Arguments
         if optional? || default
           "[#{string}]"
         else
-          "<#{string}>"
+          string
         end
       end
 

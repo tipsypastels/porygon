@@ -3,6 +3,7 @@ module Arguments
     # A definition of an argument used by the parser.
     class ArgDefinition
       attr_reader :name, :type, :default
+      delegate :consume_last?, to: :type
 
       def initialize(name, type, default: nil, optional: false)
         @name  = name
@@ -33,11 +34,17 @@ module Arguments
       end
 
       def consume(parser)
-        idx, arg, value = type.consume_until_valid(parser)
-        idx   || parser.missing(self)
-        value ||= convert_to_type(arg, parser)
+        range, arg, value = type.consume(parser)
 
-        parser.set(self, value, 0..idx)
+        unless range
+          return if optional?
+          return parser.set(self, default) if default
+
+          parser.missing(self)
+        end
+
+        value ||= convert_to_type(arg, parser)
+        parser.set(self, value, range)
       end
 
       private
@@ -54,7 +61,7 @@ module Arguments
         if optional? || default
           "[#{string}]"
         else
-          "<#{string}>"
+          string
         end
       end
 

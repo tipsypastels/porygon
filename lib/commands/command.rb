@@ -1,10 +1,10 @@
 module Commands
   class Command
     include Porygon::MessageFormatter
+    include Resolvers
+    
     include Packaged, Respondable, Taggable, Rescuable
     include Translatable, Documentable
-
-    Resolvers = Arguments::Resolvers
 
     class << self
       def to_command_s

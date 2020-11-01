@@ -3,6 +3,8 @@ module Arguments
     # A disposable container for executing the block given to +Parser+'s
     # initializer, and constructing the argument objects based on that.
     class ExecutionEnvironment
+      include Resolvers
+
       def self.call(&block)
         new(&block).result
       end
@@ -22,7 +24,7 @@ module Arguments
 
       def flag(name, type, **opts)
         @defs << 
-          if type.name == 'bool' # special case, gets its own type
+          if type == Resolvers::BoolResolver
             BoolFlagDefinition.new(name, **opts)
           else
             FlagWithArgDefinition.new(name, type, **opts)

@@ -2,7 +2,7 @@ module Commands
   class Hug < Command
     self.tag  = 'hug'
     self.args = Arguments::Parser.new do |a|
-      a.arg :hugged, Resolvers.string
+      a.arg :hugged, StringResolver
     end
 
     def call

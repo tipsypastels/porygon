@@ -5,8 +5,8 @@ module Commands
     self.access = Porygon.owner_proc
 
     self.args = Arguments::Parser.new do |a|
-      a.arg  :code, Resolvers.string
-      a.flag :quiet, Resolvers.bool, optional: true
+      a.arg  :code, StringResolver
+      a.flag :quiet, BoolResolver, optional: true
     end
 
     def call
