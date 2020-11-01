@@ -7,15 +7,25 @@ module Arguments
           def call(value, _command)
             value.to_s
           end
+
+          def consume_until_valid(parser)
+            if parser.tokens.size > 0
+              [parser.tokens.size, parser.tokens.join(' ')]
+            end
+          end
         end
       end
 
-      def int
-        Resolver.new do
+      def int(range = nil)
+        Resolver.new(range: range) do
           def call(value, _command)
-            Integer(value)
+            Integer(value).tap { check_range(_1, value) if range }
           rescue ArgumentError, TypeError
             err('int.invalid', value)
+          end
+
+          def check_range(int, value)
+            int.in?(range) || err('int.out_of_range', value, range: range)
           end
         end
       end
@@ -73,6 +83,19 @@ module Arguments
             Dentaku(value)
           rescue => e
             err('equation_result.error', value, error: e)
+          end
+        end
+      end
+
+      def array_of_strings(range = 1.., delim: /, */)
+        Resolver.new(range: range, demim: delim) do
+          def call(value, _command)
+            value.split(delim).tap { check_in_range(_1, range) }
+          end
+
+          def check_in_range(ary, range)
+            ary.size.in?(range) || 
+              err('array_of_strings.out_of_range', value, range: range)
           end
         end
       end

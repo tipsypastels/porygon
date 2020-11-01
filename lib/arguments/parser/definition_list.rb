@@ -2,6 +2,8 @@ module Arguments
   class Parser
     # An array-like structure that stores argument definitions.
     class DefinitionList
+      include Enumerable
+
       attr_reader :args, :flags
 
       def initialize
@@ -10,7 +12,12 @@ module Arguments
       end
 
       def <<(defn)
-        category(defn) << defn
+        defn >> self
+      end
+
+      def each
+        flags.each { yield _1 }
+        args.each { yield _1 }
       end
 
       def validate!
@@ -27,13 +34,9 @@ module Arguments
       private
 
       def validate_string_count
-        if @args.count { |arg| arg.type == :string } > 1
+        if @args.count { |arg| arg.type.name == 'string' } > 1
           raise Commands::StaticError, 'parser.multiple_strings'
         end
-      end
-
-      def category(defn)
-        defn.is_a?(GenericFlagDefinition) ? @flags : @args
       end
     end
   end

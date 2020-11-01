@@ -2,105 +2,57 @@ module Arguments
   class Parser
     # Represents a single operation by the parser for a use of a command.
     class ParseOperation
-      attr_reader :parser, :content, :command, :found, :tokens
+      attr_reader :parser, :command, :found, :tokens
       delegate :opts, :defs, to: :parser
+      delegate :index, to: :tokens
       
       def initialize(parser, content, command)
         @parser   = parser
-        @content  = content.dup
         @tokens   = content.split
         @command  = command
         @found    = {}
       end
 
       def parse
-        parse_flags
-        parse_args
-        
+        consume_defs
         check_complete
 
         OutputArgs.new(found)
       end
 
-      
-      private
-      
-      def set(key, value)
-        @found[key] = value
+      def flag_arg(idx, flag)
+        tokens[idx + 1].presence || err(:missing_flag_arg, flag: flag)
       end
 
+      def flag_index(flag)
+        index("--#{flag.name}") || index("-#{flag.short_name}")
+      end
+
+      def missing(arg)
+        err(:missing_arg, arg: arg)
+      end
+      
+      def set(arg, value, delete_at = nil)
+        @found[arg.name] = value
+        delete(delete_at) if delete_at
+      end
+
+      private
+
+      def consume_defs
+        defs.each { _1.consume(self) }
+      end
+      
       def delete(idx)
         @tokens.slice!(idx)
-        @content = @tokens.join(' ')
       end
 
       def clear
-        @tokens  = []
-        @content = ''
+        @tokens = []
       end
 
       def err(key, **interps)
         raise Commands::UsageError.new key, **interps
-      end
-
-      def convert(value, type)
-        type.call(value, command)
-      end
-
-      def parse_flags
-        defs.flags.each(&method(:consume_flag))
-      end
-
-      def parse_args
-        defs.args.each(&method(:consume_arg))
-      end
-      
-      # rubocop:disable Metrics/MethodLength
-      def consume_flag(flag)
-        idx = flag.index_in(tokens)
-        return handle_missing_flag(flag) unless idx
-
-        if flag.needs_arg?
-          arg = tokens[idx + 1]
-          return err(:missing_flag_arg, flag: flag) unless arg.present?
-
-          value = convert(arg, flag.type)
-
-          set(flag.name, value)
-          delete(idx..(idx + 1))
-        else
-          set(flag.name, true)
-          delete(idx)
-        end
-      end
-      # rubocop:enable Metrics/MethodLength
-
-      def handle_missing_flag(flag)
-        return if flag.optional?
-        return set(flag.name, flag.default) if flag.default
-
-        err(:missing_flag, flag: flag)
-      end
-
-      def consume_arg(arg)
-        return handle_missing_arg(arg) if content.blank?
-
-        if defs.args.length == 1
-          value = convert(content, arg.type)
-
-          set(arg.name, value)
-          clear
-        else
-          # TODO: support multiple args
-          raise 'Multiple args is not supported yet.'
-        end
-      end
-
-      def handle_missing_arg(arg)
-        return if arg.optional?
-        return set(arg.name, arg.default) if arg.default
-
-        err(:missing_arg, arg: arg)
       end
 
       def check_complete

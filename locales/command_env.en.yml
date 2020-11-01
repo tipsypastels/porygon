@@ -7,10 +7,10 @@ en:
         parser:
           multiple_strings: Arguments::Parser does not support multiple non-flag string arguments. Either give one argument a recognizable type, or switch it to a flag.
           bool_flags_must_be_optional: Arguments::Parser boolean flags must be optional, otherwise there would be no point to providing them.
-          bool_flags_may_not_be_multiple: Arguments::Parser boolean flags may not support being used multiple times.
       resolvers:
         int:
           invalid: "%{value} is not an integer."
+          out_of_range: "%{value} is not in range %{range}."
         keyword:
           missing: Keyword `%{keyword}` is required and was not provided.
         package:

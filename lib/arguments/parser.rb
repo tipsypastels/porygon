@@ -4,7 +4,9 @@ module Arguments
     attr_reader :opts, :defs
     delegate :usage, :validate!, to: :defs
 
-    def initialize(&block)
+    def initialize(**opts, &block)
+      @opts = opts
+      
       if block
         @defs = ExecutionEnvironment.call(&block)
         @defs.validate!
@@ -13,8 +15,12 @@ module Arguments
       end
     end
 
-    def parse(raw_args, command)
+    def parse(raw_args, command = nil)
       ParseOperation.new(self, raw_args, command).parse
+    end
+
+    def to_h(raw_args, command = nil)
+      parse(raw_args, command).to_h
     end
   end
 end

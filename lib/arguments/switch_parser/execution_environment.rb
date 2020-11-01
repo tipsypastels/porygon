@@ -18,15 +18,15 @@ module Arguments
         @formats
       end
 
-      def format(name, &block)
-        @formats[name] = Parser.new(&block)
+      def format(name, **opts, &block)
+        @formats[name] = Parser.new(**opts, &block)
       end
 
-      def default(&block)
+      def default(**opts, &block)
         if block
-          format(DEFAULT, &block)
+          format(DEFAULT, **opts, &block)
         else
-          @formats[DEFAULT] = Parser.new
+          @formats[DEFAULT] = Parser.new(**opts)
         end
       end
     end

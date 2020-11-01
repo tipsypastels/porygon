@@ -1,3 +1,4 @@
 .env
 .markov
 .byebug_history
+spec/examples.txt

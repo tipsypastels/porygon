@@ -22,7 +22,7 @@ module Arguments
 
       def flag(name, type, **opts)
         @defs << 
-          if type == :bool # special case, gets its own type
+          if type.name == 'bool' # special case, gets its own type
             BoolFlagDefinition.new(name, **opts)
           else
             FlagWithArgDefinition.new(name, type, **opts)

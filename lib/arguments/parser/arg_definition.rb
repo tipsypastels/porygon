@@ -2,24 +2,26 @@ module Arguments
   class Parser
     # A definition of an argument used by the parser.
     class ArgDefinition
-      attr_reader :name, :type
+      attr_reader :name, :type, :default
 
-      def initialize(name, type, **opts)
+      def initialize(name, type, default: nil, optional: false)
         @name  = name
         @type  = type
-        @opts  = opts
+
+        @default  = default
+        @optional = optional
       end
 
       def validate!
         # no-op
       end
 
-      def optional?
-        @opts[:optional]
+      def >>(other)
+        other.args << self
       end
 
-      def default
-        @opts[:default]
+      def optional?
+        @optional
       end
 
       def to_usage(command)
@@ -29,6 +31,16 @@ module Arguments
           wrap_for_usage(type_to_usage(command))
         end
       end
+
+      def consume(parser)
+        idx, arg, value = type.consume_until_valid(parser)
+        idx   || parser.missing(self)
+        value ||= convert_to_type(arg, parser)
+
+        parser.set(self, value, 0..idx)
+      end
+
+      private
 
       def type_to_usage(command)
         type.usage(self, command) 
@@ -44,6 +56,10 @@ module Arguments
         else
           "<#{string}>"
         end
+      end
+
+      def convert_to_type(value, parser)
+        type.call(value, parser.command)
       end
     end
   end

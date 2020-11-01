@@ -4,12 +4,14 @@ module Commands
     self.tags   = %w[eval !]
     self.access = Porygon.owner_proc
 
-    self.args   = Arguments::Parser.new do |a|
-      a.arg :code, Resolvers.string
+    self.args = Arguments::Parser.new do |a|
+      a.arg  :code, Resolvers.string
+      a.flag :quiet, Resolvers.bool, optional: true
     end
 
     def call
       result = eval(args.code) # rubocop:disable Security/Eval
+      return if args.quiet
 
       embed do |e|
         e.color = Porygon::COLORS.ok

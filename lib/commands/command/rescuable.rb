@@ -15,6 +15,11 @@ module Commands
       # rubocop:disable Metrics/MethodLength
       def handle_resolve_error(error)
         @aborted = true
+
+        embed do |embed|
+          build_embed_from_translated_error(embed, error)
+          embed.color = Porygon::COLORS.warning 
+        end
       end
 
       def handle_usage_error(error)

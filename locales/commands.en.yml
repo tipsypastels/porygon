@@ -12,6 +12,40 @@ en:
         tails: Tails
       result:
         title: Coin Flip
+    poll:
+      result:
+        title: ":bar_chart: %{question}"
+        footer: "Vote by reacting with an option below!"
+      bool:
+        'true': 👍
+        'false': 👎
+      letters:
+        - 🇦
+        - 🇧
+        - 🇨
+        - 🇩
+        - 🇪
+        - 🇫
+        - 🇬
+        - 🇭
+        - 🇮
+        - 🇯
+        - 🇰
+        - 🇱
+        - 🇲
+        - 🇳
+        - 🇴
+        - 🇵
+        - 🇶
+        - 🇷
+        - 🇸
+        - 🇹
+        - 🇺
+        - 🇻
+        - 🇼
+        - 🇽
+        - 🇾
+        - 🇿
     dice:
       too_many:
         title: "You really think I'm rolling %{count} dice?"
@@ -24,6 +58,8 @@ en:
         description: ":game_die: %{outcomes}"
         total: Total
         threshold: Pass Threshold
+        pass_fail: Pass / Fail
+        faces: Using die with %{faces} faces.
     guild:
       title: Server Information
       name: Name

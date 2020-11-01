@@ -2,8 +2,10 @@
 module Startup
   class << self
     def log(key)
-      message = t(key)
-      puts "#{t(:check)} #{message[:text]}".colorize(message[:color].to_sym)
+      unless ENV['NOSTART']
+        message = t(key)
+        puts "#{t(:check)} #{message[:text]}".colorize(message[:color].to_sym)
+      end
 
       yield
     end

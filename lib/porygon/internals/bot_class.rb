@@ -13,7 +13,7 @@ module Porygon
       end
 
       def start
-        @bot.run
+        @bot.run unless ENV['NOSTART']
       end
 
       def prefix
@@ -23,6 +23,8 @@ module Porygon
       private
 
       def setup_handlers
+        return if ENV['NOSTART']
+        
         @bot.message(&:handle)
       end
     end
