@@ -83,8 +83,8 @@ en:
         title: _Porygon adjusts her glasses and takes another look at that equation._
         unknown: I wasn't able to parse that at all. Are you sure that's math?
         unbound_variable: 
-          one: "Looks like you forgot to define the variable %{vars}! Define variables with the `--variables` option. See `%{prefix}help calc` for usage examples."
-          other: "Looks like you forgot to define the variables %{vars}! See `%{prefix}help calc` for usage examples."
+          one: "Looks like you forgot to define the variable %{vars}! Here's how you define and use variables: ```\nx = 1, y = 2 || x + y```See `%{prefix}help calc` for usage examples."
+          other: "Looks like you forgot to define the variables %{vars}! Here's how you define and use variables: ```\nx = 1, y = 2 || x + y```See `%{prefix}help calc` for usage examples."
         parse:
           undefined_function: "`%{func}` isn't a known function. [See a list of valid functions](https://github.com/rubysolo/dentaku#built-in-operators-and-functions)."
           too_many_operands: Seems like you have an extra operand in there. Typo?
