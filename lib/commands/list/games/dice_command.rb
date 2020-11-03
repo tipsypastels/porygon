@@ -1,7 +1,5 @@
 module Commands
-  # A command for rolling the dice, with some additional flags that
-  # make it easier to use in games.
-  class Dice < Command
+  class DiceCommand < Command
     self.tags = %w[dice roll diceroll rolldice]
 
     self.args = Arguments.new(self) do |a|

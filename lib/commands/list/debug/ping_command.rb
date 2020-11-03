@@ -1,6 +1,5 @@
 module Commands
-  # A simple ping command.
-  class Ping < Command
+  class PingCommand < Command
     self.tag = 'ping'
     
     def call

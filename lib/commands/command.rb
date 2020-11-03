@@ -2,13 +2,13 @@ module Commands
   class Command
     include Porygon::MessageFormatter
     include Packaged, Respondable, Taggable, Rescuable
-    include Translatable, Documentable
+    include Translatable, Documentable, Listable
 
     class << self
       attr_accessor :args, :access, :server_only
     end
 
-    attr_reader :message, :args, :used_tag
+    attr_reader :message, :args, :used_tag, :raw_args
     delegate :channel, to: :message
     delegate :server, to: :channel
     delegate :access, :server_only, :usage, to: :class
@@ -31,7 +31,7 @@ module Commands
     private
 
     def parse_args
-      @args = self.class.args&.parse(@raw_args, self)
+      @args = self.class.args&.parse(raw_args, self)
     end
 
     def should_call?

@@ -7,11 +7,15 @@ module Porygon
 
       def banner
         unless @banner
-          @banner = +program_name
+          @banner = program_name
           visit(:add_banner, @banner)
         end
 
         @banner
+      end
+
+      def accept_matcher(klass)
+        accept(klass, klass.match) { klass.new(_1) }
       end
     end
   end

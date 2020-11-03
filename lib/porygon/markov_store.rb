@@ -2,12 +2,6 @@ module Porygon
   class MarkovStore
     def initialize
       @slots = {}
-
-      at_exit { dump_all }
-    end
-
-    def dump_all
-      @slots.each_value(&:dump)
     end
 
     def open(server)
@@ -30,7 +24,7 @@ module Porygon
       end
 
       def generate
-        @dict.generate_2_sentences
+        @dict.generate_1_sentence
       rescue EmptyDictionaryError
         'hi im pory'
       end

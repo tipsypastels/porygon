@@ -19,9 +19,6 @@ en:
           missing: "%{value} is not the name of a package."
         command:
           missing: "%{value} is not the name of a command. See a list of commands with `%{prefix}help commands`."
-        equation:
-          title: "%{value} doesn't look like math to me! _adjusts glasses_"
-          description: "%{error}"
       usage:
         default:
           title: Looks like you're using the command wrong.

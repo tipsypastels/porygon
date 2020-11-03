@@ -8,5 +8,15 @@ module Commands
   UsageError   = TranslatedError.new('command_env.errors.usage')
   ResolveError = TranslatedError.new('command_env.errors.resolvers')
 
-  delegate :each, to: :ALL
+  class << self
+    delegate :each, to: :all
+
+    def all
+      ALL
+    end
+
+    def listable_for(message)
+      select { |command| command.listable_for?(message) }
+    end
+  end
 end

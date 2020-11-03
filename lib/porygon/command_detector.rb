@@ -16,10 +16,21 @@ module Porygon
 
       tag  = content[1..].split(/\s+/).first.downcase
       args = content[(Bot.prefix.length + tag.length)..].strip
+      args = transform_args(args)
 
       return unless (command = Commands::TAGS[tag])
 
       command.new(message, tag, args)
+    end
+
+    private
+
+    def transform_args(args)
+      transform_em_dash_to_flags(args)
+    end
+
+    def transform_em_dash_to_flags(args)
+      args.gsub('—', '--')
     end
   end
 end

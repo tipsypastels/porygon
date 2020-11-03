@@ -6,18 +6,103 @@ en:
         - 
         - ping
       with_command:
-        title: "Command - %{command}"
+        command: Command
         aliases: Aliases
         package: Package
         examples: Examples
         usage: Usage
+      info:
+        title: Hello! I'm Porygon.
+        footer:
+          text: Created by Dakota.
+          icon_url: https://i.imgur.com/uTRBrKS.png
+        description: You can get a list of commands using `%{prefix}commands`. To get detailed information about a specific command, re-run `%{prefix}help` with the name of that command - for example, `%{prefix}help ping`! If anything else confuses you, don't be afraid to ask!
+    commands:
+      title: Command List
+      description: To get information about a specific command, use `%{prefix}help` with the name of the command. For example, `%{prefix}help ping`.
+    pory:
+      _description: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
+      _examples:
+        -
+        - how are you today, pory?
+    eval:
+      _name: Evaluate
+      _description: If you don't know what this does, you shouldn't be using it.
+      _args:
+        quiet:
+          description: Silences output.
     ping:
+      _description: Says hi from Porygon.
       pong: ':sparkles: Pong! Porygon is online~'
+    hug:
+      _description: Sends an internet hug.
+      _args:
+        hugged:
+          name: thing to hug
+      _examples:
+        - pory
+      title: "You hug **%{hugged}**!"
+      description: ":hugging: **%{hugged}**'s %{stat} rose!"
+      stats:
+        - Attack
+        - Defense
+        - Speed
+        - Special Attack
+        - Special Defense
+        - HP
+    nudge:
+      _description: Never use this it literally causes natural disasters.
+      killed: "%{members} were killed."
+      disasters:
+        - 'Buildings crumble'
+        - 'Earthquakes make their way downtown ziggin fast'
+        - 'Cookies crumble'
+        - 'Groudon: Emerges'
+        - 'A Porytude 7 earthquake!'
+        - 'Just imagine Discord shaking'
+        - 'Cars tumble down the roads'
+        - 'Earthquakes are uncomf'
+        - 'Hundreds of books drop from the shelves'
+        - 'All the chairs roll away'
+        - 'Vases fall and shatter'
+        - 'A glass of water spills'
+        - 'A plant falls over leaving dirt everywhere'
+        - 'Random ceiling tiles fall down'
+        - 'The floor shakes and cracks'
     calc:
-      missing_arg: I need something to calculate!
-      math_error: That's not math!
+      _name: Calculate
+      _description: Does your math homework.
+      _examples:
+        - 1 + 1
+        - max(1, 2, 3)
+        - x + y --variables "x = 100, y = 50"
+      _args:
+        variables:
+          name: variables
+      errors:
+        title: _Porygon adjusts her glasses and takes another look at that equation._
+        unknown: I wasn't able to parse that at all. Are you sure that's math?
+        unbound_variable: 
+          one: "Looks like you forgot to define the variable %{vars}! Define variables with the `--variables` option. See `%{prefix}help calc` for usage examples."
+          other: "Looks like you forgot to define the variables %{vars}! See `%{prefix}help calc` for usage examples."
+        parse:
+          undefined_function: "`%{func}` isn't a known function. [See a list of valid functions](https://github.com/rubysolo/dentaku#built-in-operators-and-functions)."
+          too_many_operands: Seems like you have an extra operand in there. Typo?
+          too_few_operands: Seems like you're missing an operand there. Typo?
+        token:
+          open_paren: Seems that you have an unmatched opening parentheses there.
+          close_paren: Seems that you have an unmatched close parentheses there.
       result: Aaaand the answer is...
     flip:
+      _description: Flips a coin.
+      _args:
+        heads:
+          description: Name of heads coin.
+        tails:
+          description: Name of tails coin.
+      _examples:
+        - 
+        - --heads "do it" --tails "don't do it"
       default:
         heads: Heads
         tails: Tails
@@ -77,6 +162,8 @@ en:
         pass_fail: Pass / Fail
         faces: Using die with %{faces} faces.
     guild:
+      _name: Server Information
+      _description: Prints information about the current server.
       title: Server Information
       name: Name
       owner: Owner

@@ -5,7 +5,7 @@ class Arguments
       @added_first_opt = false
 
       self.program_name = ''
-      accept(Commands::Command) { |tag| Commands::TAGS[tag] }
+      add_accepts
     end
 
     def opt(short, long, value, type, desc)
@@ -20,8 +20,15 @@ class Arguments
 
     private
 
+    def add_accepts
+      accept(Commands::Command) { |tag| Commands::TAGS[tag] }
+      accept_matcher(Equation)
+    end
+
     def add_opt_existance_to_banner
-      @banner += " #{I18n.t('command_env.has_options')}" unless @added_first_opt
+      return if @added_first_opt
+      
+      self.banner += " #{I18n.t('command_env.has_options')}"
       @added_first_opt = true
     end
   end

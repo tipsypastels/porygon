@@ -18,6 +18,14 @@ module Porygon
       "```#{language}\n#{inspect ? value.inspect : value}```"
     end
 
+    def map_to_code(ary)
+      ary.map(&method(:code))
+    end
+
+    def map_to_code_block(ary)
+      ary.map(&method(:code_block))
+    end
+
     def yes_no(bool)
       bool ? 'Yes' : 'No'
     end

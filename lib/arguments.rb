@@ -12,14 +12,14 @@ class Arguments
   end
 
   def parse(raw_args, _command_instance)
-    internal_parse(split_tokens(raw_args), {})
+    internal_parse(split_tokens(raw_args), @opts[:output]&.dup || {})
   end
 
   def arg(name, type, optional: false, default: nil)
     raise Commands::StaticError, 'multiple_args_unsupported' if @arg
 
     @defaults[name] = default if default
-    @required << name unless optional
+    @required << name unless optional || default
     @op.banner += " [#{arg_value_name(name)}]"
 
     @arg = { 
@@ -29,7 +29,7 @@ class Arguments
   end
 
   def opt(long, type = nil, short: nil, optional: false, default: nil)
-    @required << long unless optional
+    @required << long unless optional || default
     @defaults[long] = default if default
 
     long = long.to_s
@@ -66,7 +66,7 @@ class Arguments
   def merge_positional_arg(tokens, output)
     return unless @arg && tokens.present?
 
-    @op.parse!(['--INTERNAL_DEFARG', join_tokens(tokens)], into: output)
+    @op.parse!(['--INTERNAL_DEFARG', tokens.join(' ')], into: output)
     output[@arg[:name]] = output.delete(:INTERNAL_DEFARG)
   end
 
@@ -80,11 +80,14 @@ class Arguments
   end
 
   def split_tokens(raw_args)
-    @opts[:no_shellwords] ? raw_args.split : raw_args.shellsplit
-  end
-
-  def join_tokens(tokens)
-    @opts[:no_shellwords] ? tokens.join(' ') : tokens.shelljoin
+    case @opts[:split]
+    when :spaces
+      raw_args.split
+    when :never
+      [raw_args]
+    else
+      raw_args.shellsplit
+    end
   end
 
   def opt_value_name(long, type)

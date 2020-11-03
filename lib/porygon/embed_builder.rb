@@ -2,11 +2,28 @@ module Porygon
   class EmbedBuilder < GenericHashBuilder
     hash_accessor :color, :title, :description
     wrapped_hash_accessor :thumbnail, inner_key: :url
-    wrapped_hash_accessor :footer, inner_key: :text
 
     def initialize
       super
       @is_in_row = false
+    end
+
+    def footer=(value)
+      case value
+      when String
+        nest('footer', 'text', value)
+      else
+        set('footer',  value)
+      end
+    end
+
+    def author=(value)
+      case value
+      when String
+        nest('author', 'name', value)
+      else
+        set('author', value)
+      end
     end
 
     def field(name, value, inline: @is_in_row)

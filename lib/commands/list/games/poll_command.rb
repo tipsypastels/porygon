@@ -1,6 +1,8 @@
 module Commands
-  class Poll < Command
+  class PollCommand < Command
     self.tag = 'poll'
+
+    
 
     # self.args = Arguments::Parser.new do |a|
     #   a.arg :values, Resolvers.array_of_strings(3..13, delim: /\s*|\s*/)

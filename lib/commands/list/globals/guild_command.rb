@@ -1,10 +1,8 @@
 module Commands
-  # A command that prints information about the current guild.
-  class Guild < Command
-    self.tags = %w[guild guildInfo server serverInfo svr]
+  class GuildCommand < Command
+    self.tags = %w[guild server]
     self.server_only = true
 
-    # rubocop:disable Metrics/MethodLength
     def call
       embed do |e|
         e.color = Porygon::COLORS.info
@@ -26,7 +24,6 @@ module Commands
         e.field(t('emoji'), emoji) if emoji.present?
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     private
 

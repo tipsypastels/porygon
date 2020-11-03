@@ -6,8 +6,16 @@ module Commands
       USAGE_CACHE_BY_USED_TAG = {}
 
       class_methods do
+        def human_name
+          @human_name ||= t('_name', default: tag.humanize)
+        end
+
         def description
           @description ||= t('_description', default: nil)
+        end
+
+        def footer
+          @footer ||= t('_footer', default: nil)
         end
 
         def examples
@@ -20,7 +28,7 @@ module Commands
       end
 
       included do
-        delegate :usage, :description, :examples, to: :class
+        delegate :human_name, :usage, :description, :examples, to: :class
       end
     end
   end
