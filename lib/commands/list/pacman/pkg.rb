@@ -2,9 +2,9 @@ module Commands
   # Command that prints information about a package.
   class Pkg < Command
     self.tags = %w[pkg package packageinfo]
-    self.args = Arguments::Parser.new do |a|
-      a.arg :package, PackageResolver
-    end
+    # self.args = Arguments::Parser.new do |a|
+    #   a.arg :package, PackageResolver
+    # end
 
     def call
       embed do |e|

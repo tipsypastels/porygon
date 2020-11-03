@@ -1,7 +1,9 @@
 en:
   command_env:
+    has_options: '[options]'
     errors:
       static:
+        multiple_args_unsupported: Multiple arguments are not supported. Provide the most obvious argument as an argument and use options for the rest, or split the functionality into multiple commands.
         missing_tags: "%{command} is missing tags! Provide at least one."
         invalid_package: "%{command} is part of \"%{package}\", which does not exist. Did you forget to define it?"
         parser:

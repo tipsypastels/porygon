@@ -1,9 +1,9 @@
 module Commands
   class Hug < Command
     self.tag  = 'hug'
-    self.args = Arguments::Parser.new do |a|
-      a.arg :hugged, StringResolver
-    end
+    # self.args = Arguments::Parser.new do |a|
+    #   a.arg :hugged, StringResolver
+    # end
 
     def call
       embed do |e|

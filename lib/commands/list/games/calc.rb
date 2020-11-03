@@ -2,9 +2,9 @@ module Commands
   # A command that does simple math problems.
   class Calc < Command
     self.tags = %w[calc calculate math]
-    self.args = Arguments::Parser.new do |a|
-      a.arg :result, EquationResolver
-    end
+    # self.args = Arguments::Parser.new do |a|
+    #   a.arg :result, EquationResolver
+    # end
 
     def call
       embed do |e|

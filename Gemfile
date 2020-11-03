@@ -16,7 +16,6 @@ gem 'discordrb'
 
 # Development
 gem 'byebug'
-gem 'rspec'
 gem 'rubocop'
 gem 'rubocop-performance'
 

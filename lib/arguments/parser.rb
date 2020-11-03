@@ -1,26 +1,28 @@
-module Arguments
-  # A complex parser that supports multiple arguments, resolvers, and flags.
-  class Parser
-    attr_reader :opts, :defs
-    delegate :usage, :validate!, to: :defs
+class Arguments
+  class Parser < Porygon::Internals::OptionParser
+    def initialize
+      super(nil, 32, ' ')
+      @added_first_opt = false
 
-    def initialize(**opts, &block)
-      @opts = opts
-      
-      if block
-        @defs = ExecutionEnvironment.call(&block)
-        @defs.validate!
+      self.program_name = ''
+      accept(Commands::Command) { |tag| Commands::TAGS[tag] }
+    end
+
+    def opt(short, long, value, type, desc)
+      add_opt_existance_to_banner
+
+      if type
+        on("-#{short}", "--#{long} #{value}", type, desc)
       else
-        @defs = DefinitionList.new
+        on("-#{short}", "--#{long}", desc)
       end
     end
 
-    def parse(raw_args, command = nil)
-      ParseOperation.new(self, raw_args, command).parse
-    end
+    private
 
-    def to_h(raw_args, command = nil)
-      parse(raw_args, command).to_h
+    def add_opt_existance_to_banner
+      @banner += " #{I18n.t('command_env.has_options')}" unless @added_first_opt
+      @added_first_opt = true
     end
   end
 end

@@ -1,5 +1,16 @@
 en:
   commands:
+    help:
+      _description: Displays help information about commands.
+      _examples:
+        - 
+        - ping
+      with_command:
+        title: "Command - %{command}"
+        aliases: Aliases
+        package: Package
+        examples: Examples
+        usage: Usage
     ping:
       pong: ':sparkles: Pong! Porygon is online~'
     calc:
@@ -47,6 +58,11 @@ en:
         - 🇾
         - 🇿
     dice:
+      _examples:
+        -
+        - '3'
+        - '--faces 20'
+        - '--threshold 3'
       too_many:
         title: "You really think I'm rolling %{count} dice?"
         description: 'Think again! I have a life to live too you know.'

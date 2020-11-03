@@ -2,10 +2,10 @@ module Commands
   # A command for flipping a coin.
   class Flip < Command
     self.tags = %w[flip coin flipcoin coinflip]
-    self.args = Arguments::Parser.new do |a|
-      a.flag :heads, StringResolver, default: t('default.heads')
-      a.flag :tails, StringResolver, default: t('default.tails')
-    end
+    # self.args = Arguments::Parser.new do |a|
+    #   a.flag :heads, StringResolver, default: t('default.heads')
+    #   a.flag :tails, StringResolver, default: t('default.tails')
+    # end
 
     def call
       res = rand > 0.5 ? args.heads : args.tails
