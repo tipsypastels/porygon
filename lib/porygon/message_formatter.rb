@@ -14,8 +14,8 @@ module Porygon
       "`#{value}`"
     end
 
-    def code_block(value, language = nil)
-      "```#{language}\n#{value.inspect}```"
+    def code_block(value, language = nil, inspect: false)
+      "```#{language}\n#{inspect ? value.inspect : value}```"
     end
 
     def yes_no(bool)

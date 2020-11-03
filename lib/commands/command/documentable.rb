@@ -6,27 +6,21 @@ module Commands
       USAGE_CACHE_BY_USED_TAG = {}
 
       class_methods do
-        def examples=(raw_examples)
-          @raw_examples = raw_examples
+        def description
+          @description ||= t('_description', default: nil)
         end
 
-        def examples(tag = self.tag)
-          return unless @raw_examples
-
-
+        def examples
+          @examples ||= Examples.build(self)
         end
 
         def usage(tag = self.tag)
-          USAGE_CACHE_BY_USED_TAG[tag] ||= begin
-            (@args_usage ||= Array(args.usage(self))).map do |usage|
-              [Bot.prefix + tag, usage].join(' ')
-            end.join("\n")
-          end
+          USAGE_CACHE_BY_USED_TAG[tag] ||= Usage.build(self, tag)
         end
       end
 
       included do
-        delegate :usage, to: :class
+        delegate :usage, :description, :examples, to: :class
       end
     end
   end

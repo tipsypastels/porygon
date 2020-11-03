@@ -2,36 +2,36 @@ module Commands
   class Help < Command
     self.tag = 'help'
 
-    self.args = Arguments::SwitchParser.new do |f|
-      f.format(:command_list) do |a|
-        a.arg :keyword, KeywordResolver['commands']
-      end
-
-      f.format(:command_help) do |a|
-        a.arg :command, CommandResolver
-      end
-
-      f.format(:package_help) do |a|
-        a.flag :package, PackageResolver
-      end
-
-      f.default
+    self.args = Arguments.new(self) do |a|
+      a.arg(:command, Command, optional: true)
     end
 
-    def call_command_list
-      p 'command list'
-    end
-
-    def call_command_help
-      p 'command help'
-    end
-
-    def call_package_help
-      p 'package help'
-    end
-    
     def call
-      p 'help'
+      args.command ? help_with_command : help_info
+    end
+
+    private
+
+    def help_with_command
+      cmd = args.command
+
+      embed do |e|
+        e.color = Porygon::COLORS.info
+        e.title = t('with_command.title', command: cmd.tag)
+        e.description = cmd.description
+
+        e.field_row do
+          e.field(t('with_command.aliases'), aliases)
+          e.field(t('with_command.package'), cmd.package_name)
+        end
+
+        e.field(t('with_command.usage'), cmd.usage)
+        e.field(t('with_command.examples'), cmd.examples)
+      end
+    end
+
+    def aliases
+      args.command.alternative_tags.map { code(_1) }.join(', ').presence
     end
   end
 end

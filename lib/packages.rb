@@ -7,13 +7,20 @@ module Packages
     def each
       TAGS.each_value(&block)
     end
+
+    private
+
+    def define_package(name, global: false, **opts)
+      klass = global ? GlobalPackage : Package
+      const_set(name.upcase, klass.new(name, **opts))
+    end
   end
 
-  GAMES = Package.new(:games)
-  GAMES_DUCK_ONLY = Package.new(:games_duck_only, server_ids: [ServerIds::DUCK])
-  AI = Package.new(:ai, server_ids: [ServerIds::DUCK])
+  define_package :games
+  define_package :games_duck_only, server_ids: [ServerIds::DUCK]
+  define_package :ai,              server_ids: [ServerIds::DUCK]
 
-  GLOBALS = GlobalPackage.new(:globals)
-  PACMAN  = GlobalPackage.new(:pacman)
-  DEBUG   = GlobalPackage.new(:debug)
+  define_package :globals, global: true
+  define_package :pacman,  global: true
+  define_package :debug,   global: true
 end

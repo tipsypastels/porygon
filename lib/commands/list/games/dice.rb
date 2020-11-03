@@ -3,10 +3,11 @@ module Commands
   # make it easier to use in games.
   class Dice < Command
     self.tags = %w[dice roll diceroll rolldice]
-    self.args = Arguments::Parser.new do |a|
-      a.arg  :count, IntResolver[1..], default: 1
-      a.flag :faces, IntResolver[1..], default: 6
-      a.flag :threshold, IntResolver[1..], optional: true
+
+    self.args = Arguments.new(self) do |a|
+      a.arg :count, Integer, default: 1
+      a.opt :faces, Integer, default: 6
+      a.opt :threshold, Integer, optional: true
     end
 
     def call
