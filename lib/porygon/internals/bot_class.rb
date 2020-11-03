@@ -9,6 +9,7 @@ module Porygon
         @logger = Logger.new
         @markov = Porygon::MarkovStore.new
 
+        setup_translation_globals
         setup_handlers
       end
 
@@ -21,6 +22,10 @@ module Porygon
       end
 
       private
+
+      def setup_translation_globals
+        I18n.config.globals[:prefix] = prefix
+      end
 
       def setup_handlers
         return if ENV['NOSTART']

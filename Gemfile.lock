@@ -12,7 +12,6 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.7)
     dentaku (3.3.4)
-    diff-lcs (1.4.4)
     discordrb (3.3.0)
       discordrb-webhooks (~> 3.3.0)
       ffi (>= 1.9.24)
@@ -33,6 +32,8 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    i18n-globals (0.0.4)
+      i18n
     marky_markov (0.3.5)
       msgpack
     mime-types (3.3.1)
@@ -57,19 +58,6 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.4)
-    rspec (3.10.0)
-      rspec-core (~> 3.10.0)
-      rspec-expectations (~> 3.10.0)
-      rspec-mocks (~> 3.10.0)
-    rspec-core (3.10.0)
-      rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-support (3.10.0)
     rubocop (0.90.0)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
@@ -106,13 +94,13 @@ DEPENDENCIES
   byebug
   colorize
   dentaku
-  discordrb
+  discordrb (= 3.3.0)
   dotenv
   fast_blank
   i18n
+  i18n-globals
   marky_markov
   pg
-  rspec
   rubocop
   rubocop-performance
   sequel

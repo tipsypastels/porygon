@@ -12,7 +12,7 @@ gem 'pg'
 gem 'sequel'
 
 # Discord
-gem 'discordrb'
+gem 'discordrb', '3.3.0' # check monkey patches before changing versions!
 
 # Development
 gem 'byebug'
@@ -21,6 +21,7 @@ gem 'rubocop-performance'
 
 # Translation
 gem 'i18n'
+gem 'i18n-globals'
 
 # Utility
 gem 'activesupport'

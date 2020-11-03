@@ -22,7 +22,9 @@ class Arguments
 
     def add_accepts
       accept(Commands::Command) { |tag| Commands::TAGS[tag] }
+      
       accept_matcher(Equation)
+      accept_matcher(Porygon::Version)
     end
 
     def add_opt_existance_to_banner

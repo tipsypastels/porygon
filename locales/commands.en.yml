@@ -33,7 +33,22 @@ en:
           description: Silences output.
     ping:
       _description: Says hi from Porygon.
-      pong: ':sparkles: Pong! Porygon is online~'
+      title: ':sparkles: Pong! Porygon v%{version} is online~'
+      description: "_beep boop_ How are you all today?"
+    version:
+      _description: Prints the current version of Porygon.
+      title: "Porygon v%{version} reporting for duty!"
+      description: "You can see what's new in this version, or any previous version, by using `%{prefix}changelog` with the version number. For example, `%{prefix}changelog %{version}`."
+    changelog:
+      _description: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
+      _examples:
+        - 
+        - 0.0.3
+      title: "v%{version} Update Changelog"
+      changes: Changes
+      recency:
+        title: Recency
+        description: "✅ This is the latest version."
     hug:
       _description: Sends an internet hug.
       _args:

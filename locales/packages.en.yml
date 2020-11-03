@@ -15,6 +15,6 @@ en:
     globals:
       name: Globals
       description: Global basic commands that are always available.
-    debug:
-      name: Debug
-      description: Global debug commands for bot developers.
+    meta:
+      name: Meta
+      description: Commands about Porygon itself.

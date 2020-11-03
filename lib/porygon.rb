@@ -6,11 +6,17 @@ module Porygon
     warning: 0xffff00,
   ).freeze
   
-  def self.spawn_bot
-    Porygon::Internals::BotClass.new
-  end
+  class << self
+    def spawn_bot
+      Porygon::Internals::BotClass.new
+    end
 
-  def self.owner_proc
-    @owner_proc ||= proc { |msg| ENV['OWNER'] == msg.author.id.to_s }
+    def owner_proc
+      @owner_proc ||= proc { |msg| ENV['OWNER'] == msg.author.id.to_s }
+    end
+
+    def Asset(name) # rubocop:disable Naming/MethodName
+      Asset.new(name)
+    end
   end
 end

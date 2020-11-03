@@ -1,11 +1,15 @@
 module Porygon
   class EmbedBuilder < GenericHashBuilder
     hash_accessor :color, :title, :description
-    wrapped_hash_accessor :thumbnail, inner_key: :url
 
     def initialize
       super
       @is_in_row = false
+      @attachments = []
+    end
+
+    def attachments
+      @attachments.presence
     end
 
     def footer=(value)
@@ -23,6 +27,18 @@ module Porygon
         nest('author', 'name', value)
       else
         set('author', value)
+      end
+    end
+
+    def thumbnail=(value)
+      case value
+      when String
+        nest('thumbnail', 'url', value)
+      when Hash
+        set('thumbnail', value)
+      when Porygon::Asset
+        @attachments << value.file
+        nest('thumbnail', 'url', value.attachment_path)
       end
     end
 
