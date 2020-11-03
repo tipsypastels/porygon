@@ -1,6 +1,6 @@
 class Equation
   VARS  = /[A-z]+\s*=\s*[+-]?\d+(?:\s*,\s*[A-z]+\s*=\s*[+-]?\d+)*/
-  MATCH = /(?:#{VARS}\s*||\s*)?[^\|\|]+/
+  MATCH = /(?:#{VARS}\s*\|\|\s*)?[^\|\|]+/
 
   def self.match
     MATCH
