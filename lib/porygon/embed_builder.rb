@@ -1,65 +1,103 @@
 module Porygon
-  class EmbedBuilder < GenericHashBuilder
-    hash_accessor :color, :title, :description
+  class EmbedBuilder
+    def self.build(&block)
+      new.build(&block)
+    end
 
     def initialize
-      super
-      @is_in_row = false
+      @hash        = {}.with_indifferent_access
+      @is_inline   = false
       @attachments = []
+    end
+
+    def build
+      yield self
+      self
+    end
+
+    def to_h
+      @hash
     end
 
     def attachments
       @attachments.presence
     end
 
-    def footer
-      get('footer')
+    ELEMENTARY_GETTERS = %i[title color description footer author thumbnail]
+    ELEMENTARY_SETTERS = %i[title color description]
+
+    ELEMENTARY_GETTERS.each do |prop|
+      define_method(prop) { @hash[prop] }
+    end
+    
+    ELEMENTARY_SETTERS.each do |prop|
+      define_method(:"#{prop}=") do |val| 
+        converted_val = convert(val)
+        @hash[prop] = converted_val if converted_val
+      end
     end
 
     def footer=(value)
       case value
-      when String
-        nest('footer', 'text', value)
+      when NilClass
+        # pass
+      when Hash
+        @hash[:footer] = value
       else
-        set('footer',  value)
+        @hash[:footer] = { text: convert(value) }
       end
     end
 
     def author=(value)
       case value
-      when String
-        nest('author', 'name', value)
+      when NilClass
+        # pass
+      when Hash
+        @hash[:author] = value
       else
-        set('author', value)
+        @hash[:author] = { name: convert(value) }
       end
-    end
-
-    def thumbnail
-      get('thumbnail')
     end
 
     def thumbnail=(value)
       case value
-      when String
-        nest('thumbnail', 'url', value)
+      when NilClass
+        # pass
       when Hash
-        set('thumbnail', value)
+        @hash[:thumbnail] = value
       when Porygon::Asset
         @attachments << value.file
-        nest('thumbnail', 'url', value.attachment_path)
+        @hash[:thumbnail] = { url: value.attachment_path }
+      when String
+        @hash[:thumbnail] = { url: convert(value) }
       end
     end
 
-    def field(name, value, inline: @is_in_row)
+    def field(name, value, inline: @is_inline)
       return if value.blank?
       push :fields, name: name, value: value, inline: inline
     end
 
-    def field_row
-      @is_in_row = true
+    def inline
+      @is_inline = true
       yield
     ensure
-      @is_in_row = false
+      @is_inline = false
+    end
+
+    private
+
+    def convert(value)
+      if value.respond_to?(:to_discord_embed)
+        value.to_discord_embed
+      else
+        value.to_s
+      end
+    end
+
+    def push(key, value)
+      @hash[key] ||= []
+      @hash[key] << value
     end
   end
 end

@@ -14,7 +14,7 @@ module Commands
         e.title = t('title')
         e.description = t('description', rolls: build_description)
         
-        e.field_row do
+        e.inline do
           e.field(t('total'), rolls.display_total)
           e.field(t('threshold'), rolls.threshold)
           e.field(t('pass_fail'), rolls.pass_fail)

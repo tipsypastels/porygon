@@ -9,14 +9,14 @@ module Commands
         e.title = t('title')
         e.thumbnail = server.icon_url
 
-        e.field_row do
+        e.inline do
           e.field(t('name'), server.name)
           e.field(t('owner'), owner)
         end
         
         e.field(t('region'), region)
 
-        e.field_row do
+        e.inline do
           e.field(t('members'), server.member_count)
           e.field(t('roles'), server.roles.size)
         end

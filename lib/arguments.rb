@@ -111,11 +111,6 @@ class Arguments
 
   def resolve_name_of_arg_from_error(error)
     error_arg = error.args.first
-    
-    if @arg && error_arg == @arg[:switch].long.first
-      @arg[:name]
-    else
-      error_arg
-    end 
+    error_arg == '--INTERNAL_DEFARG' ? @arg[:name] : error_arg
   end
 end

@@ -21,7 +21,7 @@ module Commands
         e.footer      = cmd.footer
         e.description = cmd.description
 
-        e.field_row do
+        e.inline do
           e.field(t('with_command.command'), code(cmd.tag))
           e.field(t('with_command.aliases'), build_aliases(cmd))
           e.field(t('with_command.package'), cmd.package_name)
