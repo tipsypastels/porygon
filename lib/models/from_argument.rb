@@ -6,9 +6,7 @@ module FromArgument
       new(argument)
     end
 
-    private
-
-    def error(key, **interps)
+    def arg_err(key, **interps)
       full_key = "conversions.#{name.underscore}.#{key}"
       raise Commands::RuntimeError.new(full_key, **interps)
     end

@@ -54,8 +54,7 @@ class Arguments
   private
 
   def internal_parse(tokens, output)
-    @op.parse!(tokens, into: output)
-    
+    parse_and_propagate_errors(tokens, output)
     merge_positional_arg(tokens, output)
     merge_defaults(output)
     check_required(output)
@@ -66,7 +65,7 @@ class Arguments
   def merge_positional_arg(tokens, output)
     return unless @arg && tokens.present?
 
-    @op.parse!(['--INTERNAL_DEFARG', tokens.join(' ')], into: output)
+    parse_and_propagate_errors(['--INTERNAL_DEFARG', tokens.join(' ')], output)
     output[@arg[:name]] = output.delete(:INTERNAL_DEFARG)
   end
 
@@ -81,6 +80,13 @@ class Arguments
       raise Commands::RuntimeError.new 'missing_arg', 
                                        arg: arg_value_name(missing)
     end
+  end
+
+  def parse_and_propagate_errors(tokens, output)
+    @op.parse!(tokens, into: output)
+  rescue OptionParser::InvalidArgument => e
+    arg = resolve_name_of_arg_from_error(e)
+    raise Commands::RuntimeError.new('wrong_arg_type', arg: arg)
   end
 
   def split_tokens(raw_args)
@@ -101,5 +107,15 @@ class Arguments
 
   def resolve_default(value)
     value.is_a?(Proc) ? value.call : value
+  end
+
+  def resolve_name_of_arg_from_error(error)
+    error_arg = error.args.first
+    
+    if @arg && error_arg == @arg[:switch].long.first
+      @arg[:name]
+    else
+      error_arg
+    end 
   end
 end

@@ -1,15 +1,6 @@
 require: 
   - rubocop-performance
 
-Metrics/MethodLength:
-  Enabled: true
-  Max: 15
-
-Metrics/BlockLength:
-  Enabled: true
-  Exclude: 
-    - 'spec/**/*.rb'
-
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -61,6 +52,14 @@ Metrics/AbcSize:
 Layout/LineLength:
   Enabled: true
   Max: 80
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 15
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+  AllowAdjacentOneLineDefs: true
 
 Style/Lambda:
   Enabled: true

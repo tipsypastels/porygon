@@ -18,7 +18,7 @@ module Porygon
       def try_convert(arg)
         Integer(arg)
       rescue
-        error(:malformed, version: arg)
+        arg_err(:malformed, version: arg)
       end
 
       def from_argument(arg)
@@ -26,7 +26,7 @@ module Porygon
         code = try_convert(arg)
 
         unless exist?(code)
-          return error(:nonexistant, version: code, current: current.id)
+          return arg_err(:nonexistant, version: code, current: current.id)
         end
          
         new(code)

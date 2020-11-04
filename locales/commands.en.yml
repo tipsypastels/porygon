@@ -158,23 +158,19 @@ en:
         - 🇾
         - 🇿
     dice:
-      _description: Rolls one or more dice. Supports dice notation and setting a threshold where rolls above a given value will be considered a pass.
+      _description: Rolls one or more dice. Supports dice notation. You can append the `=`, `!=`, `>`, `<`, `>=`, or `<=` operators to compare the result of each roll with a given value, in which case passes and fails will be counted.
       _examples:
         -
         - '3'
         - '3d6'
-        - '2d20 --threshold 10'
-      _args:
-        threshold:
-          description: Pass Threshold
-      threshold:
-        pass: Pass
-        fail: Fail
+        - '2d20 >= 10'
       title: Dice Roll
       description: ":game_die: %{rolls}"
       total: Total
       pass_fail: Pass / Fail
       threshold: Pass Threshold
+      pass: (Pass)
+      fail: (Fail)
     guild:
       _name: Server Information
       _description: Prints information about the current server.

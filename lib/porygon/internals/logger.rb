@@ -20,10 +20,10 @@ module Porygon
         end
       end
 
-      def error(error)
-        case error
+      def error(err)
+        case err
         when Exception
-          super(error.message + "\n" + error.backtrace.join("\n"))
+          super("(#{err.class}) #{err.message}\n#{err.backtrace.join("\n")}")
         else
           super
         end
