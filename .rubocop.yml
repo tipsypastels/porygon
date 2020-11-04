@@ -51,7 +51,7 @@ Metrics/AbcSize:
 
 Layout/LineLength:
   Enabled: true
-  Max: 80
+  Max: 83
 
 Metrics/MethodLength:
   Enabled: true

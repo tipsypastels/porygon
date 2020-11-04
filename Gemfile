@@ -19,6 +19,9 @@ gem 'byebug'
 gem 'rubocop'
 gem 'rubocop-performance'
 
+# Tasks
+gem 'rake'
+
 # Translation
 gem 'i18n'
 gem 'i18n-globals'

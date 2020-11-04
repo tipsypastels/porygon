@@ -1,5 +1,8 @@
 en:
   changelog:
+    7:
+      changes:
+        - "Package list sorting is now deterministic."
     6:
       changes:
         - "Added `%{prefix}thanos`."

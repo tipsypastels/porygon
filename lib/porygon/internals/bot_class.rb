@@ -1,12 +1,11 @@
 module Porygon
   module Internals
     class BotClass
-      attr_reader :db, :logger, :markov
+      attr_reader :logger, :markov
 
       def initialize
-        @db = Database.connect
         @bot = Discordrb::Bot.new(token: ENV['BOT_TOKEN'])
-        @logger = Logger.new
+        @logger = Loggers::BotLogger.new
         @markov = Porygon::MarkovStore.new
 
         setup_translation_globals

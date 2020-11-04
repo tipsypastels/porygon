@@ -30,13 +30,13 @@ end
 Startup.log :load_application do
   Loader = Zeitwerk::Loader.new
   Loader.push_dir(__dir__ + '/lib')
-  Loader.do_not_eager_load(__dir__ + '/lib/discordrb')
+  Loader.ignore(__dir__ + '/lib/discordrb')
   Loader.collapse(__dir__ + '/lib/commands/list')
   Loader.collapse(__dir__ + '/lib/commands/list/*')
   Loader.collapse(__dir__ + '/lib/packages/list')
   Loader.collapse(__dir__ + '/lib/resolvers/list')
   Loader.collapse(__dir__ + '/lib/models')
-  Loader.enable_reloading
+  Loader.preload(__dir__ + '/lib/database.rb')
   Loader.setup
   Loader.eager_load
 end

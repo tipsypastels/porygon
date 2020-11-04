@@ -8,7 +8,7 @@ module Commands
         e.title       = t('title')
         e.description = t('description', prefix: Bot.prefix)
 
-        packages.each do |package, commands|
+        packages.sort.each do |package, commands|
           e.field(package.name, format_commands(commands))
         end
       end

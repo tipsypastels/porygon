@@ -49,6 +49,7 @@ GEM
       ast (~> 2.4.1)
     pg (1.2.3)
     rainbow (3.0.0)
+    rake (13.0.1)
     rbnacl (3.4.0)
       ffi
     regexp_parser (1.7.1)
@@ -101,6 +102,7 @@ DEPENDENCIES
   i18n-globals
   marky_markov
   pg
+  rake
   rubocop
   rubocop-performance
   sequel
