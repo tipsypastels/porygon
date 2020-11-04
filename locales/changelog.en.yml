@@ -1,5 +1,8 @@
 en:
   changelog:
+    6:
+      changes:
+        - "Added `%{prefix}thanos`."
     5:
       changes:
         - "`%{prefix}dice` now uses dice notation instead of flags."

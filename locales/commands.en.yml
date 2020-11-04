@@ -85,6 +85,14 @@ en:
         - 'A plant falls over leaving dirt everywhere'
         - 'Random ceiling tiles fall down'
         - 'The floor shakes and cracks'
+    thanos:
+      _description: Rolls the dice on your fate.
+      spare: 
+        title: You were spared by Thanos. 
+        description: The universe is now perfectly balanced, as all things should be.
+      kill: 
+        title: Miss Pory... I don't feel so good, you say... 
+        description: You were slain by Thanos, for the good of the Universe.
     calc:
       _name: Calculate
       _description: Does your math homework.

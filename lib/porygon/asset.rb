@@ -11,7 +11,11 @@ module Porygon
     end
 
     def attachment_path
-      @attachment_path ||= "attachment://#{name}"
+      @attachment_path ||= "attachment://#{file_name}"
+    end
+
+    def file_name
+      name.split('/').last
     end
 
     def file
