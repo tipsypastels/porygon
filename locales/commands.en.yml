@@ -33,18 +33,19 @@ en:
           description: Silences output.
     ping:
       _description: Says hi from Porygon.
-      title: ':sparkles: Pong! Porygon v%{version} is online~'
+      title: ':sparkles: Pong! Porygon is online~'
       description: "_beep boop_ How are you all today?"
+      footer: "Running Porygon Update #%{version}."
     version:
       _description: Prints the current version of Porygon.
-      title: "Porygon v%{version} reporting for duty!"
+      title: "Porygon Update #%{version} reporting for duty!"
       description: "You can see what's new in this version, or any previous version, by using `%{prefix}changelog` with the version number. For example, `%{prefix}changelog %{version}`."
     changelog:
       _description: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
       _examples:
         - 
-        - 0.0.3
-      title: "v%{version} Update Changelog"
+        - 4
+      title: "Update #%{version} Changelog"
       changes: Changes
       recency:
         title: Recency
@@ -90,7 +91,6 @@ en:
       _examples:
         - 1 + 1
         - max(1, 2, 3)
-        - x = 100, y = 500 || x + y
       _args:
         variables:
           name: variables
@@ -98,8 +98,8 @@ en:
         title: _Porygon adjusts her glasses and takes another look at that equation._
         unknown: I wasn't able to parse that at all. Are you sure that's math?
         unbound_variable: 
-          one: "Looks like you forgot to define the variable %{vars}! Here's how you define and use variables: ```\nx = 1, y = 2 || x + y```See `%{prefix}help calc` for usage examples."
-          other: "Looks like you forgot to define the variables %{vars}! Here's how you define and use variables: ```\nx = 1, y = 2 || x + y```See `%{prefix}help calc` for usage examples."
+          one: "Unknown constant `%{vars}`."
+          other: "Unknown constants: `%{vars}`."
         parse:
           undefined_function: "`%{func}` isn't a known function. [See a list of valid functions](https://github.com/rubysolo/dentaku#built-in-operators-and-functions)."
           too_many_operands: Seems like you have an extra operand in there. Typo?

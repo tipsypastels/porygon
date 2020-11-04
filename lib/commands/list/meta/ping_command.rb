@@ -7,7 +7,8 @@ module Commands
         e.color       = Porygon::COLORS.info
         e.thumbnail   = Porygon::Asset('portrait.png')
 
-        e.title       = t('title', version: version)
+        e.title       = t('title')
+        e.footer      = t('footer', version: version)
         e.description = t('description')
       end
     end
@@ -15,7 +16,7 @@ module Commands
     private
 
     def version
-      Porygon::Version.current.full
+      Porygon::Version.current.id
     end
   end
 end

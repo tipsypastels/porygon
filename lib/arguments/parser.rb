@@ -1,10 +1,12 @@
 class Arguments
   class Parser < Porygon::Internals::OptionParser
-    def initialize
+    def initialize(command)
       super(nil, 32, ' ')
       @added_first_opt = false
 
       self.program_name = ''
+      self.banner += " #{command.banner}" if command.banner
+
       add_accepts
     end
 
@@ -23,7 +25,6 @@ class Arguments
     def add_accepts
       accept(Commands::Command) { |tag| Commands::TAGS[tag] }
       
-      accept_matcher(Equation)
       accept_matcher(Porygon::Version)
     end
 

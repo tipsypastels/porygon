@@ -2,7 +2,7 @@ module Commands
   class PoryCommand < Command
     self.tag = 'pory'
     
-    self.args = Arguments.new(self) do |a|
+    self.args = Arguments.new(self, split: :never) do |a|
       a.arg :message, String, optional: true
     end
 

@@ -2,11 +2,11 @@ module Commands
   class CalcCommand < Command
     self.tags = %w[calc calculate math]
     self.args = Arguments.new(self, split: :never) do |a|
-      a.arg :equation, Equation
+      a.arg :equation, String
     end
 
     def call
-      result = args.equation.result
+      result = Dentaku!(args.equation)
       print_result(result)
     rescue => e
       print_error(e)
@@ -24,7 +24,6 @@ module Commands
 
     def print_error(error)
       Bot.logger.error(error)
-      Bot.logger.error(error.backtrace.join("\n"))
 
       message = get_error_message(error)
 

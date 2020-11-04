@@ -6,26 +6,18 @@ en:
         multiple_args_unsupported: Multiple arguments are not supported. Provide the most obvious argument as an argument and use options for the rest, or split the functionality into multiple commands.
         missing_tags: "%{command} is missing tags! Provide at least one."
         invalid_package: "%{command} is part of \"%{package}\", which does not exist. Did you forget to define it?"
-        parser:
-          multiple_greedy_resolvers: Arguments::Parser does not support multiple greedy resolvers. Either give one argument a non-greedy type, or switch it to a flag.
-          bool_flags_must_be_optional: Arguments::Parser boolean flags must be optional, otherwise there would be no point to providing them.
-      resolvers:
-        int:
-          invalid: "%{value} is not an integer."
-          out_of_range: "%{value} is not in range %{range}."
-        keyword:
-          missing: Keyword `%{keyword}` is required and was not provided.
-        package:
-          missing: "%{value} is not the name of a package."
-        command:
-          missing: "%{value} is not the name of a command. See a list of commands with `%{prefix}help commands`."
-      usage:
-        default:
+      runtime:
+        base:
           title: Looks like you're using the command wrong.
-          description: "Looks like you're using the %{command} command incorrectly. Here's how to use `%{prefix}%{command}`.```\n%{usage}```"
-          footer: For more information, see %{prefix}help %{command}.
-        switch_parser:
-          no_format_matches:
-            description: "Here are all the supported ways to use %{prefix}%{command}.```\n%{usage}```"
+          description: " Here's how to use `%{prefix}%{command}`.%{usage}"
+          footer: "For more information, see %{prefix}help %{command}."
+          usage: Usage
+          examples: Examples
+        missing_arg: Did you forget to provide a value for `%{arg}`?
+        conversions:
+          porygon:
+            version:
+              nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
+              malformed: "`%{version}` is not a valid version. Versions are positive integers."
       unknown:
         title: Hmmm. That's an error.

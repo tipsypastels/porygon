@@ -15,7 +15,7 @@ module Porygon
       end
 
       def accept_matcher(klass)
-        accept(klass, klass.match) { klass.new(_1) }
+        accept(klass) { klass.from_argument(_1) }
       end
     end
   end

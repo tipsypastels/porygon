@@ -12,6 +12,10 @@ module Porygon
       @attachments.presence
     end
 
+    def footer
+      get('footer')
+    end
+
     def footer=(value)
       case value
       when String
@@ -28,6 +32,10 @@ module Porygon
       else
         set('author', value)
       end
+    end
+
+    def thumbnail
+      get('thumbnail')
     end
 
     def thumbnail=(value)

@@ -1,50 +1,55 @@
 module Porygon
   class Version
-    include Comparable
+    include Comparable, FromArgument
 
     class << self
-      def match
-        @match ||= /v?\d+\.\d+\.\d+/
+      def current
+        @current ||= new(ids.first)
       end
 
-      def current
-        @current ||= new(Changelog.version_codes.first)
+      def ids
+        @ids ||= I18n.t('changelog').keys.map { |sym| sym.to_s.to_i }
+      end
+
+      def exist?(id)
+        id.in? ids
+      end
+
+      def try_convert(arg)
+        Integer(arg)
+      rescue
+        error(:malformed, version: arg)
+      end
+
+      def from_argument(arg)
+        arg.delete_prefix!('v')
+        code = try_convert(arg)
+
+        unless exist?(code)
+          return error(:nonexistant, version: code, current: current.id)
+        end
+         
+        new(code)
       end
     end
 
-    attr_reader :full, :major, :minor, :patch
+    attr_reader :id
+    delegate :<=>, to: :id
 
-    def initialize(version_code)
-      @full = version_code.to_s.delete_prefix('v').tr('-', '.')
-      @major, @minor, @patch = @full.split('.')
-
-      # TODO: handle unknown version
-      # or invalid input
+    def initialize(id)
+      @id = id
     end
 
     def description
-      I18n.t("changelog.#{i18n_key}.description", default: nil)
+      I18n.t("changelog.#{id}.description", default: nil)
     end
 
     def changes
-      I18n.t("changelog.#{i18n_key}.changes", default: nil)
+      I18n.t("changelog.#{id}.changes", default: nil)
     end
 
     def current?
       Version.current == self
-    end
-
-    def <=>(other)
-      return major <=> other.major unless major == other.major
-      return minor <=> other.minor unless minor == other.minor
-      return patch <=> other.patch unless patch == other.patch
-      0
-    rescue ArgumentError
-      nil
-    end
-
-    def i18n_key
-      @i18n_key ||= full.tr('.', '-')
     end
   end
 end

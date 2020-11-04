@@ -1,12 +1,18 @@
 en:
   changelog:
-    "0-0-3":
+    4:
+      changes:
+        - "Improved error handling."
+        - "Removed the variables feature from `%{prefix}calc`."
+        - "`%{prefix}pory` works with quotes now."
+        - "Versions are now consecutive integers rather than semver."
+    3:
       description: Mostly meta stuff this time around.
       changes:
         - "Added `%{prefix}version` and `%{prefix}changelog`."
         - "`%{prefix}ping` now uses an embed."
         - "Renamed package `debug` to `meta`."
-    "0-0-2":
+    2:
       description: This update includes many minor changes to command semantics.
       changes:
         - "Added `%{prefix}help` and `%{prefix}commands`."
@@ -14,5 +20,5 @@ en:
         - "You can put multiple words in command options now by wrapping them in quotes, such as `%{prefix}flip -h \"do it\" -t \"don't do it\"`."
         - "`%{prefix}calc` is much smarter now, has better error messages and lets you define variables in a block at the beginning `%{prefix}calc x = 1, y = 2 || x + y`."
         - "Re-broke `%{prefix}dice` working with zero rolls. For now."
-    "0-0-1":
+    1:
       description: In the beginning, Porygon was created.

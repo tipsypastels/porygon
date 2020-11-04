@@ -9,7 +9,7 @@ module Commands
     def call
       embed do |e|
         e.color = Porygon::COLORS.info
-        e.title = t('title', version: args.version.full)
+        e.title = t('title', version: args.version.id)
         e.description = args.version.description
         e.thumbnail   = Porygon::Asset('portrait.png')
         

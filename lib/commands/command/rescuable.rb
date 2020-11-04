@@ -5,47 +5,29 @@ module Commands
 
       def with_error_handling
         yield
-      rescue ResolveError => e then handle_resolve_error(e)
-      rescue UsageError   => e then handle_usage_error(e)
+      rescue RuntimeError => e
+        handle_runtime_error(e)
       rescue => e
         handle_unknown_error(e)
-        puts e.message + "\n" + e.backtrace.join("\n")
+        Bot.logger.error(e)
       end
 
-      # rubocop:disable Metrics/MethodLength
-      def handle_resolve_error(error)
+      def handle_runtime_error(error)
         @aborted = true
+        
+        embed do |e|
+          value = error.translated_value
+          interps = shared_error_interps
 
-        embed do |embed|
-          build_embed_from_translated_error(embed, error)
-          embed.color = Porygon::COLORS.warning 
+          e.color       = Porygon::COLORS.warning 
+          e.title       = I18n.t('base.title', **interps)
+          e.footer      = I18n.t('base.footer', **interps)
+          e.description = value
+
+          e.field(I18n.t('base.usage', **interps), usage(@used_tag))
+          e.field(I18n.t('base.examples', **interps), examples(@used_tag))
         end
       end
-
-      def handle_usage_error(error)
-        @aborted = true
-
-        embed do |embed|
-          build_embed_from_translated_error(embed, error)
-          
-          embed.color    = Porygon::COLORS.warning 
-          embed.title  ||= I18n.t(
-            'command_env.errors.usage.default.title',
-            **shared_error_interps,
-          )
-
-          embed.footer ||= I18n.t(
-            'command_env.errors.usage.default.footer',
-            **shared_error_interps,
-          )
-
-          embed.description ||= I18n.t(
-            'command_env.errors.usage.default.description',
-            **shared_error_interps,
-          )
-        end
-      end
-      # rubocop:enable Metrics/MethodLength
 
       def handle_unknown_error(error)
         @aborted = true
@@ -57,25 +39,11 @@ module Commands
         end
       end
 
-      def build_embed_from_translated_error(embed, error)
-        value = error.translated_value
-
-        case value
-        when String
-          embed.title = value
-        when Hash
-          embed.title       = error[:title, **shared_error_interps]
-          embed.footer      = error[:footer, **shared_error_interps]
-          embed.description = error[:description, **shared_error_interps]
-        end
-      end
-
-      def shared_error_interps
+      def shared_error_interps()
         @shared_error_interps ||= 
           { 
             command: @used_tag, 
-            usage: usage(@used_tag), 
-            prefix: Bot.prefix, 
+            scope: 'command_env.errors.runtime',
           }
       end
     end

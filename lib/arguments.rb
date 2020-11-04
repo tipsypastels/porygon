@@ -1,6 +1,6 @@
 class Arguments
   def initialize(command, **opts)
-    @op       = Parser.new
+    @op       = Parser.new(command)
     @command  = command
     @required = []
     @defaults = {}
@@ -75,18 +75,19 @@ class Arguments
   end
 
   def check_required(output)
-    first_missing_arg = @required.detect { |opt| !output.key?(opt) }
-    raise "missing argument #{first_missing_arg}" if first_missing_arg
+    missing = @required.detect { |opt| !output.key?(opt) }
+
+    if missing
+      raise Commands::RuntimeError.new 'missing_arg', 
+                                       arg: arg_value_name(missing)
+    end
   end
 
   def split_tokens(raw_args)
     case @opts[:split]
-    when :spaces
-      raw_args.split
-    when :never
-      [raw_args]
-    else
-      raw_args.shellsplit
+    when :spaces then raw_args.split
+    when :never  then [raw_args]
+    else              raw_args.shellsplit
     end
   end
 

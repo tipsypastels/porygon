@@ -3,18 +3,17 @@ module Commands
     class Examples
       include Porygon::MessageFormatter
 
-      delegate :tag, to: :@command
-
       class << self
         protected :new
 
-        def build(command)
-          new(command).build
+        def build(command, tag)
+          new(command, tag).build
         end
       end
 
-      def initialize(command)
+      def initialize(command, tag)
         @command  = command
+        @tag      = tag
         @examples = Array(command.t('_examples', default: nil))
       end
 
@@ -28,7 +27,11 @@ module Commands
       private
 
       def prefixed
-        @prefixed ||= @examples.map { |e| "#{Bot.prefix}#{tag} #{e}" }
+        @prefixed ||= @examples.map { |e| "#{prefix} #{e}" }
+      end
+
+      def prefix
+        Bot.prefix + @tag
       end
     end
   end

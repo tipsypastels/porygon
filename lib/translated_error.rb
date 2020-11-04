@@ -11,7 +11,6 @@
 # +translated_value+ method. You can also look up keys within it using +key+,
 # which is needed for hashes as I18n does not interpolate into a hash result.
 module TranslatedError
-  # rubocop:disable Metrics/MethodLength
   def self.new(scope, base_class = StandardError)
     Class.new(base_class) do
       attr_reader :interps
@@ -24,12 +23,6 @@ module TranslatedError
       define_method :translated_value do
         @translated_value ||= I18n.t("#{scope}.#{message}", **@interps)
       end
-
-      define_method :[] do |key, **extra_interps|
-        full_key = "#{scope}.#{message}.#{key}"
-        I18n.t(full_key, **interps, **extra_interps, default: nil)
-      end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 end

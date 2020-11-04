@@ -19,6 +19,15 @@ module Porygon
           "[#{severity} @ #{timestr}] #{msg}".colorize(color)
         end
       end
+
+      def error(error)
+        case error
+        when Exception
+          super(error.message + "\n" + error.backtrace.join("\n"))
+        else
+          super
+        end
+      end
     end
   end
 end

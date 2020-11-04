@@ -14,7 +14,7 @@ module Commands
     private
 
     def version
-      Porygon::Version.current.full
+      Porygon::Version.current.id
     end
   end
 end
