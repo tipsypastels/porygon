@@ -71,7 +71,7 @@ class Arguments
   end
 
   def merge_defaults(output)
-    @defaults.each { |opt, value| output[opt] ||= value }
+    @defaults.each { |opt, value| output[opt] ||= resolve_default(value) }
   end
 
   def check_required(output)
@@ -97,5 +97,9 @@ class Arguments
 
   def arg_value_name(name)
     t("#{name}.name", default: name.to_s).downcase
+  end
+
+  def resolve_default(value)
+    value.is_a?(Proc) ? value.call : value
   end
 end

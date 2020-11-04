@@ -158,24 +158,23 @@ en:
         - 🇾
         - 🇿
     dice:
+      _description: Rolls one or more dice. Supports dice notation and setting a threshold where rolls above a given value will be considered a pass.
       _examples:
         -
         - '3'
-        - '--faces 20'
-        - '--threshold 3'
-      too_many:
-        title: "You really think I'm rolling %{count} dice?"
-        description: 'Think again! I have a life to live too you know.'
+        - '3d6'
+        - '2d20 --threshold 10'
+      _args:
+        threshold:
+          description: Pass Threshold
       threshold:
         pass: Pass
         fail: Fail
-      result:
-        title: Dice Roll
-        description: ":game_die: %{outcomes}"
-        total: Total
-        threshold: Pass Threshold
-        pass_fail: Pass / Fail
-        faces: Using die with %{faces} faces.
+      title: Dice Roll
+      description: ":game_die: %{rolls}"
+      total: Total
+      pass_fail: Pass / Fail
+      threshold: Pass Threshold
     guild:
       _name: Server Information
       _description: Prints information about the current server.

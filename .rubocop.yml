@@ -19,6 +19,9 @@ Style/Documentation:
 Layout/TrailingWhitespace:
   Enabled: false
 
+Style/PerlBackrefs:
+  Enabled: false
+
 Layout/TrailingEmptyLines:
   Enabled: false
 

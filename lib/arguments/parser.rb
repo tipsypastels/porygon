@@ -26,6 +26,7 @@ class Arguments
       accept(Commands::Command) { |tag| Commands::TAGS[tag] }
       
       accept_matcher(Porygon::Version)
+      accept_matcher(DiceRoll)
     end
 
     def add_opt_existance_to_banner

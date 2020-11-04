@@ -3,17 +3,31 @@ module Commands
     self.tags = %w[dice roll diceroll rolldice]
 
     self.args = Arguments.new(self) do |a|
-      a.arg :count, Integer, default: 1
-      a.opt :faces, Integer, default: 6
+      a.arg :rolls, DiceRoll, default: -> { DiceRoll.default }
       a.opt :threshold, Integer, optional: true
     end
 
+    delegate :rolls, to: :args
+
     def call
-      return too_many if args.count > 100
-      embed_rolls RollList.new(args.count, args.faces, args.threshold)
+      embed do |e|
+        e.color = Porygon::COLORS.ok
+        e.title = t('title')
+        e.description = t('description', rolls: rolls.to_s)
+        
+        e.field_row do
+          e.field(t('total'), rolls.total) 
+          e.field(t('threshold'), threshold&.to_s)
+          e.field(t('pass_fail'), threshold&.pass_fail)
+        end
+      end
     end
     
     private
+
+    def threshold
+      @threshold ||= rolls.threshold_from(args.threshold)
+    end
     
     def embed_rolls(rolls)
       embed do |e|

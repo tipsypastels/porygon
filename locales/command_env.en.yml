@@ -19,5 +19,8 @@ en:
             version:
               nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
               malformed: "`%{version}` is not a valid version. Versions are positive integers."
+          dice_roll:
+            malformed: "`%{arg}` is not a valid dice roll. Dice rolls should be either a single number representing the number of times to roll, or a value in dice notation, such as `2d20`, representing the number of times to roll and the number of faces per die, respectively."
+            over_max: "%{arg} is too many. Sorry. I got a life to live too."
       unknown:
         title: Hmmm. That's an error.

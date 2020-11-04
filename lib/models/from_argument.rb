@@ -9,11 +9,8 @@ module FromArgument
     private
 
     def error(key, **interps)
-      raise Commands::RuntimeError.new("#{i18n_scope}.#{key}", **interps)
-    end
-
-    def i18n_scope
-      "conversions.#{name.underscore.tr('/', '.')}"
+      full_key = "conversions.#{name.underscore}.#{key}"
+      raise Commands::RuntimeError.new(full_key, **interps)
     end
   end
 end

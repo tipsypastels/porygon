@@ -1,5 +1,8 @@
 en:
   changelog:
+    5:
+      changes:
+        - "`%{prefix}dice` now uses dice notation instead of flags."
     4:
       changes:
         - "Improved error handling."
