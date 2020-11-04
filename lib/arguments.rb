@@ -86,7 +86,6 @@ class Arguments
   def split_tokens(raw_args)
     case @opts[:split]
     when :spaces then raw_args.split
-    when :never  then [raw_args]
     else              raw_args.shellsplit
     end
   end
