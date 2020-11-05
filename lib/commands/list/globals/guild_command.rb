@@ -35,7 +35,26 @@ module Commands
     end
 
     def emoji
-      @emoji ||= server.emoji.values.join(' ')
+      @emoji ||= EmojiListPresenter.new(server.emoji).join
     end
+
+    class EmojiListPresenter
+      MORE = I18n.t('commands.guild.more_emoji')
+      MAX  = 25
+
+      delegate :size, :present?, to: :@emoji
+
+      def initialize(emoji)
+        @emoji = emoji.values
+      end
+
+      def join
+        emoji_to_show = @emoji.slice(0...MAX)
+        out = emoji_to_show.join(', ')
+        out += I18n.t('commands.guild.more_emoji', count: size) if present?
+        out
+      end
+    end
+    private_constant :EmojiListPresenter
   end
 end

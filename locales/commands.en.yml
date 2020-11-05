@@ -221,6 +221,7 @@ en:
         us-west: ":flag_us: Western US"
         us-east: ":flag_us: Eastern US"
         us-south: ":flag_us: Southern US"
+      more_emoji: ", %{count} more..."
     renameserver:
       bot_missing_permission: I don't have permission to rename the server. Sorry!
       renamed: 
