@@ -21,6 +21,7 @@ class Arguments
 
   def tokenize(raw)
     case @config[:split]
+    when :never  then [raw]
     when :spaces then raw.split
     else              raw.shellsplit
     end

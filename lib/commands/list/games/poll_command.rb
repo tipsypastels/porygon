@@ -1,41 +1,41 @@
 module Commands
-  class PollCommand < Command
+  class PollCommand < Command    
     self.tag = 'poll'
 
-    
+    self.args = Arguments.new(self, split: :never) do |a|    
+      a.arg :poll, Poll
+    end
 
-    # self.args = Arguments::Parser.new do |a|
-    #   a.arg :values, Resolvers.array_of_strings(3..13, delim: /\s*|\s*/)
-    # end
+    LETTERS = t('letters')
+    BOOLS   = t('bools')
 
-    # self.args = Arguments::SwitchParser.new do |o|
-    #   o.format(:with_options, string_delim: /\s*|\s*/) do |a|
-    #     a.arg   :question, Resolvers.string
-    #     # a.array :options, Resolvers.string, size: 2..10
-    #   end
-      
-    #   o.default do |a|
-    #     a.arg :question, Resolvers.string
-    #   end
-    # end
+    delegate :poll, to: :args
 
     def call
-      question, *options = args.values
       message = embed do |e|
-        e.color  = Porygon::COLORS.info
-        e.title  = t('result.title', question: question)
-        e.footer = t('result.footer')
+        e.color       = Porygon::COLORS.ok
+        e.title       = t('result.title', question: poll.question)
+        e.footer      = t('result.footer')
+        e.description = description
       end
 
-      react_to(message, options)
+      react_to(message)
     end
 
     private
 
-    def react_to(message, options)
-      options.each do |option|
-        message.react('')
+    def description
+      poll.map { |opt, i| "#{LETTERS[i]} #{opt.humanize}" }&.join("\n")
+    end
+
+    def react_to(message)
+      emotes.each do |emote|
+        message.react(emote)
       end
+    end
+
+    def emotes
+      poll.boolean? ? BOOLS : LETTERS.slice(0...poll.size)
     end
   end
 end

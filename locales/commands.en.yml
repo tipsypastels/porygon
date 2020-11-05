@@ -142,12 +142,19 @@ en:
       result:
         title: Coin Flip
     poll:
+      _description: Creates a simple vote-by-reaction poll. You can add specific options by separating them with pipes (`|`) or leave them off for a yes-no poll. Polls are limited to 10 options as a maxiumum.
+      _args:
+        poll:
+          name: "[question] [| options |]..."
+      _examples:
+        - should i dye my hair?
+        - fav starter? | bulbasaur | charmander | squirtle
       result:
         title: ":bar_chart: %{question}"
         footer: "Vote by reacting with an option below!"
-      bool:
-        'true': 👍
-        'false': 👎
+      bools:
+        - 👍
+        - 👎
       letters:
         - 🇦
         - 🇧

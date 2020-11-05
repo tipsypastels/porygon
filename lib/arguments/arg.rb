@@ -16,7 +16,7 @@ class Arguments
     end
 
     def usage
-      "[#{name_for_usage}]"
+      name_for_usage['['] ? name_for_usage : "[#{name_for_usage}]"
     end
 
     def missing_name
