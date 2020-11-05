@@ -10,15 +10,14 @@ module Porygon
     def initialize(message)
       @message = message
       @content = message.content.dup
-
-      transform_content(@content)
     end
     
     def detect
-      return unless content.start_with? Bot.prefix
+      return unless content.slice!(0...prefix.size) == prefix
+      transform_content
 
-      tag  = content[prefix.size..].split(/\s+/).first.downcase
-      args = content[(prefix.size + tag.length)..].strip
+      tag  = content.split(/\s+/).first.downcase
+      args = content[tag.size..].strip
 
       unless (command = Commands::TAGS[tag])
         log_missing(tag)
@@ -34,17 +33,22 @@ module Porygon
       Commands::CommandLogger.unknown_command(tag, message)
     end
 
-    def transform_content(content)
-      transform_em_dash_to_flags(content)
-      transform_setter_calls(content)
+    def transform_content
+      transform_remove_whitespace
+      transform_em_dash_to_flags
+      transform_setter_calls
     end
 
-    def transform_setter_calls(content)
-      content.gsub!(/^#{prefix}([A-z0-9]+)\s*=\s*/, prefix + 'set\1 ')
+    def transform_remove_whitespace
+      content.strip!
     end
 
-    def transform_em_dash_to_flags(content)
+    def transform_em_dash_to_flags
       content.gsub!('—', '--')
+    end
+
+    def transform_setter_calls
+      content.gsub!(/^([A-z0-9]+)\s*=\s*/, 'set\1 ')
     end
   end
 end

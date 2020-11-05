@@ -13,5 +13,5 @@ module Startup
     def t(key)
       I18n.t("porygon.internals.startup.#{key}")
     end
-  end
+end
 end

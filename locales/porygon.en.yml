@@ -6,12 +6,9 @@ en:
         load_gems:
           text: Loading gems...
           color: red
-        load_discordrb_ext:
-          text: Loading discordrb extensions...
-          color: yellow
         configure_gems:
           text: Configuring loaded gems...
-          color: light_green
+          color: yellow
         load_application:
           text: Loading bot application...
           color: green

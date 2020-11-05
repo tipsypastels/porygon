@@ -23,7 +23,7 @@ module Commands
     end
 
     def print_error(error)
-      Bot.logger.error(error)
+      Porygon::LOGGER.error(error)
 
       message = get_error_message(error)
 

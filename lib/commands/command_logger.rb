@@ -19,7 +19,7 @@ module Commands
 
       private
 
-      delegate :info, :warn, :error, to: :"Bot.logger"
+      delegate :info, :warn, to: :"Porygon::LOGGER"
       
       def command_log(command, key, **interps)
         log(command.message, key, command.used_tag, **interps)

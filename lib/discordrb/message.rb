@@ -5,8 +5,14 @@ module Discordrb
     delegate :name,     to: :channel, prefix: true
     delegate :name,     to: :server,  prefix: true
 
+    def run_used_command
+      command&.begin_call
+    end
+
+    private
+
     def command
-      @command ||= Porygon::CommandDetector.detect(self)
+      Porygon::CommandDetector.detect(self)
     end
   end
 end

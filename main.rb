@@ -10,26 +10,23 @@ Startup.log :load_gems do
   require 'zeitwerk'
   require 'byebug'
   require 'sequel'
-  require 'logger'
   require 'ostruct'
   require 'dentaku'
   require 'pg'
 end
 
-Startup.log :load_discordrb_ext do
-  require './lib/discordrb/ext'
-end
-
 Startup.log :configure_gems do
-  Discordrb::LOGGER.mode = :silent
   Dentaku.enable_ast_cache!
   I18n.load_path << Dir[File.expand_path('locales') + '/*.yml']
 end
 
 Startup.log :load_application do
+  require_relative 'inflector'
+
   Loader = Zeitwerk::Loader.new
+  Loader.inflector = Inflector.new
+
   Loader.push_dir(__dir__ + '/lib')
-  Loader.ignore(__dir__ + '/lib/discordrb')
   Loader.collapse(__dir__ + '/lib/commands/list')
   Loader.collapse(__dir__ + '/lib/commands/list/*')
   Loader.collapse(__dir__ + '/lib/packages/list')
@@ -38,6 +35,7 @@ Startup.log :load_application do
   Loader.collapse(__dir__ + '/lib/core_ext')
   Loader.preload(__dir__ + '/lib/database.rb')
   Loader.preload(__dir__ + '/lib/core_ext')
+  Loader.preload(__dir__ + '/lib/discordrb')
   Loader.setup
   Loader.eager_load
 end

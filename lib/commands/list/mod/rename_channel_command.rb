@@ -1,7 +1,7 @@
 module Commands
-  class RenameServerCommand < Command
-    self.tags   = %w[renameserver setservername]
-    self.access = Permission.manage_server
+  class RenameChannelCommand < Command
+    self.tags   = %w[renamechannel setchannelname]
+    self.access = Permission.manage_channels
 
     self.args = Arguments.new(self) do |a|
       a.arg :name, String
@@ -9,12 +9,12 @@ module Commands
 
     def call
       with_bot_permission_handling do
-        server.name = args.name
-
+        channel.name = args.name
+        
         embed do |e|
           e.color       = Porygon::COLORS.ok
           e.title       = t('renamed.title')
-          e.description = t('renamed.description', name: args.name)
+          e.description = t('renamed.description', name: channel.mention)
         end
       end
     end

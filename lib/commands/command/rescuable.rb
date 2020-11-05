@@ -9,7 +9,7 @@ module Commands
         handle_runtime_error(e)
       rescue => e
         handle_unknown_error(e)
-        Bot.logger.error(e)
+        Porygon::LOGGER.error(e)
       end
 
       def with_bot_permission_handling

@@ -5,7 +5,7 @@ module Database
       user: ENV['DB_USERNAME'],
       password: ENV['DB_PASSWORD'],
       database: ENV['DB'],
-      logger: Porygon::Loggers::DatabaseLogger.new
+      logger: Porygon::LogDelegator.new('QUERY')
 
     CONN.test_connection
   end
