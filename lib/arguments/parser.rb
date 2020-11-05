@@ -18,7 +18,7 @@ class Arguments
       apply_defaults
       check_required
 
-      p Result.new(@output)
+      Result.new(@output)
     end
     
     private
