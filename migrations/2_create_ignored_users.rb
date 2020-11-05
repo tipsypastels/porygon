@@ -1,5 +1,7 @@
 Sequel.migration do
   change do
+    drop_table :ignores
+
     create_table(:ignored_users) do
       primary_key :id
 
