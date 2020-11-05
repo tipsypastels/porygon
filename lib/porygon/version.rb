@@ -22,7 +22,7 @@ module Porygon
       end
 
       def from_argument(arg, *)
-        arg.delete_prefix!('v')
+        arg.sub!(/^[v#]/, '')
         code = try_convert(arg)
 
         unless exist?(code)

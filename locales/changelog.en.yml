@@ -1,5 +1,9 @@
 en:
   changelog:
+    9:
+      changes:
+        - 'Fixed translations for converters inside namespaces.'
+        - '`#` is now allowed at the front of a `Porygon::Version` argument.'
     8:
       description: 'The poll update.'
       changes:
