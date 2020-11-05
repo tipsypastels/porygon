@@ -31,7 +31,7 @@ module Commands
       end
 
       def usage_with_args
-        prefix + @command.args.usage
+        "#{prefix} #{@command.args.usage}"
       end
 
       def prefix

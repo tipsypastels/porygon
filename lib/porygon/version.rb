@@ -21,7 +21,7 @@ module Porygon
         arg_err(:malformed, version: arg)
       end
 
-      def from_argument(arg)
+      def from_argument(arg, *)
         arg.delete_prefix!('v')
         code = try_convert(arg)
 

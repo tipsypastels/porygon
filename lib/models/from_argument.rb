@@ -2,7 +2,7 @@ module FromArgument
   extend ActiveSupport::Concern
 
   class_methods do
-    def from_argument(argument)
+    def from_argument(argument, *)
       new(argument)
     end
 

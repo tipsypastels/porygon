@@ -85,6 +85,12 @@ en:
         - 'A plant falls over leaving dirt everywhere'
         - 'Random ceiling tiles fall down'
         - 'The floor shakes and cracks'
+    inky:
+      _description: '🥺'
+      messages:
+        - '🥺'
+        - 'omg'
+        - 'wow Pb why u so old?'
     thanos:
       _description: Rolls the dice on your fate.
       spare: 

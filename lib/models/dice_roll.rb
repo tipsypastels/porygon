@@ -1,7 +1,7 @@
 class DiceRoll
   include FromArgument, Enumerable
 
-  def self.from_argument(arg)
+  def self.from_argument(arg, *)
     Builder.build(arg)
   end
 

@@ -12,6 +12,15 @@ module Porygon
       def custom_formatter(severity, *)
         super.colorize COLORS.fetch(severity)
       end
+
+      def error(err)
+        case err
+        when Exception
+          super("(#{err.class}) #{err.message}\n#{err.backtrace.join("\n")}")
+        else
+          super
+        end
+      end
     end
   end
 end

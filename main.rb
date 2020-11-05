@@ -8,7 +8,6 @@ Startup.log :load_gems do
   require 'fast_blank'
   require 'shellwords'
   require 'zeitwerk'
-  require 'optparse'
   require 'byebug'
   require 'sequel'
   require 'logger'
@@ -36,7 +35,9 @@ Startup.log :load_application do
   Loader.collapse(__dir__ + '/lib/packages/list')
   Loader.collapse(__dir__ + '/lib/resolvers/list')
   Loader.collapse(__dir__ + '/lib/models')
+  Loader.collapse(__dir__ + '/lib/core_ext')
   Loader.preload(__dir__ + '/lib/database.rb')
+  Loader.preload(__dir__ + '/lib/core_ext')
   Loader.setup
   Loader.eager_load
 end

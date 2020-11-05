@@ -2,10 +2,14 @@ module Commands
   class Command
     include Porygon::MessageFormatter
     include Packaged, Respondable, Taggable, Rescuable
-    include Translatable, Documentable, Listable
+    include Translatable, Documentable, Listable, FromArgument
 
     class << self
       attr_accessor :args, :access, :server_only
+
+      def from_argument(arg, *)
+        TAGS[arg.downcase] || arg_err('nonexistant', arg: arg)
+      end
     end
 
     attr_reader :message, :args, :used_tag, :raw_args

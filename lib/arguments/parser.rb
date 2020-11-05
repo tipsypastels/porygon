@@ -1,39 +1,44 @@
 class Arguments
-  class Parser < Porygon::Internals::OptionParser
-    def initialize(command)
-      super(nil, 32, ' ')
-      @added_first_opt = false
-
-      self.program_name = ''
-      self.banner += " #{command.banner}" if command.banner
-
-      add_accepts
+  class Parser
+    def self.parse(...)
+      new(...).parse
     end
 
-    def opt(short, long, value, type, desc)
-      add_opt_existance_to_banner
+    delegate :each, :each_default, :first_missing, to: :@stack
+    
+    def initialize(tokens, command, stack)
+      @tokens  = tokens
+      @command = command
+      @stack   = stack
+      @output  = {}.with_indifferent_access
+    end
 
-      if type
-        on("-#{short}", "--#{long} #{value}", type, desc)
-      else
-        on("-#{short}", "--#{long}", desc)
+    def parse
+      eat_opts
+      apply_defaults
+      check_required
+
+      p Result.new(@output)
+    end
+    
+    private
+    
+    def eat_opts
+      each { |opt| opt.eat(@tokens, @output, @command) }
+    end
+
+    def apply_defaults
+      each_default { |opt, value| @output[opt] ||= resolve_default(value) }
+    end
+
+    def check_required
+      if (missing = first_missing(@output))
+        raise Commands::RuntimeError.new 'missing_arg', arg: missing
       end
     end
 
-    private
-
-    def add_accepts
-      accept(Commands::Command) { |tag| Commands::TAGS[tag] }
-      
-      accept_matcher(Porygon::Version)
-      accept_matcher(DiceRoll)
-    end
-
-    def add_opt_existance_to_banner
-      return if @added_first_opt
-      
-      self.banner += " #{I18n.t('command_env.has_options')}"
-      @added_first_opt = true
+    def resolve_default(value)
+      value.is_a?(Proc) ? value.call : value
     end
   end
 end

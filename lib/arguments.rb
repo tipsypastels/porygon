@@ -1,51 +1,17 @@
 class Arguments
-  def initialize(command, **opts)
-    @op       = Parser.new(command)
-    @command  = command
-    @required = []
-    @defaults = {}
-    @opts     = opts
+  delegate :arg, :opt, :usage, to: :@stack
+
+  def initialize(command, **config)
+    @command = command
+    @config  = config
+    @stack   = Stack.new(self)
 
     yield self
-
-    precache_usage
   end
 
-  def parse(raw_args, _command_instance)
-    internal_parse(split_tokens(raw_args), @opts[:output]&.dup || {})
+  def parse(raw, command_instance)
+    Parser.parse(tokenize(raw), command_instance, @stack)
   end
-
-  def arg(name, type, optional: false, default: nil)
-    raise Commands::StaticError, 'multiple_args_unsupported' if @arg
-
-    @defaults[name] = default if default
-    @required << name unless optional || default
-    @op.banner += " [#{arg_value_name(name)}]"
-
-    @arg = { 
-      name: name, 
-      switch: @op.define('--INTERNAL_DEFARG ARG', type),
-    }
-  end
-
-  def opt(long, type = nil, short: nil, optional: false, default: nil)
-    @required << long unless optional || default
-    @defaults[long] = default if default
-
-    long = long.to_s
-    short ||= long[0]
-
-    desc = t("#{long}.description", default: '')
-    value = opt_value_name(long, type)
-
-    @op.opt(short, long, value, type, desc)
-  end
-
-  def usage
-    @usage ||= @op.help.split("\n").reject { _1['INTERNAL'] }.join("\n")
-  end
-  
-  alias precache_usage usage
 
   def t(key, **opts)
     @command.t("_args.#{key}", **opts)
@@ -53,64 +19,10 @@ class Arguments
 
   private
 
-  def internal_parse(tokens, output)
-    parse_and_propagate_errors(tokens, output)
-    merge_positional_arg(tokens, output)
-    merge_defaults(output)
-    check_required(output)
-
-    Result.new(output)
-  end
-
-  def merge_positional_arg(tokens, output)
-    return unless @arg && tokens.present?
-
-    parse_and_propagate_errors(['--INTERNAL_DEFARG', tokens.join(' ')], output)
-    output[@arg[:name]] = output.delete(:INTERNAL_DEFARG)
-  end
-
-  def merge_defaults(output)
-    @defaults.each { |opt, value| output[opt] ||= resolve_default(value) }
-  end
-
-  def check_required(output)
-    missing = @required.detect { |opt| !output.key?(opt) }
-
-    if missing
-      raise Commands::RuntimeError.new 'missing_arg', 
-                                       arg: arg_value_name(missing)
+  def tokenize(raw)
+    case @config[:split]
+    when :spaces then raw.split
+    else              raw.shellsplit
     end
-  end
-
-  def parse_and_propagate_errors(tokens, output)
-    @op.parse!(tokens, into: output)
-  rescue OptionParser::InvalidArgument => e
-    arg = resolve_name_of_arg_from_error(e)
-    raise Commands::RuntimeError.new('wrong_arg_type', arg: arg)
-  end
-
-  def split_tokens(raw_args)
-    case @opts[:split]
-    when :spaces then raw_args.split
-    else              raw_args.shellsplit
-    end
-  end
-
-  def opt_value_name(long, type)
-    return unless type
-    t("#{long}.name", default: type.to_s.demodulize).upcase
-  end
-
-  def arg_value_name(name)
-    t("#{name}.name", default: name.to_s).downcase
-  end
-
-  def resolve_default(value)
-    value.is_a?(Proc) ? value.call : value
-  end
-
-  def resolve_name_of_arg_from_error(error)
-    error_arg = error.args.first
-    error_arg == '--INTERNAL_DEFARG' ? @arg[:name] : error_arg
   end
 end
