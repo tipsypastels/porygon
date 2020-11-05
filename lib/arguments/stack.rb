@@ -39,7 +39,7 @@ class Arguments
     end
 
     def usage
-      @usage ||= [@arg, *@opts].collect(&:usage).join("\n")
+      @usage ||= [@arg, *@opts].compact.collect(&:usage).join("\n")
     end
 
     def first_missing(output_hash)

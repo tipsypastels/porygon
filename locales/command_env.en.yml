@@ -1,7 +1,19 @@
 en:
   command_env:
-    has_options: '[options]'
+    logging:
+      location:
+        server: "#%{channel}, %{server}"
+        dm: "direct messages"
+      used_command: "%{name} used command \"%{tag}\" in %{location}."
+      unknown_command: "%{name} used unknown command \"%{tag}\" in %{location}."
+      runtime_error: "%{name} encountered a usage error using command \"%{tag}\" in %{location}."
+      permission_error: "%{name} was denied use of \"%{tag}\" in %{location}. Reason: %{reason}."
+      permission_error_reasons:
+        not_bot_owner: 'Not the bot owner'
+        lacks_permission: 'Lacks permission %{permission}'
+        not_a_member: 'Not a Discordrb::Member'
     errors:
+      bot_missing_permission: "I don't have permission to do that! Sorry."
       static:
         multiple_args_unsupported: Multiple arguments are not supported. Provide the most obvious argument as an argument and use options for the rest, or split the functionality into multiple commands.
         missing_tags: "%{command} is missing tags! Provide at least one."
@@ -26,5 +38,7 @@ en:
           poll:
             one_option: "You can't have a poll with only one choice! Provide at least two options, or no options for a yes/no style poll."
             too_many_options: "Hey, that's a little overboard. Polls are limited to %{max} options."
+          yes_no_argument:
+            malformed: "`%{arg}` doesn't look like a yes-no answer to me."
       unknown:
         title: Hmmm. That's an error.

@@ -1,7 +1,8 @@
 module Commands
   class PingCommand < Command
     self.tag = 'ping'
-    
+    self.allow_dm = true
+
     def call
       embed do |e|
         e.color       = Porygon::COLORS.info

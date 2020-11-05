@@ -23,4 +23,6 @@ module Packages
   define_package :globals, global: true
   define_package :pacman,  global: true
   define_package :meta,    global: true
+
+  define_package :mod
 end

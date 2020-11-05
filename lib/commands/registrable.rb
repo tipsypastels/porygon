@@ -1,7 +1,9 @@
 module Commands
   module Registrable
     def register_all
-      Command.subclasses.each { |command| register(command) }
+      Command.descendants.each do |command| 
+        register(command) if command.module_parent == Commands
+      end
     end
 
     def register(command)

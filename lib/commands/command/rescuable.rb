@@ -12,9 +12,20 @@ module Commands
         Bot.logger.error(e)
       end
 
+      def with_bot_permission_handling
+        yield
+      rescue Discordrb::Errors::NoPermission
+        embed do |e|
+          e.color = Porygon::COLORS.error
+          e.title = missing_bot_perm_error
+          e.thumbnail = Porygon::Asset('portrait.png')
+        end
+      end
+
       def handle_runtime_error(error)
         @aborted = true
-        
+        CommandLogger.runtime_error(self)
+
         embed do |e|
           value = error.translated_value
           interps = shared_error_interps
@@ -45,6 +56,11 @@ module Commands
             command: @used_tag, 
             scope: 'command_env.errors.runtime',
           }
+      end
+
+      def missing_bot_perm_error
+        I18n.t :"commands.#{tag}.bot_missing_permission",
+               default: :"command_env.errors.bot_missing_permission" 
       end
     end
   end

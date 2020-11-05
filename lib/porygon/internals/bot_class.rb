@@ -5,6 +5,8 @@ module Porygon
 
       def initialize
         @bot = Discordrb::Bot.new(token: ENV['BOT_TOKEN'])
+        @bot.mode = :quiet
+        
         @logger = Loggers::BotLogger.new
         @markov = Porygon::MarkovStore.new
 
@@ -18,6 +20,14 @@ module Porygon
 
       def prefix
         @prefix ||= ENV.fetch('PREFIX', '!')
+      end
+
+      def owner
+        @owner ||= ENV.fetch('OWNER').to_i
+      end
+
+      def owner?(user)
+        user.resolve_id == owner
       end
 
       private

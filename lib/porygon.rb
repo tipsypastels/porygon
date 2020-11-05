@@ -11,10 +11,6 @@ module Porygon
       Porygon::Internals::BotClass.new
     end
 
-    def owner_proc
-      @owner_proc ||= proc { |msg| ENV['OWNER'] == msg.author.id.to_s }
-    end
-
     def Asset(name) # rubocop:disable Naming/MethodName
       Asset.new(name)
     end

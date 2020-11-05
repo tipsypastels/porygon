@@ -5,7 +5,7 @@ module Commands
     include Translatable, Documentable, Listable, FromArgument
 
     class << self
-      attr_accessor :args, :access, :server_only
+      attr_accessor :args, :access, :allow_dm
 
       def from_argument(arg, *)
         TAGS[arg.downcase] || arg_err('nonexistant', arg: arg)
@@ -15,7 +15,7 @@ module Commands
     attr_reader :message, :args, :used_tag, :raw_args
     delegate :channel, to: :message
     delegate :server, to: :channel
-    delegate :access, :server_only, :usage, to: :class
+    delegate :access, :allow_dm, :usage, to: :class
   
     def initialize(message, used_tag, raw_args)
       @message  = message
@@ -29,6 +29,7 @@ module Commands
       with_error_handling do
         parse_args
         call
+        CommandLogger.used_command(self)
       end
     end
 
@@ -47,11 +48,16 @@ module Commands
     end
 
     def invalid_access?
-      access && !access.call(message)
+      return unless access
+
+      if (error_message = access.call(message))
+        CommandLogger.permission_error(self, error_message)
+        true
+      end
     end
 
     def used_in_invalid_context?
-      !message.channel.server && server_only
+      !message.channel.server && !allow_dm
     end
   end
 end

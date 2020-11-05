@@ -1,7 +1,6 @@
 module Commands
   class GuildCommand < Command
     self.tags = %w[guild server]
-    self.server_only = true
 
     def call
       embed do |e|

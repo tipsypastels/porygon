@@ -1,5 +1,13 @@
 en:
   changelog:
+    10:
+      changes:
+        - 'Turned off Discordrb logging.'
+        - 'Add logging of command usage and errors.'
+        - 'For security, commands now default to disabled in DMs unless explicitly set otherwise.'
+        - 'Added Ruby-style setter command syntax, where `%{prefix}x = ...` is an alias for `%{prefix}setx ...`.'
+        - 'Added `%{prefix}renameServer`.'
+        - 'Rebuilt the permission checks system.'
     9:
       changes:
         - 'Fixed translations for converters inside namespaces.'

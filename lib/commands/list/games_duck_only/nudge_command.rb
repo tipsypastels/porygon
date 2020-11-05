@@ -1,7 +1,6 @@
 module Commands
   class NudgeCommand < Command
-    self.tag         = 'nudge'
-    self.server_only = true
+    self.tag = 'nudge'
 
     def call
       embed do |e|

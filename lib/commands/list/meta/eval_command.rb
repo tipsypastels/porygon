@@ -1,7 +1,7 @@
 module Commands
   class EvalCommand < Command
     self.tags   = %w[eval !]
-    self.access = Porygon.owner_proc
+    self.access = Permission.bot_owner
 
     self.args = Arguments.new(self, split: :spaces) do |a|
       a.arg :code, String

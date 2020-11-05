@@ -18,3 +18,6 @@ en:
     meta:
       name: Meta
       description: Commands about Porygon itself.
+    mod:
+      name: Moderation
+      description: Mod-only server management.
