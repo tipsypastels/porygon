@@ -12,6 +12,10 @@ class IgnoredUser < Sequel::Model
       create user_id: user.id, server_id: server.id, mod_id: mod.id
     end
 
+    def server_unignore(user, server)
+      where(user_id: user.id, server_id: server.id).delete
+    end
+
     def ignore_status(user)
       return if Bot.owner?(user)
 

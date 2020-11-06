@@ -287,6 +287,31 @@ en:
       none:
         title: "Funnily enough, this server doesn't actually *have* a mod log channel."
         description: 'No changes made.'
+    botignore:
+      _name: Ignore
+      _description: Ignores a member on the current server.
+      _examples:
+        - Inky
+      done:
+        title: "Member ignored!"
+        description: "%{member} can no longer access Porygon on this server."
+      no_author:
+        title: 'Wait wait wait wait wait.'
+        description: "You can't ignore yourself :("
+      already:
+        title: "%{member} is already ignored on this server!"
+        description: 'No changes made.'
+    botunignore:
+      _name: Unignore
+      _description: Unignores a member on the current server.
+      _examples:
+        - Inky
+      done:
+        title: "Member unignored!"
+        description: "%{member} can access Porygon on this server again."
+      not_ignored:
+        title: "%{member} is not ignored on this server!"
+        description: 'No changes made.'
     globalignore:
       _name: Global Ignore
       _description: Ignores a member on every server.

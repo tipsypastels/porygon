@@ -22,6 +22,10 @@ module Discordrb
       IgnoredUser.server_ignore(self, server, by)
     end
 
+    def server_unignore
+      IgnoredUser.server_unignore(self, server)
+    end
+
     def ignore_status
       IgnoredUser.ignore_status(self)
     end
@@ -32,6 +36,10 @@ module Discordrb
 
     def global_ignored?
       IgnoredUser.global_ignore_status(self).present?
+    end
+
+    def server_ignored?
+      IgnoredUser.server_ignore_status(self).present?
     end
   end
 end

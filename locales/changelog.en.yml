@@ -8,6 +8,7 @@ en:
         - 'Shorter syntax for defining command arguments.'
         - "Added back the `%{prefix}package` command, but it doesn't do much yet."
         - "Added `%{prefix}globalIgnore` and `%{prefix}globalUnignore`."
+        - "Added `%{prefix}botIgnore` and `%{prefix}botUnignore`."
     10:
       changes:
         - 'Turned off Discordrb logging.'

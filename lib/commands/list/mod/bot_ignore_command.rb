@@ -1,7 +1,7 @@
 module Commands
-  class GlobalIgnoreCommand < Command
-    self.tag    = 'globalignore'
-    self.access = Permission.bot_owner
+  class BotIgnoreCommand < Command
+    self.tag    = 'botignore'
+    self.access = Permission.ban_members
 
     args do |a|
       a.arg :member, Discordrb::Member
@@ -9,9 +9,9 @@ module Commands
 
     def call(member:)
       return no_author if member == author
-      return already_ignored(member) if member.global_ignored?
+      return already_ignored(member) if member.server_ignored?
 
-      member.global_ignore(by: author)
+      member.server_ignore(by: author)
 
       embed do |e|
         e.color       = Porygon::COLORS.ok
