@@ -27,13 +27,12 @@ module Commands
         CommandLogger.runtime_error(self)
 
         embed do |e|
-          value = error.translated_value
           interps = shared_error_interps
 
           e.color       = Porygon::COLORS.warning 
           e.title       = I18n.t('base.title', **interps)
           e.footer      = I18n.t('base.footer', **interps)
-          e.description = value
+          e.description = error.message
 
           e.field(I18n.t('base.usage', **interps), usage(@used_tag))
           e.field(I18n.t('base.examples', **interps), examples(@used_tag))
@@ -50,7 +49,7 @@ module Commands
         end
       end
 
-      def shared_error_interps()
+      def shared_error_interps
         @shared_error_interps ||= 
           { 
             command: @used_tag, 

@@ -1,28 +1,18 @@
 module Packages
   extend Enumerable
 
-  TAGS = {}.with_indifferent_access
+  SERVER_LOCKS = HashWithIndifferentAccess.new({
+    ai: [ServerIds::DUCK],
+    games_duck_only: [ServerIds::DUCK],
+  })
+
+  TAGS = 
+    Dir['lib/commands/list/*'].map { |dir|
+      tag = dir.split('/').last
+      [tag, Package.new(tag)]
+    }.to_h
   
-  class << self
-    def each
-      TAGS.each_value(&block)
-    end
-
-    private
-
-    def define_package(name, global: false, **opts)
-      klass = global ? GlobalPackage : Package
-      const_set(name.upcase, klass.new(name, **opts))
-    end
+  def self.each
+    TAGS.each_value(&block)
   end
-
-  define_package :games
-  define_package :games_duck_only, server_ids: [ServerIds::DUCK]
-  define_package :ai,              server_ids: [ServerIds::DUCK]
-
-  define_package :globals, global: true
-  define_package :pacman,  global: true
-  define_package :meta,    global: true
-
-  define_package :mod
 end

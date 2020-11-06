@@ -12,9 +12,7 @@ module Porygon
     end
 
     def start
-      return if ENV['NOSTART']
-
-      @bot.ready { @member_join_cache.build }
+      @bot.ready { ready }
       @bot.run
     end
 
@@ -37,11 +35,14 @@ module Porygon
     end
 
     def setup_handlers
-      return if ENV['NOSTART']
-      
       @bot.message(&:handle_message)
       @bot.member_join(&:handle_join)
       @bot.member_leave(&:handle_leave)
+    end
+
+    def ready
+      Database.start_logging
+      @member_join_cache.build
     end
   end
 end

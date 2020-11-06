@@ -2,13 +2,11 @@ module Packages
   class Package
     include Comparable
 
-    attr_reader :tag, :server_ids
+    attr_reader :tag
 
-    def initialize(tag, server_ids: nil)
+    def initialize(tag)
       @tag = tag
-      @server_ids = server_ids
-
-      Packages::TAGS[tag] = self
+      warn_if_missing_i18n_entry
     end
 
     def name
@@ -17,6 +15,10 @@ module Packages
 
     def description
       t(:description)
+    end
+
+    def server_ids
+      Packages::SERVER_LOCKS[tag]
     end
 
     def server_specific?
@@ -30,6 +32,11 @@ module Packages
     end
 
     private
+
+    def warn_if_missing_i18n_entry
+      t(:name, default: false) || 
+        Porygon::LOGGER.warn("Package \"#{tag}\" has no language file entry!")
+    end
 
     def t(key, **interps)
       I18n.t("packages.#{tag}.#{key}", **interps)

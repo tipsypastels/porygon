@@ -1,12 +1,13 @@
 module Database
-  unless ENV['NOSTART']
-    CONN = Sequel::Database.connect \
-      adapter: :postgres,
-      user: ENV['DB_USERNAME'],
-      password: ENV['DB_PASSWORD'],
-      database: ENV['DB'],
-      logger: Porygon::LogDelegator.new('QUERY')
+  CONN = Sequel::Database.connect \
+    adapter: :postgres,
+    user: ENV['DB_USERNAME'],
+    password: ENV['DB_PASSWORD'],
+    database: ENV['DB']
 
-    CONN.test_connection
+  CONN.test_connection
+
+  def self.start_logging
+    CONN.logger = Porygon::LogDelegator.new('QUERY')
   end
 end

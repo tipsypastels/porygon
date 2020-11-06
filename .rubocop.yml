@@ -68,9 +68,17 @@ Style/Lambda:
   Enabled: true
   EnforcedStyle: literal
 
+Style/BlockDelimiters:
+  Enabled: true
+  EnforcedStyle: braces_for_chaining
+
 Layout/SpaceInLambdaLiteral:
   Enabled: true
   EnforcedStyle: require_space  
+
+Layout/FirstHashElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
