@@ -17,6 +17,10 @@ module Commands
         warn log(message, 'unknown_command', tag)
       end
 
+      def ignored_command(command, ignore_status)
+        warn command_log(command, "ignore_#{ignore_status}")
+      end
+
       private
 
       delegate :info, :warn, to: :"Porygon::LOGGER"

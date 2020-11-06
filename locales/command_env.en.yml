@@ -8,6 +8,8 @@ en:
       unknown_command: "%{name} used unknown command \"%{tag}\" in %{location}."
       runtime_error: "%{name} encountered a usage error using command \"%{tag}\" in %{location}."
       permission_error: "%{name} was denied use of \"%{tag}\" in %{location}. Reason: %{reason}."
+      ignore_server: "Server-ignored user %{name} tried to use \"%{tag}\" in %{location}, but was ignored."
+      ignore_global: "Global-ignored user %{name} tried to use \"%{tag}\" in %{location}, but was ignored."
       permission_error_reasons:
         not_bot_owner: 'Not the bot owner'
         lacks_permission: 'Lacks permission %{permission}'

@@ -8,7 +8,20 @@ module Commands
     end
 
     def call(package:)
-      p package
+      embed do |e|
+        e.color       = Porygon::COLORS.info
+        e.title       = package.name
+        e.thumbnail   = Porygon::Asset('portrait.png')
+        e.description = package.description
+
+        e.field(t('commands'), commands(package))
+      end
+    end
+
+    private
+
+    def commands(package)
+      Commands.filter_map { |c| code(c.tag) if c.package == package }.join(', ')
     end
   end
 end

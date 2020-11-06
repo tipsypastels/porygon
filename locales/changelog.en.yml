@@ -6,7 +6,8 @@ en:
         - 'Packages are now derived from the filesystem instead of explicitly defined.'
         - 'Removed some unused error utilities and simplified `TranslatedError`.'
         - 'Shorter syntax for defining command arguments.'
-        - 'Added back the `%{prefix}package` command.'
+        - "Added back the `%{prefix}package` command, but it doesn't do much yet."
+        - "Added `%{prefix}globalIgnore` and `%{prefix}globalUnignore`."
     10:
       changes:
         - 'Turned off Discordrb logging.'

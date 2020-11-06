@@ -287,8 +287,30 @@ en:
       none:
         title: "Funnily enough, this server doesn't actually *have* a mod log channel."
         description: 'No changes made.'
+    globalignore:
+      _name: Global Ignore
+      _description: Ignores a member on every server.
+      done:
+        title: "Member ignored!"
+        description: "%{member} can no longer access Porygon on any server."
+      no_author:
+        title: 'Wait wait wait wait wait.'
+        description: "You can't ignore yourself :("
+      already:
+        title: "%{member} is already globally ignored!"
+        description: 'No changes made.'
+    globalunignore:
+      _name: Global Unignore
+      _description: Unignores a member on every server.
+      done:
+        title: "Member unignored!"
+        description: "%{member} can access Porygon again (note that individual servers may still ignore them)."
+      not_ignored:
+        title: "%{member} is not globally ignored!"
+        description: 'No changes made.'
     package:
       _name: Package Information
       _description: Shows information about a package.
       _examples:
         - meta
+      commands: Commands in this package

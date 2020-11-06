@@ -1,42 +1,34 @@
 class IgnoredUser < Sequel::Model
   class << self
-    def ignore(user, by:)
+    def global_ignore(user, mod)
+      create user_id: user.id, mod_id: mod.id
+    end
+
+    def global_unignore(user)
+      where(user_id: user.id, server_id: nil).delete
+    end
+
+    def server_ignore(user, server, mod)
+      create user_id: user.id, server_id: server.id, mod_id: mod.id
+    end
+
+    def ignore_status(user)
+      return if Bot.owner?(user)
+
       case user
       when Discordrb::Member
-        create user_id: user.id, 
-               server_id: user.server.id,
-               ignored_by_user_id: by.id
+        global_ignore_status(user) || server_ignore_status(user)
       else
-        create user_id: user.id, ignored_by_user_id: by.id 
+        global_ignore_status(user)
       end
     end
 
-    def unignore(user)
-      case user
-      when Discordrb::Member
-        where(user_id: user.id, server_id: user.server.id).delete
-      else
-        where(user_id: user.id, server_id: nil).delete
-      end
+    def server_ignore_status(member)
+      :server if where(user_id: member.id, server_id: member.server.id).present?
     end
 
-    def ignored?(user)
-      case user
-      when Discordrb::Member
-        ignored_on_server_or_globally?(user)
-      else
-        ignored_on_server?(user)
-      end
-    end
-
-    private
-    
-    def ignored_on_server_or_globally?(member)
-      where(user_id: member.id, server_id: [member.server.id, nil]).present?
-    end
-
-    def ignored_globally?(user)
-      where(user_id: user.id, server_id: nil).present?
+    def global_ignore_status(user)
+      :global if where(user_id: user.id, server_id: nil).present?
     end
   end
 

@@ -51,6 +51,7 @@ module Commands
       return false if @aborted
       return false if invalid_access?
       return false if used_in_invalid_context?
+      return false if used_by_ignored_user?
 
       true
     end
@@ -66,6 +67,13 @@ module Commands
 
     def used_in_invalid_context?
       !message.channel.server && !allow_dm
+    end
+
+    def used_by_ignored_user?
+      if (status = author.ignore_status)
+        CommandLogger.ignored_command(self, status)
+        true
+      end
     end
   end
 end
