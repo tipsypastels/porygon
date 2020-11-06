@@ -3,6 +3,7 @@ require './pre_startup'
 Startup.log :load_gems do
   require 'dotenv/load'
   require 'active_support/all'
+  require 'action_view/helpers'
   require 'marky_markov'
   require 'discordrb'
   require 'fast_blank'
@@ -29,8 +30,6 @@ Startup.log :load_application do
   Loader.push_dir(__dir__ + '/lib')
   Loader.collapse(__dir__ + '/lib/commands/list')
   Loader.collapse(__dir__ + '/lib/commands/list/*')
-  Loader.collapse(__dir__ + '/lib/packages/list')
-  Loader.collapse(__dir__ + '/lib/resolvers/list')
   Loader.collapse(__dir__ + '/lib/models')
   Loader.collapse(__dir__ + '/lib/core_ext')
   Loader.collapse(__dir__ + '/lib/services')

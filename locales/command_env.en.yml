@@ -32,6 +32,8 @@ en:
             nonexistant: "There is no command named `%{arg}`. Use `%{prefix}commands` to see a list of commands."
           discordrb/role:
             nonexistant: "I couldn't find a role named `%{arg}`. Sure you got it right?"
+          discordrb/channel:
+            nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
           porygon/version:
             nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
             malformed: "`%{version}` is not a valid version. Versions are positive integers."

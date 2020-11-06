@@ -1,17 +1,21 @@
 module Porygon
   class BotClass
-    attr_reader :markov
+    attr_reader :markov, :member_join_cache
 
     def initialize
       @bot = Discordrb::Bot.new(token: ENV['BOT_TOKEN'])
       @markov = Porygon::MarkovStore.new
+      @member_join_cache = MemberJoinCache.new(@bot)
 
       setup_translation_globals
       setup_handlers
     end
 
     def start
-      @bot.run unless ENV['NOSTART']
+      return if ENV['NOSTART']
+
+      @bot.ready { @member_join_cache.build }
+      @bot.run
     end
 
     def prefix
@@ -35,7 +39,9 @@ module Porygon
     def setup_handlers
       return if ENV['NOSTART']
       
-      @bot.message(&:handle)
+      @bot.message(&:handle_message)
+      @bot.member_join(&:handle_join)
+      @bot.member_leave(&:handle_leave)
     end
   end
 end

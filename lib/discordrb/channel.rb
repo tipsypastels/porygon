@@ -1,5 +1,13 @@
 module Discordrb
   class Channel
+    MENTION_FORMAT = /^<#([\d]+)>$/
+    CURRENT_CHANNEL_SHORTHANDS = %w[here .]
+
+    def self.from_argument(error, name, command)
+      return command.channel if name.in?(CURRENT_CHANNEL_SHORTHANDS)
+      command.server.find_text_channel(name) || error[:nonexistant, arg: name]
+    end
+    
     def send_message(content, tts = false, embed = nil, attachments = nil)
       @bot.send_message(@id, content, tts, embed, attachments)
     end

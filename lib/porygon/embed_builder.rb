@@ -63,6 +63,8 @@ module Porygon
       case value
       when NilClass
         # pass
+      when Discordrb::Member, Discordrb::User
+        @hash[:author] = { name: value.username, icon_url: value.avatar_url }
       when Hash
         @hash[:author] = value
       else

@@ -1,0 +1,7 @@
+- Package management
+- Hiding packages
+- Censor @everyone and @here in `#say` calls.
+- Requestable roles.
+- Ban and unban users.
+- Addpet?
+- 

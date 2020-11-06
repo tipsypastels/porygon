@@ -267,3 +267,23 @@ en:
       deleted:
         title: 'Role deleted!'
         description: 'You may now carry on with your day.'
+    setmodlogchannel:
+      _name: Set Mod Log Channel
+      _description: Changes the channel which moderator logs will be sent to. Make sure it's private! You can change this setting at any time, or remove the setting with `removemodlogchannel`.
+      _examples:
+        - '#logs'
+      done:
+        title: 'Channel set!'
+        description: 'Mod logs will be printed in %{channel}.'
+      already:
+        title: "Beat ya to it. Looks like that's already the mod log channel."
+        description: 'No changes made.'
+    removemodlogchannel:
+      _name: Remove Mod Log Channel
+      _description: Disables mod logging in the channel it's currently set to, if any. **Does not delete the channel itself.**
+      done:
+        title: 'Mod logging disabled!'
+        description: 'Change this back at any time with `%{prefix}setmodlogchannel`.'
+      none:
+        title: "Funnily enough, this server doesn't actually *have* a mod log channel."
+        description: 'No changes made.'
