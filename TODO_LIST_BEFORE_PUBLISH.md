@@ -4,4 +4,4 @@
 - Requestable roles.
 - Ban and unban users.
 - Addpet?
-- 
+- Make more things work in DMs, including `!commands`.

@@ -21,7 +21,7 @@ module Porygon
       @cache[[member.server.id, member.id]] = member.joined_at
     end
 
-    def delete(member)
+    def delete_member(member)
       delete_user(member.server, member)
     end
 

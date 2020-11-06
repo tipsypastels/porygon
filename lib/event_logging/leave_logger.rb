@@ -31,14 +31,14 @@ module EventLogging
     def log_in_console
       Porygon::LOGGER.info \
         t 'left_console', name: user.username, 
-                            discrim: user.discriminator,
-                            id: user.id,
-                            server: user.name
+                          discrim: user.discriminator,
+                          id: user.id,
+                          server: user.name
     end
 
     def joined_at
       time = Bot.member_join_cache.user(server, user)
-      time ? time.strftime(JOINED_AT_FORMAT) : t('joined_at_unknown')
+      time&.strftime(JOINED_AT_FORMAT) || t('joined_at_unknown')
     end
 
     def remove_from_cache

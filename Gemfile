@@ -27,8 +27,8 @@ gem 'i18n'
 gem 'i18n-globals'
 
 # Utility
-gem 'activesupport'
 gem 'actionview'
+gem 'activesupport'
 gem 'colorize'
 gem 'dotenv'
 gem 'fast_blank'
