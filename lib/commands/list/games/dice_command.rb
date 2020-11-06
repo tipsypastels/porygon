@@ -2,7 +2,7 @@ module Commands
   class DiceCommand < Command
     self.tags = %w[dice roll diceroll rolldice]
 
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg :rolls, DiceRoll, default: -> { DiceRoll.new }
     end
 

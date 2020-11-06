@@ -2,7 +2,7 @@ module Commands
   class ChangelogCommand < Command
     self.tag = 'changelog'
 
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg :version, Porygon::Version, default: Porygon::Version.current
     end
 

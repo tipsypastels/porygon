@@ -3,7 +3,7 @@ module Commands
     self.tags   = %w[eval !]
     self.access = Permission.bot_owner
 
-    self.args = Arguments.new(self, split: :spaces) do |a|
+    args split: :spaces do |a|
       a.arg :code, String
       a.opt :quiet, optional: true
     end

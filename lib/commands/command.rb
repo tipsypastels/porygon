@@ -5,7 +5,12 @@ module Commands
     include Translatable, Documentable, Listable
 
     class << self
-      attr_accessor :args, :access, :allow_dm
+      attr_accessor :access, :allow_dm
+
+      def args(**opts, &block)
+        return @args unless block_given?
+        @args = Arguments.new(self, **opts, &block)
+      end
 
       def from_argument(error, arg, *)
         TAGS[arg.downcase] || error['nonexistant', arg: arg]

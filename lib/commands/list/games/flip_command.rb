@@ -2,7 +2,7 @@ module Commands
   class FlipCommand < Command
     self.tags = %w[flip coin flipcoin coinflip]
     
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.opt :heads, String, default: t('default.heads')
       a.opt :tails, String, default: t('default.tails')
     end

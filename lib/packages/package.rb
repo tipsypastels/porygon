@@ -1,5 +1,9 @@
 module Packages
   class Package
+    def self.from_argument(...)
+      PackageFinder.find(...)
+    end
+
     include Comparable
 
     attr_reader :tag
@@ -23,6 +27,11 @@ module Packages
 
     def server_specific?
       server_ids.present?
+    end
+
+    def supports?(server)
+      return true unless server_specific?
+      server.resolve_id.in? server_ids
     end
 
     def <=>(other)

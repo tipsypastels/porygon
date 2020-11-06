@@ -2,7 +2,7 @@ module Commands
   class HelpCommand < Command
     self.tag = 'help'
 
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg(:command, Command, optional: true)
     end
 

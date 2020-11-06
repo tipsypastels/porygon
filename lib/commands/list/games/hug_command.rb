@@ -1,7 +1,8 @@
 module Commands
   class HugCommand < Command
-    self.tag  = 'hug'
-    self.args = Arguments.new(self) do |a|
+    self.tag = 'hug'
+    
+    args do |a|
       a.arg :hugged, String
     end
 

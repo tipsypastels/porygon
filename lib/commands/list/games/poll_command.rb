@@ -2,7 +2,7 @@ module Commands
   class PollCommand < Command    
     self.tag = 'poll'
 
-    self.args = Arguments.new(self, split: :never) do |a|    
+    args split: :never do |a|    
       a.arg :poll, Poll
     end
 

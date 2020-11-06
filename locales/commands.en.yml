@@ -287,3 +287,8 @@ en:
       none:
         title: "Funnily enough, this server doesn't actually *have* a mod log channel."
         description: 'No changes made.'
+    package:
+      _name: Package Information
+      _description: Shows information about a package.
+      _examples:
+        - meta

@@ -3,7 +3,7 @@ module Commands
     self.tag    = 'deleterole'
     self.access = Permission.manage_roles
     
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg :role, Discordrb::Role
     end
 

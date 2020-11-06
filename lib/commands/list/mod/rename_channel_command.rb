@@ -3,7 +3,7 @@ module Commands
     self.tags   = %w[renamechannel setchannelname]
     self.access = Permission.manage_channels
 
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg :name, String
     end
 

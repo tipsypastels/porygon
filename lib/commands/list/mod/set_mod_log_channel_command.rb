@@ -3,7 +3,7 @@ module Commands
     self.tag    = 'setmodlogchannel'
     self.access = Permission.manage_server
 
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg :channel, Discordrb::Channel
     end
 

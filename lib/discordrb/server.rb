@@ -25,6 +25,18 @@ module Discordrb
       text_channels.detect { |chan| chan.id == id }
     end
 
+    def find_member(name)
+      if name =~ Member::MENTION_FORMAT
+        member($1.to_i)
+      else
+        find_member_by_query(name)
+      end
+    end
+
+    def find_member_by_query(name)
+      members.detect { |member| member.name_matches_query?(name) }
+    end
+
     def settings
       @settings ||= ServerSetting.find_or_create(id: id)
     end

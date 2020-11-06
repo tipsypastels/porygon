@@ -9,15 +9,18 @@ en:
     games_duck_only:
       name: Games+ (Duck Communism Only)
       description: More games, including inside jokes specific to duck communism members. Not available elsewhere.
-    pacman:
+    package:
       name: Package Management
       description: Package for commands related to package management.
-    globals:
-      name: Globals
-      description: Global basic commands that are always available.
     meta:
       name: Meta
       description: Commands about Porygon itself.
     mod:
       name: Moderation
       description: Mod-only server management.
+    guild:
+      name: Guild
+      description: Commands relating to the current server.
+    operator:
+      name: Operator
+      description: Commands to operate and debug Porygon.

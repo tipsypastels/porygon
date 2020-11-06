@@ -1,7 +1,8 @@
 module Commands
   class CalcCommand < Command
     self.tags = %w[calc calculate math]
-    self.args = Arguments.new(self, split: :spaces) do |a|
+
+    args split: :spaces do |a|
       a.arg :equation, String
     end
 

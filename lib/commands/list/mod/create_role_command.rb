@@ -3,7 +3,7 @@ module Commands
     self.tags   = %w[createrole makerole]
     self.access = Permission.manage_roles
 
-    self.args = Arguments.new(self) do |a|
+    args do |a|
       a.arg :name, String
 
       a.optional do

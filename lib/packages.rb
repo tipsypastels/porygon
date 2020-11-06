@@ -12,6 +12,10 @@ module Packages
       [tag, Package.new(tag)]
     }.to_h
   
+  def self.[](tag)
+    TAGS[tag]
+  end
+
   def self.each
     TAGS.each_value(&block)
   end
