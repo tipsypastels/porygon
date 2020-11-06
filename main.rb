@@ -33,6 +33,7 @@ Startup.log :load_application do
   Loader.collapse(__dir__ + '/lib/resolvers/list')
   Loader.collapse(__dir__ + '/lib/models')
   Loader.collapse(__dir__ + '/lib/core_ext')
+  Loader.collapse(__dir__ + '/lib/services')
   Loader.preload(__dir__ + '/lib/database.rb')
   Loader.preload(__dir__ + '/lib/core_ext')
   Loader.preload(__dir__ + '/lib/discordrb')

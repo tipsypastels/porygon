@@ -6,25 +6,25 @@ module Commands
       a.arg :version, Porygon::Version, default: Porygon::Version.current
     end
 
-    def call
+    def call(version:)
       embed do |e|
         e.color = Porygon::COLORS.info
-        e.title = t('title', version: args.version.id)
-        e.description = args.version.description
+        e.title = t('title', version: version.id)
+        e.description = version.description
         e.thumbnail   = Porygon::Asset('portrait.png')
         
-        if args.version.current?
+        if version.current?
           e.field(t('recency.title'), t('recency.description'))
         end
 
-        e.field(t('changes'), build_changes)
+        e.field(t('changes'), build_changes(version))
       end
     end
 
     private
 
-    def build_changes
-      args.version.changes&.map { "• #{_1}" }&.join("\n")
+    def build_changes(version)
+      version.changes&.map { "• #{_1}" }&.join("\n")
     end
   end
 end

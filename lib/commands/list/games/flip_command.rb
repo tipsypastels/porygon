@@ -7,8 +7,8 @@ module Commands
       a.opt :tails, String, default: t('default.tails')
     end
 
-    def call
-      res = rand > 0.5 ? args.heads : args.tails
+    def call(heads:, tails:)
+      res = rand > 0.5 ? heads : tails
 
       embed do |e|
         e.color = Porygon::COLORS.ok

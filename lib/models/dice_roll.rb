@@ -1,8 +1,8 @@
 class DiceRoll
-  include FromArgument, Enumerable
+  include Enumerable
 
-  def self.from_argument(arg, *)
-    Builder.build(arg)
+  def self.from_argument(error, arg, *)
+    Builder.build(error, arg)
   end
 
   attr_reader :count, :faces, :offset, :total

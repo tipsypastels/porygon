@@ -7,55 +7,45 @@ class Arguments
       @opts = []
       @map  = {}
 
-      @builder  = builder
-      @required = []
-      @defaults = {}
+      @in_optional = false
+      @builder     = builder
     end
 
-    def opt(name, type = nil, default: nil, optional: false)
-      set_required_default(name, optional, default)
-
-      opt = Opt.new(@builder, name, type)
-
-      @map[name] = opt
-      @opts << opt
+    def opt(name, type = nil, default: nil, optional: @in_optional)
+      @opts << Opt.new(@builder, name, type, default, optional)
     end
 
-    def arg(name, type, default: nil, optional: false)
+    def arg(name, type, default: nil, optional: @in_optional)
       check_multi_arg
-      set_required_default(name, optional, default)
-
-      @arg = Arg.new(@builder, name, type)
-      @map[name] = @arg
+      @arg = Arg.new(@builder, name, type, default, optional)
     end
 
-    def each
-      @opts.each { |opt| yield opt }
-      yield @arg if @arg
+    def optional
+      @in_optional = true
+      yield
+    ensure
+      @in_optional = false
     end
 
-    def each_default
-      @defaults.each { |opt, value| yield opt, value }
+    def eat(tokens, command)
+      output = {}
+      each { |opt| opt.eat(tokens, output, command) }
+      output
     end
 
     def usage
       @usage ||= [@arg, *@opts].compact.collect(&:usage).join("\n")
     end
 
-    def first_missing(output_hash)
-      missing = @required.detect { |opt| !output_hash.key?(opt) }
-      @map[missing].missing_name if missing
-    end
-
     private
-
-    def set_required_default(name, optional, default)
-      @required << name unless optional || default
-      @defaults[name] = default if default
-    end
 
     def check_multi_arg
       raise Commands::StaticError, 'multiple_args_unsupported' if @arg
+    end
+
+    def each
+      @opts.each { |opt| yield opt }
+      yield @arg if @arg
     end
   end
 end

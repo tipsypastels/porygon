@@ -8,9 +8,9 @@ module Commands
       a.opt :quiet, optional: true
     end
 
-    def call
-      result = eval(args.code) # rubocop:disable Security/Eval
-      return if args.quiet
+    def call(code:, quiet:)
+      result = eval(code) # rubocop:disable Security/Eval
+      return if quiet
 
       embed do |e|
         e.color = Porygon::COLORS.ok

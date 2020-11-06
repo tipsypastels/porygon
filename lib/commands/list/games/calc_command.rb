@@ -5,8 +5,8 @@ module Commands
       a.arg :equation, String
     end
 
-    def call
-      result = Dentaku!(args.equation)
+    def call(equation:)
+      result = Dentaku!(equation)
       print_result(result)
     rescue => e
       print_error(e)

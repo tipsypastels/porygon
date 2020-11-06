@@ -19,6 +19,9 @@ Layout/TrailingEmptyLines:
 Layout/ArgumentAlignment:
   Enabled: false
 
+Style/RescueModifier:
+  Enabled: false
+
 Layout/HashAlignment:
   Enabled: false
 

@@ -223,12 +223,47 @@ en:
         us-south: ":flag_us: Southern US"
       more_emoji: ", %{count} more..."
     renameserver:
+      _name: Rename Server
+      _description: Changes the server name.
+      _examples:
+        - cool people land
       bot_missing_permission: I don't have permission to rename the server. Sorry!
       renamed: 
         title: "Server renamed." 
         description: "Welcome to %{name}!"
     renamechannel:
+      _name: Rename Channel
+      _description: Changes the current channel's name.
+      _examples:
+        - cool-people-land
       bot_missing_permission: I don't have permission to rename this channel. Sorry!
       renamed: 
         title: "Channel renamed."
         description: "Welcome to %{name}!"
+    createrole:
+      _name: Create Role
+      _description: Creates a role with various options. If used with the `giveme` option, the role will be assigned to you immediately upon creation.
+      _examples:
+        - cool role
+        - ducks --color 14aa70 --giveme
+        - <game name here> --requestable --mentionable
+        - better admins --hoist --above admins
+      bot_missing_permission: I don't have permission to create roles. Sorry!
+      created:
+        title: "All done!"
+        description: "%{role} has been created."
+      'yes': 'Yes'
+      'no': 'No'
+      color: Color
+      hoisted: Hoisted
+      requestable: Requestable
+      mentionable: Mentionable
+    deleterole:
+      _name: Delete Role
+      _description: Deletes a role.
+      _examples:
+        - admins
+      bot_missing_permission: I don't have permission to delete that. Sorry!
+      deleted:
+        title: 'Role deleted!'
+        description: 'You may now carry on with your day.'

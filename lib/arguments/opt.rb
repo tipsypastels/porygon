@@ -2,15 +2,23 @@ class Arguments
   class Opt
     delegate :slice, :convert, to: :@type
 
-    def initialize(builder, long, type)
-      @builder = builder
-      @long    = long.to_s
-      @short   = @long[0]
-      @type    = Converter.for(self, type)
+    def initialize(builder, long, type, default, optional)
+      @builder  = builder
+      @long     = long
+      @short    = long[0]
+      @type     = Converter.for(self, type)
+      @default  = default
+      @optional = optional
+    end
+
+    def name_in_output
+      @long
     end
 
     def eat(tokens, output, command)
-      return unless (index = index_in(tokens))
+      unless (index = index_in(tokens))
+        return output[@long] = default || missing
+      end
 
       result = convert(tokens[index + 1], command)
       slice(tokens, index)
@@ -23,7 +31,8 @@ class Arguments
     end
 
     def usage
-      usage = " -#{@short}, --#{@long}" + @type.usage
+      usage = " -#{@short}, --#{@long}"
+      usage += " #{@type.usage}"  if @type.usage
       usage += ", #{description}" if description
       usage
     end
@@ -33,11 +42,23 @@ class Arguments
     end
 
     def description
-      @description ||= t('description')
+      @description ||= t('description', default: nil)
     end
 
     def t(key, **interps)
       @builder.t("#{@long}.#{key}", **interps)
+    end
+
+    private
+
+    def default
+      @default.is_a?(Proc) ? @default.call : @default 
+    end
+
+    def missing
+      unless @optional
+        raise Commands::RuntimeError.new 'missing_arg', arg: @long
+      end
     end
   end
 end

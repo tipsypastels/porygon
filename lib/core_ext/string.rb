@@ -1,7 +1,5 @@
 class String
-  include FromArgument
-
-  def self.from_argument(arg, *)
+  def self.from_argument(_error, arg, *)
     arg.to_s
   end
 end

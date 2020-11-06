@@ -7,9 +7,9 @@ module Commands
       a.arg :name, String
     end
 
-    def call
+    def call(name:)
       with_bot_permission_handling do
-        channel.name = args.name
+        channel.name = name
         
         embed do |e|
           e.color       = Porygon::COLORS.ok

@@ -5,11 +5,11 @@ module Commands
       a.arg :hugged, String
     end
 
-    def call
+    def call(hugged:)
       embed do |e|
         e.color = Porygon::COLORS.ok 
-        e.title = t('title', hugged: args.hugged)
-        e.description = t('description', hugged: args.hugged, stat: stat)
+        e.title = t('title', hugged: hugged)
+        e.description = t('description', hugged: hugged, stat: stat)
       end
     end
 

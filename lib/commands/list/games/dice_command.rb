@@ -6,13 +6,11 @@ module Commands
       a.arg :rolls, DiceRoll, default: -> { DiceRoll.new }
     end
 
-    delegate :rolls, to: :args
-
-    def call
+    def call(rolls:)
       embed do |e|
         e.color = Porygon::COLORS.ok
         e.title = t('title')
-        e.description = t('description', rolls: build_description)
+        e.description = t('description', rolls: describe(rolls))
         
         e.inline do
           e.field(t('total'), rolls.display_total)
@@ -24,7 +22,7 @@ module Commands
 
     private
 
-    def build_description
+    def describe(rolls)
       rolls.to_s { |pass| t(pass ? 'pass' : 'fail') }
     end
   end

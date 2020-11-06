@@ -6,9 +6,9 @@ module Commands
       a.arg :message, String, optional: true
     end
 
-    def call
+    def call(message:)
       markov = Bot.markov.open(server)
-      markov.feed(args.message) if args.message.present?
+      markov.feed(message) if message.present?
 
       say markov.generate
 

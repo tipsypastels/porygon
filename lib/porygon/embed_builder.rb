@@ -24,7 +24,7 @@ module Porygon
     end
 
     ELEMENTARY_GETTERS = %i[title color description footer author thumbnail]
-    ELEMENTARY_SETTERS = %i[title color description]
+    ELEMENTARY_SETTERS = %i[title description]
 
     ELEMENTARY_GETTERS.each do |prop|
       define_method(prop) { @hash[prop] }
@@ -34,6 +34,17 @@ module Porygon
       define_method(:"#{prop}=") do |val| 
         converted_val = convert(val)
         @hash[prop] = converted_val if converted_val
+      end
+    end
+
+    def color=(value)
+      case value
+      when NilClass
+        # pass
+      when Color
+        @hash[:color] = value.to_i
+      else
+        @hash[:color] = value
       end
     end
 

@@ -14,13 +14,14 @@ class DiceRoll
       $
     /x
 
-    def self.build(arg)
-      new(arg).build
+    def self.build(error, arg)
+      new(error, arg).build
     end
 
     attr_reader :match
 
-    def initialize(arg)
+    def initialize(error, arg)
+      @error = error
       @match = find_match(arg)
     end
 
@@ -55,11 +56,7 @@ class DiceRoll
     end
 
     def find_match(arg)
-      arg.delete(' ').match(FORMAT) || arg_err(:malformed, arg: arg)
-    end
-
-    def arg_err(...)
-      DiceRoll.arg_err(...)
+      arg.delete(' ').match(FORMAT) || @error[:malformed, arg: arg]
     end
   end
 end

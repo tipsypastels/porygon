@@ -1,14 +1,12 @@
 class Poll
-  include FromArgument
-
   MAX = 10
 
   class << self
-    def from_argument(arg, *)
+    def from_argument(error, arg, *)
       question, *options = arg.split(/\s*\|\s*/)
 
-      return arg_err(:one_option)                 if options.size == 1
-      return arg_err(:too_many_options, max: MAX) if options.size > MAX
+      return error[:one_option]                 if options.size == 1
+      return error[:too_many_options, max: MAX] if options.size > MAX
 
       new(question, options)
     end

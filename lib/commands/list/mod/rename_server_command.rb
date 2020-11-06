@@ -7,14 +7,14 @@ module Commands
       a.arg :name, String
     end
 
-    def call
+    def call(name:)
       with_bot_permission_handling do
-        server.name = args.name
+        server.name = name
 
         embed do |e|
           e.color       = Porygon::COLORS.ok
           e.title       = t('renamed.title')
-          e.description = t('renamed.description', name: args.name)
+          e.description = t('renamed.description', name: name)
         end
       end
     end

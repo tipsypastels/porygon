@@ -1,5 +1,5 @@
 class Arguments
-  delegate :arg, :opt, :usage, to: :@stack
+  delegate :arg, :opt, :optional, :usage, to: :@stack
 
   def initialize(command, **config)
     @command = command
@@ -10,7 +10,7 @@ class Arguments
   end
 
   def parse(raw, command_instance)
-    Parser.parse(tokenize(raw), command_instance, @stack)
+    @stack.eat(tokenize(raw), command_instance)
   end
 
   def t(key, **opts)

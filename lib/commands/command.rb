@@ -2,18 +2,18 @@ module Commands
   class Command
     include Porygon::MessageFormatter
     include Packaged, Respondable, Taggable, Rescuable
-    include Translatable, Documentable, Listable, FromArgument
+    include Translatable, Documentable, Listable
 
     class << self
       attr_accessor :args, :access, :allow_dm
 
-      def from_argument(arg, *)
-        TAGS[arg.downcase] || arg_err('nonexistant', arg: arg)
+      def from_argument(error, arg, *)
+        TAGS[arg.downcase] || error['nonexistant', arg: arg]
       end
     end
 
-    attr_reader :message, :args, :used_tag, :raw_args
-    delegate :channel, to: :message
+    attr_reader :message, :used_tag, :raw_args
+    delegate :channel, :author, to: :message
     delegate :server, to: :channel
     delegate :access, :allow_dm, :usage, to: :class
   
@@ -27,16 +27,19 @@ module Commands
       return unless should_call?
       
       with_error_handling do
-        parse_args
-        call
+        call_with_args
         CommandLogger.used_command(self)
       end
     end
 
     private
 
+    def call_with_args
+      self.class.args ? call(**parse_args) : call
+    end
+
     def parse_args
-      @args = self.class.args&.parse(raw_args, self)
+      self.class.args&.parse(raw_args, self)
     end
 
     def should_call?

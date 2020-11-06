@@ -1,6 +1,6 @@
 module Porygon
   class Version
-    include Comparable, FromArgument
+    include Comparable
 
     class << self
       def current
@@ -15,18 +15,12 @@ module Porygon
         id.in? ids
       end
 
-      def try_convert(arg)
-        Integer(arg)
-      rescue
-        arg_err(:malformed, version: arg)
-      end
-
-      def from_argument(arg, *)
+      def from_argument(error, arg, *)
         arg.sub!(/^[v#]/, '')
-        code = try_convert(arg)
+        code = Integer(arg) rescue error[:malformed, version: arg]
 
         unless exist?(code)
-          return arg_err(:nonexistant, version: code, current: current.id)
+          return error[:nonexistant, version: code, current: current.id]
         end
          
         new(code)

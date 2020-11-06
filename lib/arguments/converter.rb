@@ -14,7 +14,7 @@ class Arguments
     end
 
     def convert(value, command)
-      @type.from_argument(value, command)      
+      @type.from_argument(method(:arg_error), value, command)      
     end
 
     def slice(tokens, index)
@@ -23,6 +23,15 @@ class Arguments
 
     def usage
       @opt.t('name', default: @type.to_s.demodulize).upcase
+    end
+
+    private
+
+    def arg_error(key, **interps)
+      raise Commands::RuntimeError.new(
+        "conversions.#{@type.name.underscore}.#{key}",
+        **interps,
+      )
     end
 
     class NullConverter
@@ -35,7 +44,7 @@ class Arguments
       end
 
       def usage
-        ''
+        nil
       end
     end
     private_constant :NullConverter

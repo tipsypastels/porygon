@@ -30,6 +30,8 @@ en:
         conversions:
           commands/command:
             nonexistant: "There is no command named `%{arg}`. Use `%{prefix}commands` to see a list of commands."
+          discordrb/role:
+            nonexistant: "I couldn't find a role named `%{arg}`. Sure you got it right?"
           porygon/version:
             nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
             malformed: "`%{version}` is not a valid version. Versions are positive integers."
@@ -38,7 +40,7 @@ en:
           poll:
             one_option: "You can't have a poll with only one choice! Provide at least two options, or no options for a yes/no style poll."
             too_many_options: "Hey, that's a little overboard. Polls are limited to %{max} options."
-          yes_no_argument:
-            malformed: "`%{arg}` doesn't look like a yes-no answer to me."
+          color:
+            malformed: "`%{arg}` isn't a color as var as I can tell!. Valid formats for colours are any of the following: `#ff0000`, `11806a`, or `ff0`."
       unknown:
         title: Hmmm. That's an error.

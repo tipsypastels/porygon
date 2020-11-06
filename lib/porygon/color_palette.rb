@@ -12,7 +12,7 @@ module Porygon
     end
 
     def parse_json
-      JSON.parse(read_file).transform_values { |color| color.to_i(16) }
+      JSON.parse(read_file).transform_values { |color| Color.from_s(color) }
     end
 
     def read_file
