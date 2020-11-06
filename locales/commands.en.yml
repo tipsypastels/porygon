@@ -290,6 +290,8 @@ en:
     globalignore:
       _name: Global Ignore
       _description: Ignores a member on every server.
+      _examples:
+        - Inky
       done:
         title: "Member ignored!"
         description: "%{member} can no longer access Porygon on any server."
@@ -302,6 +304,8 @@ en:
     globalunignore:
       _name: Global Unignore
       _description: Unignores a member on every server.
+      _examples:
+        - Inky
       done:
         title: "Member unignored!"
         description: "%{member} can access Porygon again (note that individual servers may still ignore them)."
