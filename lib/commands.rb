@@ -4,9 +4,6 @@ module Commands
   ALL  = []
   TAGS = {}
 
-  StaticError  = TranslatedError.new('command_env.errors.static')
-  RuntimeError = TranslatedError.new('command_env.errors.runtime')
-
   class << self
     delegate :each, to: :all
 

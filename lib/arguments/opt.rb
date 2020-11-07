@@ -57,7 +57,7 @@ class Arguments
 
     def missing
       unless @optional
-        raise Commands::RuntimeError.new 'missing_arg', arg: @long
+        raise Commands::UsageError.new 'missing_arg', arg: @long
       end
     end
   end

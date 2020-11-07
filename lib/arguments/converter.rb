@@ -28,7 +28,7 @@ class Arguments
     private
 
     def arg_error(key, **interps)
-      raise Commands::RuntimeError.new(
+      raise Commands::UsageError.new(
         "conversions.#{@type.name.underscore}.#{key}",
         **interps,
       )

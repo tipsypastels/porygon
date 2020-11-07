@@ -5,8 +5,8 @@ module Commands
         info command_log(command, 'used_command')
       end
 
-      def runtime_error(command)
-        info command_log(command, 'runtime_error')
+      def usage_error(command)
+        info command_log(command, 'usage_error')
       end
 
       def permission_error(command, reason)

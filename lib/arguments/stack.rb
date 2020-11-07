@@ -40,7 +40,8 @@ class Arguments
     private
 
     def check_multi_arg
-      raise Commands::StaticError, 'multiple_args_unsupported' if @arg
+      return unless @arg
+      raise NotImplementedError, 'Multiple command arguments are not supported.'
     end
 
     def each
