@@ -2,8 +2,12 @@ module Commands
   class MuteCommand < Command
     include CommandMixins::WithMutedRole
 
+    T = Porygon::LOCALE.create_scope('commands.mute')
+
     self.tags   = %w[mute silence]
     self.access = Permission.manage_roles
+
+    register tags: %w[mute silence], user_access: :manage_roles
 
     args do |a|
       a.arg :member, Discordrb::Member

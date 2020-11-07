@@ -1,6 +1,7 @@
 module Porygon
   COLORS = ColorPalette.new
   LOGGER = Logger.new
+  LOCALE = Locale.new
   
   class << self
     def spawn_bot
