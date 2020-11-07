@@ -1,6 +1,5 @@
 module Discordrb
   class Server
-
     def find_role(name)
       if name =~ Role::MENTION_FORMAT
         role($1)
@@ -48,6 +47,16 @@ module Discordrb
 
     def mod_log_channel=(channel)
       settings.update(mod_log_channel_id: channel&.id)
+    end
+
+    MUTED = 'muted'.freeze
+
+    def muted_role
+      if (custom_id = settings.muted_role_id)
+        role(custom_id)
+      else
+        roles.detect { |role| role.name.casecmp(MUTED).zero? }
+      end
     end
   end
 end

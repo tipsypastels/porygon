@@ -1,0 +1,12 @@
+what still sucks
+
+- embeds are repetitive
+- check permissions instead of time instead of catching in block
+- "Permissions." just pass a symbol, dude
+- long translation keys
+- sharing lines between commands?
+- .description=
+- force set access to ensure security correctness
+- maybe use a register macro instead of self setters
+- command has too many mixins
+- write your own i18n instead, instead of definining "#t" all over the place, make a static method that returns a proc or something? and then be able to make further procs based on that. and define them as constants so you can reach around namespaces.

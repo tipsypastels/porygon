@@ -384,6 +384,13 @@ en:
       not_ignored:
         title: "%{member} is not globally ignored!"
         description: 'No changes made.'
+    mute:
+      _description: 'Gives a muted role to a member.'
+      _examples:
+        - Inky
+      muted:
+        title: 'Member muted!'
+        description: 'Remove the muted role at any time with `%{prefix}unmute`.'
     package:
       _name: Package Information
       _description: Shows information about a package.
@@ -496,6 +503,11 @@ en:
         start_bot:
           text: Everything is ready, starting Porygon!
           color: magenta
+  command_mixins:
+    with_muted_role:
+      missing:
+        title: "This server doesn't have a muted role!"
+        description: "Either create a role with the name \"Muted\", or use `%{prefix}setMutedRole` to set it to a role with a different name."
   changelog:
     11:
       changes:
