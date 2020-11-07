@@ -1,4 +1,51 @@
 en:
+  command_env:
+    logging:
+      location:
+        server: "#%{channel}, %{server}"
+        dm: "direct messages"
+      used_command: "%{name} used command \"%{tag}\" in %{location}."
+      unknown_command: "%{name} used unknown command \"%{tag}\" in %{location}."
+      usage_error: "%{name} encountered a usage error using command \"%{tag}\" in %{location}."
+      permission_error: "%{name} was denied use of \"%{tag}\" in %{location}. Reason: %{reason}."
+      ignore_server: "Server-ignored user %{name} tried to use \"%{tag}\" in %{location}, but was ignored."
+      ignore_global: "Global-ignored user %{name} tried to use \"%{tag}\" in %{location}, but was ignored."
+      permission_error_reasons:
+        not_bot_owner: 'Not the bot owner'
+        lacks_permission: 'Lacks permission %{permission}'
+        not_a_member: 'Not a Discordrb::Member'
+    errors:
+      bot_missing_permission: "I don't have permission to do that! Sorry."
+      usage:
+        base:
+          title: Looks like you're using the command wrong.
+          description: " Here's how to use `%{prefix}%{command}`.%{usage}"
+          footer: "For more information, see %{prefix}help %{command}."
+          usage: Usage
+          examples: Examples
+        missing_arg: Did you forget to provide a value for `%{arg}`?
+        wrong_arg_type: Looks like you provided the wrong type of value for `%{arg}`! Here's how you use it.
+        conversions:
+          commands/command:
+            nonexistant: "There is no command named `%{arg}`. Use `%{prefix}commands` to see a list of commands."
+          packages/package:
+            nonexistant: "There is no package named `%{arg}`."
+          discordrb/role:
+            nonexistant: "I couldn't find a role named `%{arg}`. Sure you got it right?"
+          discordrb/channel:
+            nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
+          porygon/version:
+            nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
+            malformed: "`%{version}` is not a valid version. Versions are positive integers."
+          dice_roll:
+            malformed: "`%{arg}` is not a valid dice roll. Dice rolls should be either a single positive number representing the number of times to roll, or a value in dice notation, such as `2d20`, representing the number of times to roll and the number of faces per die, respectively."
+          poll:
+            one_option: "You can't have a poll with only one choice! Provide at least two options, or no options for a yes/no style poll."
+            too_many_options: "Hey, that's a little overboard. Polls are limited to %{max} options."
+          color:
+            malformed: "`%{arg}` isn't a color as var as I can tell!. Valid formats for colours are any of the following: `#ff0000`, `11806a`, or `ff0`."
+      unknown:
+        title: Hmmm. That's an error.
   commands:
     help:
       _description: Displays help information about commands.
@@ -343,3 +390,168 @@ en:
       _examples:
         - meta
       commands: Commands in this package
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one:   "less than 1 second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one:   "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one:   "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "about 1 hour"
+        other: "about %{count} hours"
+      x_days:
+        one:   "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one:   "about 1 month"
+        other: "about %{count} months"
+      x_months:
+        one:   "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one:   "about 1 year"
+        other: "about %{count} years"
+      over_x_years:
+        one:   "over 1 year"
+        other: "over %{count} years"
+      almost_x_years:
+        one:   "almost 1 year"
+        other: "almost %{count} years"
+    prompts:
+      year:   "Year"
+      month:  "Month"
+      day:    "Day"
+      hour:   "Hour"
+      minute: "Minute"
+      second: "Seconds"
+  event_logging:
+    join_logger:
+      joined_console: "%{name}#%{discrim} (%{id}) joined %{server}."
+      joined: Member Joined
+      name: Name
+      discriminator: Discriminator
+      id: ID
+      age: Account Age
+    leave_logger:
+      left_console: "%{name}#%{discrim} (%{id}) left %{server}."
+      left: Member Left
+      name: Name
+      discriminator: Discriminator
+      id: ID
+      joined_at: Joined At
+      joined_at_unknown: Unknown
+  packages:
+    ai:
+      name: AI
+      description: The `!pory` command for speaking to the bot.
+    games:
+      name: Games
+      description: Random utility or fun commands.
+    games_duck_only:
+      name: Games+ (Duck Communism Only)
+      description: More games, including inside jokes specific to duck communism members. Not available elsewhere.
+    package:
+      name: Package Management
+      description: Package for commands related to package management.
+    meta:
+      name: Meta
+      description: Commands about Porygon itself.
+    mod:
+      name: Moderation
+      description: Mod-only server management.
+    guild:
+      name: Guild
+      description: Commands relating to the current server.
+    operator:
+      name: Operator
+      description: Commands to operate and debug Porygon.
+  porygon:
+    internals:
+      startup:
+        check: ✓
+        load_gems:
+          text: Loading gems...
+          color: red
+        configure_gems:
+          text: Configuring loaded gems...
+          color: yellow
+        load_application:
+          text: Loading bot application...
+          color: green
+        register_commands:
+          text: Registering packages and commands...
+          color: light_blue
+        create_bot:
+          text: Creating Porygon instance..
+          color: blue
+        start_bot:
+          text: Everything is ready, starting Porygon!
+          color: magenta
+  changelog:
+    11:
+      changes:
+        - 'Removed, split, and merged some packages.'
+        - 'Packages are now derived from the filesystem instead of explicitly defined.'
+        - 'Removed some unused error utilities and simplified `TranslatedError`.'
+        - 'Shorter syntax for defining command arguments.'
+        - "Added back the `%{prefix}package` command, but it doesn't do much yet."
+        - "Added `%{prefix}globalIgnore` and `%{prefix}globalUnignore`."
+        - "Added `%{prefix}botIgnore` and `%{prefix}botUnignore`."
+    10:
+      changes:
+        - 'Turned off Discordrb logging.'
+        - 'Add logging of command usage and errors.'
+        - 'For security, commands now default to disabled in DMs unless explicitly set otherwise.'
+        - 'Added Ruby-style setter command syntax, where `%{prefix}x = ...` is an alias for `%{prefix}setx ...`.'
+        - 'Added `%{prefix}renameServer` and `%{prefix}renameChannel`.'
+        - 'Rebuilt the permission checks system.'
+    9:
+      changes:
+        - 'Fixed translations for converters inside namespaces.'
+        - '`#` is now allowed at the front of a `Porygon::Version` argument.'
+    8:
+      description: 'The poll update.'
+      changes:
+        - 'Added `%{prefix}poll`.'
+    7:
+      changes:
+        - "Package list sorting is now deterministic."
+        - "Rewrote arguments parsing (again)"
+        - "Added `%{prefix}inky`."
+    6:
+      changes:
+        - "Added `%{prefix}thanos`."
+    5:
+      changes:
+        - "`%{prefix}dice` now uses dice notation instead of flags."
+    4:
+      changes:
+        - "Improved error handling."
+        - "Removed the variables feature from `%{prefix}calc`."
+        - "`%{prefix}pory` works with quotes now."
+        - "Versions are now consecutive integers rather than semver."
+    3:
+      description: Mostly meta stuff this time around.
+      changes:
+        - "Added `%{prefix}version` and `%{prefix}changelog`."
+        - "`%{prefix}ping` now uses an embed."
+        - "Renamed package `debug` to `meta`."
+    2:
+      description: This update includes many minor changes to command semantics.
+      changes:
+        - "Added `%{prefix}help` and `%{prefix}commands`."
+        - "Pory is back to generating one sentence instead of two. Funnier."
+        - "You can put multiple words in command options now by wrapping them in quotes, such as `%{prefix}flip -h \"do it\" -t \"don't do it\"`."
+        - "`%{prefix}calc` is much smarter now, has better error messages and lets you define variables in a block at the beginning `%{prefix}calc x = 1, y = 2 || x + y`."
+        - "Re-broke `%{prefix}dice` working with zero rolls. For now."
+    1:
+      description: In the beginning, Porygon was created.
