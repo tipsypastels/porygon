@@ -1,6 +1,6 @@
 module EventLogging
   class LeaveLogger < EventLogger
-    JOINED_AT_FORMAT = '%a, %d %B %Y %I:%M %p GMT'
+    TIME_FORMAT = '%a, %d %B %Y %I:%M %p GMT'
 
     attr_reader :user
     
@@ -38,7 +38,7 @@ module EventLogging
 
     def joined_at
       time = Bot.member_join_cache.user(server, user)
-      time&.strftime(JOINED_AT_FORMAT) || t('joined_at_unknown')
+      time&.strftime(TIME_FORMAT) || t('joined_at_unknown')
     end
 
     def remove_from_cache
