@@ -8,3 +8,4 @@ things that aren't important enough to delay publishing but you should definitel
 - error checking for specific roles that cannot be edited, like roles above pory's
 - adding packages automagically to all new channels for duck com
 - manually calling destroy all on EnabledPackage doesn't update cache, maybe not calling hooks? never happens in practice but nice to fix
+- don't keep around EnabledPackage data from deleted channels (right now `#compact` is used to hide them)

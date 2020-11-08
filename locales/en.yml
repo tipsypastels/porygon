@@ -301,7 +301,6 @@ en:
         - cool role
         - ducks --color 14aa70 --giveme
         - <game name here> --requestable --mentionable
-        - better admins --hoist --above admins
       created:
         title: "All done!"
         desc: "%{role} has been created."
