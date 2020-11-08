@@ -26,8 +26,10 @@ module Porygon
       ary.map(&method(:code_block))
     end
 
-    def yes_no(bool)
-      bool ? 'Yes' : 'No'
+    EVERYONE_OR_HERE = /@(?:here|everyone)/
+
+    def clean_everyone_and_here(text)
+      text.gsub(EVERYONE_OR_HERE, '')
     end
   end
 end

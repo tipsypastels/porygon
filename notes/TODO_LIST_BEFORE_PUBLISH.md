@@ -1,7 +1,5 @@
 - Package management
 - Hiding packages
-- Censor @everyone and @here in `#say` calls.
 - Requestable roles.
 - Ban and unban users.
 - Addpet?
-- Make more things work in DMs, including `!commands`.
