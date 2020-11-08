@@ -33,7 +33,7 @@ class Arguments
     def usage
       usage = " -#{@short}, --#{@long}"
       usage += " #{@type.usage}"  if @type.usage
-      usage += ", #{description}" if description
+      usage += ", #{desc}" if desc
       usage
     end
 
@@ -41,8 +41,8 @@ class Arguments
       "--#{@long}"
     end
 
-    def description
-      @description ||= t('description', default: nil)
+    def desc
+      @desc ||= t('desc', default: nil)
     end
 
     def t(key, **interps)

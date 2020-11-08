@@ -15,16 +15,19 @@ en:
         lacks_permission: 'Lacks permission %{permission}'
         not_a_member: 'Not a Discordrb::Member'
     errors:
-      bot_missing_permission: "I don't have permission to do that! Sorry."
+      bot_perm: 
+        title: "I don't have permission to do that! Sorry."
+        desc: "I need the `%{perm}` permission to make this command work. If you believe this is a mistake, please poke a server staff member."
       usage:
         base:
           title: Looks like you're using the command wrong.
-          description: " Here's how to use `%{prefix}%{command}`.%{usage}"
+          desc: " Here's how to use `%{prefix}%{command}`.%{usage}"
           footer: "For more information, see %{prefix}help %{command}."
           usage: Usage
           examples: Examples
         missing_arg: Did you forget to provide a value for `%{arg}`?
         wrong_arg_type: Looks like you provided the wrong type of value for `%{arg}`! Here's how you use it.
+        no_muted_role: 'You must first define a muted role to use this command! Either create a role with the name "Muted" and the desired effects, or use `%{prefix}setMutedRole` to select an arbitrary role.'
         conversions:
           commands/command:
             nonexistant: "There is no command named `%{arg}`. Use `%{prefix}commands` to see a list of commands."
@@ -48,7 +51,7 @@ en:
         title: Hmmm. That's an error.
   commands:
     help:
-      _description: Displays help information about commands.
+      _desc: Displays help information about commands.
       _examples:
         - 
         - ping
@@ -63,32 +66,32 @@ en:
         footer:
           text: Created by Dakota.
           icon_url: https://i.imgur.com/uTRBrKS.png
-        description: You can get a list of commands using `%{prefix}commands`. To get detailed information about a specific command, re-run `%{prefix}help` with the name of that command - for example, `%{prefix}help ping`! If anything else confuses you, don't be afraid to ask!
+        desc: You can get a list of commands using `%{prefix}commands`. To get detailed information about a specific command, re-run `%{prefix}help` with the name of that command - for example, `%{prefix}help ping`! If anything else confuses you, don't be afraid to ask!
     commands:
       title: Command List
-      description: To get information about a specific command, use `%{prefix}help` with the name of the command. For example, `%{prefix}help ping`.
+      desc: To get information about a specific command, use `%{prefix}help` with the name of the command. For example, `%{prefix}help ping`.
     pory:
-      _description: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
+      _desc: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
       _examples:
         -
         - how are you today, pory?
     eval:
       _name: Evaluate
-      _description: If you don't know what this does, you shouldn't be using it.
+      _desc: If you don't know what this does, you shouldn't be using it.
       _args:
         quiet:
-          description: Silences output.
+          desc: Silences output.
     ping:
-      _description: Says hi from Porygon.
+      _desc: Says hi from Porygon.
       title: ':sparkles: Pong! Porygon is online~'
-      description: "_beep boop_ How are you all today?"
+      desc: "_beep boop_ How are you all today?"
       footer: "Running Porygon Update #%{version}."
     version:
-      _description: Prints the current version of Porygon.
+      _desc: Prints the current version of Porygon.
       title: "Porygon Update #%{version} reporting for duty!"
-      description: "You can see what's new in this version, or any previous version, by using `%{prefix}changelog` with the version number. For example, `%{prefix}changelog %{version}`."
+      desc: "You can see what's new in this version, or any previous version, by using `%{prefix}changelog` with the version number. For example, `%{prefix}changelog %{version}`."
     changelog:
-      _description: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
+      _desc: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
       _examples:
         - 
         - 4
@@ -96,16 +99,16 @@ en:
       changes: Changes
       recency:
         title: Recency
-        description: "✅ This is the latest version."
+        desc: "✅ This is the latest version."
     hug:
-      _description: Sends an internet hug.
+      _desc: Sends an internet hug.
       _args:
         hugged:
           name: thing to hug
       _examples:
         - pory
       title: "You hug **%{hugged}**!"
-      description: ":hugging: **%{hugged}**'s %{stat} rose!"
+      desc: ":hugging: **%{hugged}**'s %{stat} rose!"
       stats:
         - Attack
         - Defense
@@ -114,7 +117,7 @@ en:
         - Special Defense
         - HP
     nudge:
-      _description: Never use this it literally causes natural disasters.
+      _desc: Never use this it literally causes natural disasters.
       killed: "%{members} were killed."
       disasters:
         - 'Buildings crumble'
@@ -133,7 +136,7 @@ en:
         - 'Random ceiling tiles fall down'
         - 'The floor shakes and cracks'
     inky:
-      _description: '🥺'
+      _desc: '🥺'
       messages:
         - '🥺'
         - '<:femmeduck:773701798292095008>'
@@ -143,16 +146,16 @@ en:
         - "When I was a young boy, my father took me into the city, to see a marching band. He said, \"Son, when you grow up, would you be the savior of the broken, the beaten, and the damned?\" He said, \"Will you defeat them, your demons, and all the non-believers? The plans that they have made? Because one day, I'll leave you, a phantom to lead you in the summer... To join the black parade.\""
         - 'pleading is the most fun an inky can have without taking his clothes off'
     thanos:
-      _description: Rolls the dice on your fate.
+      _desc: Rolls the dice on your fate.
       spare: 
         title: You were spared by Thanos. 
-        description: The universe is now perfectly balanced, as all things should be.
+        desc: The universe is now perfectly balanced, as all things should be.
       kill: 
         title: Miss Pory... I don't feel so good, you say... 
-        description: You were slain by Thanos, for the good of the Universe.
+        desc: You were slain by Thanos, for the good of the Universe.
     calc:
       _name: Calculate
-      _description: Does your math homework.
+      _desc: Does your math homework.
       _examples:
         - 1 + 1
         - max(1, 2, 3)
@@ -174,12 +177,12 @@ en:
           close_paren: Seems that you have an unmatched close parentheses there.
       result: Aaaand the answer is...
     flip:
-      _description: Flips a coin.
+      _desc: Flips a coin.
       _args:
         heads:
-          description: Name of heads coin.
+          desc: Name of heads coin.
         tails:
-          description: Name of tails coin.
+          desc: Name of tails coin.
       _examples:
         - 
         - --heads "do it" --tails "don't do it"
@@ -189,7 +192,7 @@ en:
       result:
         title: Coin Flip
     poll:
-      _description: Creates a simple vote-by-reaction poll. You can add specific options by separating them with pipes (`|`) or leave them off for a yes-no poll. Polls are limited to 10 options as a maxiumum.
+      _desc: Creates a simple vote-by-reaction poll. You can add specific options by separating them with pipes (`|`) or leave them off for a yes-no poll. Polls are limited to 10 options as a maxiumum.
       _args:
         poll:
           name: "[question] [| options |]..."
@@ -230,14 +233,14 @@ en:
         - 🇾
         - 🇿
     dice:
-      _description: Rolls one or more dice. Supports dice notation. You can append the `=`, `!=`, `>`, `<`, `>=`, or `<=` operators to compare the result of each roll with a given value, in which case passes and fails will be counted.
+      _desc: Rolls one or more dice. Supports dice notation. You can append the `=`, `!=`, `>`, `<`, `>=`, or `<=` operators to compare the result of each roll with a given value, in which case passes and fails will be counted.
       _examples:
         -
         - '3'
         - '3d6'
         - '2d20 >= 10'
       title: Dice Roll
-      description: ":game_die: %{rolls}"
+      desc: ":game_die: %{rolls}"
       total: Total
       pass_fail: Pass / Fail
       threshold: Pass Threshold
@@ -245,7 +248,7 @@ en:
       fail: (Fail)
     guild:
       _name: Server Information
-      _description: Prints information about the current server.
+      _desc: Prints information about the current server.
       title: Server Information
       name: Name
       owner: Owner
@@ -271,34 +274,31 @@ en:
       more_emoji: ", %{count} more..."
     renameserver:
       _name: Rename Server
-      _description: Changes the server name.
+      _desc: Changes the server name.
       _examples:
         - cool people land
-      bot_missing_permission: I don't have permission to rename the server. Sorry!
       renamed: 
         title: "Server renamed." 
-        description: "Welcome to %{name}!"
+        desc: "Welcome to %{name}!"
     renamechannel:
       _name: Rename Channel
-      _description: Changes the current channel's name.
+      _desc: Changes the current channel's name.
       _examples:
         - cool-people-land
-      bot_missing_permission: I don't have permission to rename this channel. Sorry!
       renamed: 
         title: "Channel renamed."
-        description: "Welcome to %{name}!"
+        desc: "Welcome to %{name}!"
     createrole:
       _name: Create Role
-      _description: Creates a role with various options. If used with the `giveme` option, the role will be assigned to you immediately upon creation.
+      _desc: Creates a role with various options. If used with the `giveme` option, the role will be assigned to you immediately upon creation.
       _examples:
         - cool role
         - ducks --color 14aa70 --giveme
         - <game name here> --requestable --mentionable
         - better admins --hoist --above admins
-      bot_missing_permission: I don't have permission to create roles. Sorry!
       created:
         title: "All done!"
-        description: "%{role} has been created."
+        desc: "%{role} has been created."
       'yes': 'Yes'
       'no': 'No'
       color: Color
@@ -307,93 +307,93 @@ en:
       mentionable: Mentionable
     deleterole:
       _name: Delete Role
-      _description: Deletes a role.
+      _desc: Deletes a role.
       _examples:
         - admins
-      bot_missing_permission: I don't have permission to delete that. Sorry!
       deleted:
         title: 'Role deleted!'
-        description: 'You may now carry on with your day.'
+        desc: 'You may now carry on with your day.'
     setmodlogchannel:
       _name: Set Mod Log Channel
-      _description: Changes the channel which moderator logs will be sent to. Make sure it's private! You can change this setting at any time, or remove the setting with `removemodlogchannel`.
+      _desc: Changes the channel which moderator logs will be sent to. Make sure it's private! You can change this setting at any time, or remove the setting with `removemodlogchannel`.
       _examples:
         - '#logs'
       done:
         title: 'Channel set!'
-        description: 'Mod logs will be printed in %{channel}.'
+        desc: 'Mod logs will be printed in %{channel}.'
       already:
         title: "Beat ya to it. Looks like that's already the mod log channel."
-        description: 'No changes made.'
+        desc: 'No changes made.'
     removemodlogchannel:
       _name: Remove Mod Log Channel
-      _description: Disables mod logging in the channel it's currently set to, if any. **Does not delete the channel itself.**
+      _desc: Disables mod logging in the channel it's currently set to, if any. **Does not delete the channel itself.**
       done:
         title: 'Mod logging disabled!'
-        description: 'Change this back at any time with `%{prefix}setmodlogchannel`.'
+        desc: 'Change this back at any time with `%{prefix}setmodlogchannel`.'
       none:
         title: "Funnily enough, this server doesn't actually *have* a mod log channel."
-        description: 'No changes made.'
+        desc: 'No changes made.'
     botignore:
       _name: Ignore
-      _description: Ignores a member on the current server.
+      _desc: Ignores a member on the current server.
       _examples:
         - Inky
       done:
         title: "Member ignored!"
-        description: "%{member} can no longer access Porygon on this server."
+        desc: "%{member} can no longer access Porygon on this server."
       no_author:
         title: 'Wait wait wait wait wait.'
-        description: "You can't ignore yourself :("
+        desc: "You can't ignore yourself :("
       already:
         title: "%{member} is already ignored on this server!"
-        description: 'No changes made.'
+        desc: 'No changes made.'
     botunignore:
       _name: Unignore
-      _description: Unignores a member on the current server.
+      _desc: Unignores a member on the current server.
       _examples:
         - Inky
       done:
         title: "Member unignored!"
-        description: "%{member} can access Porygon on this server again."
+        desc: "%{member} can access Porygon on this server again."
       not_ignored:
         title: "%{member} is not ignored on this server!"
-        description: 'No changes made.'
+        desc: 'No changes made.'
     globalignore:
       _name: Global Ignore
-      _description: Ignores a member on every server.
+      _desc: Ignores a member on every server.
       _examples:
         - Inky
       done:
         title: "Member ignored!"
-        description: "%{member} can no longer access Porygon on any server."
+        desc: "%{member} can no longer access Porygon on any server."
       no_author:
         title: 'Wait wait wait wait wait.'
-        description: "You can't ignore yourself :("
+        desc: "You can't ignore yourself :("
       already:
         title: "%{member} is already globally ignored!"
-        description: 'No changes made.'
+        desc: 'No changes made.'
     globalunignore:
       _name: Global Unignore
-      _description: Unignores a member on every server.
+      _desc: Unignores a member on every server.
       _examples:
         - Inky
       done:
         title: "Member unignored!"
-        description: "%{member} can access Porygon again (note that individual servers may still ignore them)."
+        desc: "%{member} can access Porygon again (note that individual servers may still ignore them)."
       not_ignored:
         title: "%{member} is not globally ignored!"
-        description: 'No changes made.'
+        desc: 'No changes made.'
     mute:
-      _description: 'Gives a muted role to a member.'
+      _desc: 'Gives a muted role to a member. This command has no effect unless you either have a role named \"Muted\" or have designated a different role as the muted role using `%{prefix}setMutedRole`. No special permissions are applied to the role, you must configure it yourself with whatever permissions you wish to deny from muted users.'
       _examples:
         - Inky
+        - Inky --reason "was annoying me"
       muted:
         title: 'Member muted!'
-        description: 'Remove the muted role at any time with `%{prefix}unmute`.'
+        desc: 'Remove the muted role at any time with `%{prefix}unmute`.'
     package:
       _name: Package Information
-      _description: Shows information about a package.
+      _desc: Shows information about a package.
       _examples:
         - meta
       commands: Commands in this package
@@ -459,28 +459,28 @@ en:
   packages:
     ai:
       name: AI
-      description: The `!pory` command for speaking to the bot.
+      desc: The `!pory` command for speaking to the bot.
     games:
       name: Games
-      description: Random utility or fun commands.
+      desc: Random utility or fun commands.
     games_duck_only:
       name: Games+ (Duck Communism Only)
-      description: More games, including inside jokes specific to duck communism members. Not available elsewhere.
+      desc: More games, including inside jokes specific to duck communism members. Not available elsewhere.
     package:
       name: Package Management
-      description: Package for commands related to package management.
+      desc: Package for commands related to package management.
     meta:
       name: Meta
-      description: Commands about Porygon itself.
+      desc: Commands about Porygon itself.
     mod:
       name: Moderation
-      description: Mod-only server management.
+      desc: Mod-only server management.
     guild:
       name: Guild
-      description: Commands relating to the current server.
+      desc: Commands relating to the current server.
     operator:
       name: Operator
-      description: Commands to operate and debug Porygon.
+      desc: Commands to operate and debug Porygon.
   porygon:
     internals:
       startup:
@@ -494,21 +494,21 @@ en:
         load_application:
           text: Loading bot application...
           color: green
-        register_commands:
-          text: Registering packages and commands...
-          color: light_blue
         create_bot:
           text: Creating Porygon instance..
           color: blue
         start_bot:
           text: Everything is ready, starting Porygon!
           color: magenta
-  command_mixins:
-    with_muted_role:
-      missing:
-        title: "This server doesn't have a muted role!"
-        description: "Either create a role with the name \"Muted\", or use `%{prefix}setMutedRole` to set it to a role with a different name."
   changelog:
+    12:
+      description: No new commands! Just lots of backend stuff.
+      changes:
+        - 'Changed the way commands are registered, now uses a macro instead of searching through the ancestry tree for children of `Commands::Command`.'
+        - 'Split permissions into three systems - member permissions, bot permissions, and owner only permissions.'
+        - "Removed bot permission error handling, the bot now checks its permissions ahead of time. This enables better errors as it can tell you exactly what permission it's missing instead of a generic message."
+        - "`%{prefix}help`, `%{prefix}commands`, and `%{prefix}!` are now usable in DMs."
+        - "All commands now show up in `%{prefix}commands`, even ones the user does not have permission to use. This will change later once package hiding is introduced."
     11:
       changes:
         - 'Removed, split, and merged some packages.'
@@ -531,7 +531,7 @@ en:
         - 'Fixed translations for converters inside namespaces.'
         - '`#` is now allowed at the front of a `Porygon::Version` argument.'
     8:
-      description: 'The poll update.'
+      desc: 'The poll update.'
       changes:
         - 'Added `%{prefix}poll`.'
     7:
@@ -552,13 +552,13 @@ en:
         - "`%{prefix}pory` works with quotes now."
         - "Versions are now consecutive integers rather than semver."
     3:
-      description: Mostly meta stuff this time around.
+      desc: Mostly meta stuff this time around.
       changes:
         - "Added `%{prefix}version` and `%{prefix}changelog`."
         - "`%{prefix}ping` now uses an embed."
         - "Renamed package `debug` to `meta`."
     2:
-      description: This update includes many minor changes to command semantics.
+      desc: This update includes many minor changes to command semantics.
       changes:
         - "Added `%{prefix}help` and `%{prefix}commands`."
         - "Pory is back to generating one sentence instead of two. Funnier."
@@ -566,4 +566,4 @@ en:
         - "`%{prefix}calc` is much smarter now, has better error messages and lets you define variables in a block at the beginning `%{prefix}calc x = 1, y = 2 || x + y`."
         - "Re-broke `%{prefix}dice` working with zero rolls. For now."
     1:
-      description: In the beginning, Porygon was created.
+      desc: In the beginning, Porygon was created.

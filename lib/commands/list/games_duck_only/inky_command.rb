@@ -1,6 +1,6 @@
 module Commands
   class InkyCommand < Command
-    self.tag = 'inky'
+    register 'inky'
     
     MESSAGES = t('messages')
 

@@ -1,21 +1,19 @@
 module Commands
   class DeleteRoleCommand < Command
-    self.tag    = 'deleterole'
-    self.access = Permission.manage_roles
+    register 'deleterole', 
+      permissions: { bot: :manage_roles, member: :manage_roles }
     
     args do |a|
       a.arg :role, Discordrb::Role
     end
 
     def call(role:)
-      with_bot_permission_handling do
-        role.delete
+      role.delete
 
-        embed do |e|
-          e.color       = Porygon::COLORS.ok
-          e.title       = t('deleted.title')
-          e.description = t('deleted.description')
-        end
+      embed do |e|
+        e.color = Porygon::COLORS.ok
+        e.title = t('deleted.title')
+        e.desc  = t('deleted.desc')
       end
     end
   end

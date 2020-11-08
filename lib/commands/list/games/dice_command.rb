@@ -1,6 +1,6 @@
 module Commands
   class DiceCommand < Command
-    self.tags = %w[dice roll diceroll rolldice]
+    register %w[dice roll diceroll rolldice]
 
     args do |a|
       a.arg :rolls, DiceRoll, default: -> { DiceRoll.new }
@@ -10,7 +10,7 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.ok
         e.title = t('title')
-        e.description = t('description', rolls: describe(rolls))
+        e.desc  = t('desc', rolls: describe(rolls))
         
         e.inline do
           e.field(t('total'), rolls.display_total)

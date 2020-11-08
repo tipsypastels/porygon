@@ -1,7 +1,7 @@
 module Commands
   class CreateRoleCommand < Command
-    self.tags   = %w[createrole makerole]
-    self.access = Permission.manage_roles
+    register %w[createrole makerole], 
+      permissions: { member: :manage_roles, bot: :manage_roles }
 
     args do |a|
       a.arg :name, String
@@ -16,10 +16,8 @@ module Commands
     end
 
     def call(**args)
-      with_bot_permission_handling do
-        result = get_result_from_service(args)
-        embed_result(result)
-      end
+      result = get_result_from_service(args)
+      embed_result(result)
     end
 
     private
@@ -32,7 +30,7 @@ module Commands
       embed do |e|
         e.color = result.color || Porygon::COLORS.ok
         e.title = t('created.title')
-        e.description = t('created.description', role: result.mention)
+        e.desc  = t('created.desc', role: result.mention)
 
         e.inline do
           e.field(t('color'), result.hex)

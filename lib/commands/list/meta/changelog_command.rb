@@ -1,6 +1,6 @@
 module Commands
   class ChangelogCommand < Command
-    self.tag = 'changelog'
+    register 'changelog'
 
     args do |a|
       a.arg :version, Porygon::Version, default: Porygon::Version.current
@@ -10,11 +10,11 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.info
         e.title = t('title', version: version.id)
-        e.description = version.description
-        e.thumbnail   = Porygon::Asset('portrait.png')
+        e.desc  = version.desc
+        e.thumb = Porygon::PORTRAIT
         
         if version.current?
-          e.field(t('recency.title'), t('recency.description'))
+          e.field(t('recency.title'), t('recency.desc'))
         end
 
         e.field(t('changes'), build_changes(version))

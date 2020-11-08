@@ -1,9 +1,7 @@
 module Commands
   class MuteCommand < Command
-    include CommandMixins::WithMutedRole
-
-    self.tags   = %w[mute silence]
-    self.access = Permission.manage_roles
+    register %w[mute silence], 
+      permissions: { bot: :manage_roles, member: :manage_roles }
 
     args do |a|
       a.arg :member, Discordrb::Member
@@ -11,17 +9,19 @@ module Commands
     end
 
     def call(member:, reason:)
-      with_bot_permission_handling do
-        with_muted_role do |role|
-          member.add_role(role, reason)
+      member.add_role(role, reason)
 
-          embed do |e|
-            e.color = Porygon::COLORS.ok
-            e.title = t('muted.title')
-            e.description = t('muted.description')
-          end
-        end
+      embed do |e|
+        e.color = Porygon::COLORS.ok
+        e.title = t('muted.title')
+        e.desc  = t('muted.desc')
       end
+    end
+
+    private
+
+    def role
+      server.muted_role || raise(UsageError.new('no_muted_role', no_help: true))
     end
   end
 end

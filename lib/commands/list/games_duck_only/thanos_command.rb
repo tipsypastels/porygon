@@ -1,6 +1,6 @@
 module Commands
   class ThanosCommand < Command
-    self.tag = 'thanos'
+    register 'thanos'
 
     COLORS = {
       spare: Porygon::COLORS.ok,
@@ -9,10 +9,10 @@ module Commands
 
     def call
       embed do |e|
-        e.color       = COLORS[result]
-        e.title       = t("#{result}.title")
-        e.thumbnail   = Porygon::Asset("thanos/#{result}.png")
-        e.description = t("#{result}.description")
+        e.color = COLORS[result]
+        e.title = t("#{result}.title")
+        e.thumb = Porygon::Asset("thanos/#{result}.png")
+        e.desc  = t("#{result}.desc")
       end
     end
 

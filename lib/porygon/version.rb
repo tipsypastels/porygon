@@ -34,8 +34,8 @@ module Porygon
       @id = id
     end
 
-    def description
-      I18n.t("changelog.#{id}.description", default: nil)
+    def desc
+      I18n.t("changelog.#{id}.desc", default: nil)
     end
 
     def changes

@@ -1,6 +1,6 @@
 module Commands
   class PollCommand < Command    
-    self.tag = 'poll'
+    register 'poll'
 
     args split: :never do |a|    
       a.arg :poll, Poll
@@ -11,10 +11,10 @@ module Commands
 
     def call(poll:)
       message = embed do |e|
-        e.color       = Porygon::COLORS.ok
-        e.title       = t('result.title', question: poll.question)
-        e.footer      = t('result.footer')
-        e.description = describe(poll)
+        e.color  = Porygon::COLORS.ok
+        e.title  = t('result.title', question: poll.question)
+        e.footer = t('result.footer')
+        e.desc   = describe(poll)
       end
 
       react_to(message, poll)

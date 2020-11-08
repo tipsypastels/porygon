@@ -1,6 +1,6 @@
 module Commands
   class HugCommand < Command
-    self.tag = 'hug'
+    register 'hug'
     
     args do |a|
       a.arg :hugged, String
@@ -10,7 +10,7 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.ok 
         e.title = t('title', hugged: hugged)
-        e.description = t('description', hugged: hugged, stat: stat)
+        e.desc  = t('desc', hugged: hugged, stat: stat)
       end
     end
 

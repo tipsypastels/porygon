@@ -1,6 +1,6 @@
 module Commands
   class CalcCommand < Command
-    self.tags = %w[calc calculate math]
+    register %w[calc calculate math]
 
     args split: :spaces do |a|
       a.arg :equation, String
@@ -19,7 +19,7 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.info
         e.title = t('result')
-        e.description = result
+        e.desc  = result
       end
     end
 
@@ -31,7 +31,7 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.error
         e.title = t('errors.title')
-        e.description = message
+        e.desc  = message
       end
     end
 

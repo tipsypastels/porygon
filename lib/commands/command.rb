@@ -1,20 +1,10 @@
 module Commands
   class Command
     include Porygon::MessageFormatter
-    include Packaged, Respondable, Taggable, Rescuable
-    include Translatable, Documentable, Listable
+    include CommandDefinition, Respondable, Rescuable, Translatable
 
-    class << self
-      attr_accessor :access, :allow_dm
-
-      def args(**opts, &block)
-        return @args unless block_given?
-        @args = Arguments.new(self, **opts, &block)
-      end
-
-      def from_argument(error, arg, *)
-        TAGS[arg.downcase] || error['nonexistant', arg: arg]
-      end
+    def self.from_argument(error, arg, *)
+      TAGS[arg.downcase] || error['nonexistant', arg: arg]
     end
 
     attr_reader :message, :used_tag, :raw_args
@@ -57,16 +47,11 @@ module Commands
     end
 
     def invalid_access?
-      return unless access
-
-      if (error_message = access.call(message))
-        CommandLogger.permission_error(self, error_message)
-        true
-      end
+      !command_permission.check(self, silent: false)
     end
 
     def used_in_invalid_context?
-      !message.channel.server && !allow_dm
+      !command_context.allows?(self)
     end
 
     def used_by_ignored_user?

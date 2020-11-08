@@ -37,6 +37,9 @@ module Porygon
       end
     end
 
+    alias desc description
+    alias desc= description=
+
     def color=(value)
       case value
       when NilClass
@@ -85,6 +88,9 @@ module Porygon
         @hash[:thumbnail] = { url: convert(value) }
       end
     end
+
+    alias thumb thumbnail
+    alias thumb= thumbnail=
 
     def field(name, value, inline: @is_inline)
       return if value.blank?

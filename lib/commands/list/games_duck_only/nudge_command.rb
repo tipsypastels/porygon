@@ -1,12 +1,12 @@
 module Commands
   class NudgeCommand < Command
-    self.tag = 'nudge'
+    register 'nudge'
 
     def call
       embed do |e|
         e.color = Porygon::COLORS.ok
         e.title = disaster
-        e.description = t('killed', members: members)
+        e.desc  = t('killed', members: members)
       end
     end
 

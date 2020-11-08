@@ -1,6 +1,6 @@
 module Commands
   class PoryCommand < Command
-    self.tag = 'pory'
+    register 'pory'
     
     args split: :spaces do |a|
       a.arg :message, String, optional: true

@@ -1,12 +1,12 @@
 module Commands
   class GuildCommand < Command
-    self.tags = %w[guild server]
+    register %w[guild server]
 
     def call
       embed do |e|
         e.color = Porygon::COLORS.info
         e.title = t('title')
-        e.thumbnail = server.icon_url
+        e.thumb = server.icon_url
 
         e.inline do
           e.field(t('name'), server.name)

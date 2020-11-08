@@ -20,6 +20,10 @@ module Porygon
       @prefix ||= ENV.fetch('PREFIX', '!')
     end
 
+    def user_id
+      @bot.profile.id
+    end
+
     def owner
       @owner ||= ENV.fetch('OWNER').to_i
     end

@@ -1,13 +1,13 @@
 module Commands
   class VersionCommand < Command
-    self.tag = 'version'
+    register 'version'
 
     def call
       embed do |e|
-        e.color       = Porygon::COLORS.info
-        e.title       = t('title', version: version)
-        e.thumbnail   = Porygon::Asset('portrait.png')
-        e.description = t('description', version: version)
+        e.color = Porygon::COLORS.info
+        e.thumb = Porygon::PORTRAIT
+        e.title = t('title', version: version)
+        e.desc  = t('desc', version: version)
       end
     end
 

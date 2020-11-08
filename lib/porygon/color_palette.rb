@@ -8,10 +8,10 @@ module Porygon
     private
 
     def define_methods
-      parse_json.each { |m, c| self.class.define_method(m) { c } }
+      json.each { |m, c| self.class.define_method(m) { c } }
     end
 
-    def parse_json
+    def json
       JSON.parse(read_file).transform_values { |color| Color.from_s(color) }
     end
 

@@ -1,16 +1,14 @@
 module Commands
   class PingCommand < Command
-    self.tag = 'ping'
-    self.allow_dm = true
+    register 'ping', context: :server_or_dm
 
     def call
       embed do |e|
-        e.color       = Porygon::COLORS.info
-        e.thumbnail   = Porygon::Asset('portrait.png')
-
-        e.title       = t('title')
-        e.footer      = t('footer', version: version)
-        e.description = t('description')
+        e.color  = Porygon::COLORS.info
+        e.thumb  = Porygon::PORTRAIT
+        e.title  = t('title')
+        e.footer = t('footer', version: version)
+        e.desc   = t('desc')
       end
     end
 

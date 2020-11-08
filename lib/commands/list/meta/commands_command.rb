@@ -1,12 +1,12 @@
 module Commands
   class CommandsCommand < Command
-    self.tags = %w[commands commandlist]
+    register %w[commands commandlist], context: :any
 
     def call
       embed do |e|
-        e.color       = Porygon::COLORS.info
-        e.title       = t('title')
-        e.description = t('description', prefix: Bot.prefix)
+        e.color = Porygon::COLORS.info
+        e.title = t('title')
+        e.desc  = t('desc')
 
         packages.sort.each do |package, commands|
           e.field(package.name, format_commands(commands))

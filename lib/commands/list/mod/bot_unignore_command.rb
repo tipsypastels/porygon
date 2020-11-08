@@ -1,7 +1,6 @@
 module Commands
   class BotUnignoreCommand < Command
-    self.tag    = 'botunignore'
-    self.access = Permission.ban_members
+    register 'botunignore', permissions: { member: :ban_members }
 
     args do |a|
       a.arg :member, Discordrb::Member
@@ -13,9 +12,9 @@ module Commands
       member.server_unignore
 
       embed do |e|
-        e.color       = Porygon::COLORS.ok
-        e.title       = t('done.title')
-        e.description = t('done.description', member: member.mention)
+        e.color = Porygon::COLORS.ok
+        e.title = t('done.title')
+        e.desc  = t('done.desc', member: member.mention)
       end
     end
 
@@ -23,9 +22,9 @@ module Commands
 
     def not_ignored(member)
       embed do |e|
-        e.color       = Porygon::COLORS.warning
-        e.title       = t('not_ignored.title', member: member.display_name)
-        e.description = t('not_ignored.description')
+        e.color = Porygon::COLORS.warning
+        e.title = t('not_ignored.title', member: member.display_name)
+        e.desc  = t('not_ignored.desc')
       end
     end
   end

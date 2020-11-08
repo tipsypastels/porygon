@@ -40,10 +40,6 @@ Startup.log :load_application do
   Loader.eager_load
 end
 
-Startup.log :register_commands do
-  Commands.register_all
-end
-
 Startup.log :create_bot do
   Bot = Porygon.spawn_bot
 end

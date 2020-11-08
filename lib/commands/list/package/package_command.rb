@@ -1,7 +1,6 @@
 module Commands
   class PackageCommand < Command
-    self.tag    = 'package'
-    self.access = Permission.manage_server
+    register 'package', permissions: { member: :manage_server }
 
     args do |a|
       a.arg :package, Packages::Package
@@ -9,10 +8,10 @@ module Commands
 
     def call(package:)
       embed do |e|
-        e.color       = Porygon::COLORS.info
-        e.title       = package.name
-        e.thumbnail   = Porygon::Asset('portrait.png')
-        e.description = package.description
+        e.color = Porygon::COLORS.info
+        e.thumb = Porygon::PORTRAIT
+        e.title = package.name
+        e.desc  = package.desc
 
         e.field(t('commands'), commands(package))
       end

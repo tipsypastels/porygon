@@ -17,8 +17,8 @@ module Packages
       t(:name)
     end
 
-    def description
-      t(:description)
+    def desc
+      t(:desc)
     end
 
     def server_ids

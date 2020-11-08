@@ -1,6 +1,6 @@
 module Commands
   class FlipCommand < Command
-    self.tags = %w[flip coin flipcoin coinflip]
+    register %w[flip coin flipcoin coinflip]
     
     args do |a|
       a.opt :heads, String, default: t('default.heads')
@@ -13,7 +13,7 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.ok
         e.title = t('result.title')
-        e.description = "#{res}!"
+        e.desc  = "#{res}!"
       end
     end
   end
