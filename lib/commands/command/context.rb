@@ -8,7 +8,12 @@ module Commands
       end
 
       def allows?(command)
-        @ctx != (command.server ? :dm : :server)
+        case ctx
+        when :dm     then !command.server
+        when :server then command.server
+        when :any    then true
+        else raise ArgumentError, "Invalid command context: #{ctx}"
+        end
       end
     end
   end

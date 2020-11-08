@@ -502,7 +502,7 @@ en:
           color: magenta
   changelog:
     12:
-      description: No new commands! Just lots of backend stuff.
+      desc: No new commands! Just lots of backend stuff.
       changes:
         - 'Changed the way commands are registered, now uses a macro instead of searching through the ancestry tree for children of `Commands::Command`.'
         - 'Split permissions into three systems - member permissions, bot permissions, and owner only permissions.'
