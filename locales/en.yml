@@ -526,6 +526,9 @@ en:
         desc: 'No information about the unban could be found. You may be able to check audit logs manually to find the mod and reason.'
     delete_logger:
       deleted: 'Message Deleted'
+      attachments: 'Attachments (may not be visible)'
+      attachment: "[Attachment %{i}](%{url})"
+      no_content: '_(message has no content)_'
       channel: 'Channel'
       sent_at: 'Sent at'
       deleted_at: 'Deleted at'

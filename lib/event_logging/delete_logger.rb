@@ -20,7 +20,9 @@ module EventLogging
         e.title  = t('deleted')
         e.footer = t('message_id', id: message.id)
         e.author = message.author
-        e.desc   = message.content
+        e.desc   = message.content.presence || t('no_content')
+
+        e.field(t('attachments'), attachments)
 
         e.inline do
           e.field(t('channel'), channel.mention)
@@ -46,6 +48,12 @@ module EventLogging
 
     def message
       @message ||= Bot.message_cache[message_id]
+    end
+
+    def attachments
+      message.attachments.each_with_index.map { |attach, i|
+        t('attachment', i: i + 1, url: attach.url)
+      }.join(', ')
     end
   end
 end
