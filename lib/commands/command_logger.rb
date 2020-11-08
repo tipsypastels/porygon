@@ -21,6 +21,10 @@ module Commands
         warn command_log(command, "ignore_#{ignore_status}")
       end
 
+      def disabled_command(command)
+        warn command_log(command, 'disabled_command', package: command.package_tag)
+      end
+
       private
 
       delegate :info, :warn, to: :"Porygon::LOGGER"

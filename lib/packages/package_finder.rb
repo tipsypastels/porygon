@@ -27,7 +27,7 @@ module Packages
     end
 
     def should_return?(package)
-      package && (package.supports?(server) || Bot.owner?(author))
+      package&.supports?(server)
     end
   end
 end

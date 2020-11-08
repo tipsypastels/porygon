@@ -40,7 +40,7 @@ module Commands
     def should_call?
       return false if @aborted
       return false if invalid_access?
-      return false if used_in_invalid_context?
+      return false if disabled_in_channel?
       return false if used_by_ignored_user?
 
       true
@@ -50,8 +50,13 @@ module Commands
       !command_permission.check(self, silent: false)
     end
 
-    def used_in_invalid_context?
-      !command_context.allows?(self)
+    def disabled_in_channel?
+      return unless server
+      
+      unless package.enabled?(channel, author)
+        CommandLogger.disabled_command(self)
+        true
+      end
     end
 
     def used_by_ignored_user?

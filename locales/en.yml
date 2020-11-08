@@ -10,6 +10,7 @@ en:
       permission_error: "%{name} was denied use of \"%{tag}\" in %{location}. Reason: %{reason}."
       ignore_server: "Server-ignored user %{name} tried to use \"%{tag}\" in %{location}, but was ignored."
       ignore_global: "Global-ignored user %{name} tried to use \"%{tag}\" in %{location}, but was ignored."
+      disabled_command: "%{name} tried to use \"%{tag}\" in %{location}, but its package (%{package}) is not enabled in that location."
       permission_error_reasons:
         not_bot_owner: 'Not the bot owner'
         lacks_permission: 'Lacks permission %{permission}'
@@ -33,9 +34,12 @@ en:
             nonexistant: "There is no command named `%{arg}`. Use `%{pre}commands` to see a list of commands."
           packages/package:
             nonexistant: "There is no package named `%{arg}`."
+            no_super_global: "`%{arg}` is a super-global package and can't be enabled or disabled."
           discordrb/role:
             nonexistant: "I couldn't find a role named `%{arg}`. Sure you got it right?"
           discordrb/channel:
+            nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
+          discordrb/channel_array:
             nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
           porygon/version:
             nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
@@ -70,6 +74,8 @@ en:
     commands:
       title: Command List
       desc: To get information about a specific command, use `%{pre}help` with the name of the command. For example, `%{pre}help ping`.
+      enabled: "Enabled in %{channels}\n"
+      super_global: "Super Global (Enabled in all channels for you)\n"
     pory:
       _desc: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
       _examples:
@@ -410,6 +416,36 @@ en:
       _examples:
         - meta
       commands: Commands in this package
+      channels: Enabled in...
+      all_channels: All channels
+      super_global:
+        title: Super-global
+        desc: Commands in this package are always available to those with permission to use them.
+    enablepackage:
+      _name: Enable Package
+      _desc: Enables a package in one or more channels. Packages are groups of commands that are enabled and disabled as a bundle. Note that you can safely enable packages like `mod` in all channels, as people without the requisite permissions will not be able to use them.
+      _examples:
+        - meta --channels "here"
+        - games --channels "random, bot-spam"
+        - mod --channels all
+      added:
+        title: "Package enabled!"
+        desc: "See `%{pre}packageList` to see a summary of all enabled packages and locations."
+    disablepackage:
+      _name: Disable Package
+      _desc: Disables a package from one or more channels. All packages are disabled by default. See `%{pre}help enablepackage`.
+      _examples:
+        - games --channels "general"
+      removed:
+        title: 'Package disabled!'
+        desc: "See `%{pre}packageList` to see a summary of all enabled packages and locations."
+    packagelist:
+      _name: List Packages
+      _desc: Lists all packages and what locations they are enabled in. Similar to `%{pre}commands`, but is only available to server admins, shows disabled packages, and does not omit commands not usable to the current user.
+      title: Package List
+      desc: Use `%{pre}package [package]` to show information on a specific package.
+      on_this_server: On this server
+      off_this_server: Other packages
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
@@ -493,11 +529,8 @@ en:
       sent_at: 'Sent at'
       deleted_at: 'Deleted at'
       message_id: 'Message ID: %{id}'
-      not_in_cache: "A message was deleted, but I didn't have a copy of it in my cache, so I can't show you what the content was. Sorry! :("
+      not_in_cache: "A message was deleted, but I didn't have a copy of it in my cache, so I can't show you what the content was. Sorry!"
   packages:
-    ai:
-      name: AI
-      desc: The `!pory` command for speaking to the bot.
     games:
       name: Games
       desc: Random utility or fun commands.
@@ -519,6 +552,9 @@ en:
     operator:
       name: Operator
       desc: Commands to operate and debug Porygon.
+    util:
+      name: Utilities
+      desc: Useful helper commands.
   porygon:
     internals:
       startup:
@@ -539,6 +575,13 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    14:
+      desc: 'The long-awaited (by me putting it off) package update.'
+      changes:
+        - 'Packages can now be enabled per-channel.'
+        - "`%{pre}commands` now respects the user's permissions."
+        - "Added `%{pre}enablePackage`, `%{pre}disablePackage`, and `%{pre}packageList`."
+        - "Added superglobal packages, which cannot be enabled or disabled but can only be applied to a subset of members. The current superglobals are `operator`, which contains debugging permissions, and `package`, which contains package management itself and is only usable to server admins."
     13:
       changes:
         - 'Porygon can now log join, leave, message delete, kick, and ban events in the mod log channel if one is set.'

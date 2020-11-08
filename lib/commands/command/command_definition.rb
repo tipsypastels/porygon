@@ -10,9 +10,8 @@ module Commands
         attr_reader :tags, :permission, :context
         delegate :name, to: :package, prefix: true
 
-        def register(tags, context: :server, permissions: {})
+        def register(tags, permissions: {})
           @tags       = Array(tags)
-          @context    = Context.new(context) 
           @permission = Permissions.new(permissions)
 
           Commands.register(self)
@@ -57,11 +56,6 @@ module Commands
         def usage(tag = self.tag)
           USAGE_CACHE_BY_USED_TAG[tag] ||= Usage.build(self, tag)
         end
-
-        # TODO: remake this
-        def listable_for?(_message) 
-          true
-        end
       end
 
       included do
@@ -70,8 +64,8 @@ module Commands
                  :package, :package_name, :package_tag,
                  to: :class
 
-        # more generic names that might be used in other contexts, prefix them
-        delegate :permission, :context, to: :class, prefix: :command
+        # more generic name that might be used in other contexts, prefix it
+        delegate :permission, to: :class, prefix: :command
       end
     end
   end

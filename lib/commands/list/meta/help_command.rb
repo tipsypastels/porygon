@@ -1,6 +1,6 @@
 module Commands
   class HelpCommand < Command
-    register 'help', context: :any
+    register 'help'
 
     args do |a|
       a.arg(:command, Command, optional: true)

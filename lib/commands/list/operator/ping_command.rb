@@ -1,6 +1,6 @@
 module Commands
   class PingCommand < Command
-    register 'ping', context: :any
+    register 'ping'
 
     def call
       embed do |e|

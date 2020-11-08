@@ -1,6 +1,6 @@
 module Commands
   class EvalCommand < Command
-    register %w[eval !], permissions: { owner: true }, context: :any
+    register %w[eval !], permissions: { owner: true }
 
     args split: :spaces do |a|
       a.arg :code, String

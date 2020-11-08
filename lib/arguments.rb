@@ -1,4 +1,6 @@
 class Arguments
+  extend MetaConverters
+
   delegate :arg, :opt, :optional, :usage, to: :@stack
 
   def initialize(command, **config)

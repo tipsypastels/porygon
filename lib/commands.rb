@@ -11,10 +11,6 @@ module Commands
       ALL
     end
 
-    def listable_for(message)
-      select { |command| command.listable_for?(message) }
-    end
-
     def register(command)
       ALL << command
       command.tags.each { |tag| TAGS[tag] = command }

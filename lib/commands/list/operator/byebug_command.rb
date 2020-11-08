@@ -1,6 +1,6 @@
 module Commands
   class ByebugCommand < Command
-    register 'byebug', permissions: { owner: true }, context: :any
+    register 'byebug', permissions: { owner: true }
 
     def call
       byebug

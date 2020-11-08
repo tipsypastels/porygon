@@ -1,6 +1,6 @@
 module Commands
   class SetModLogChannelCommand < Command
-    register 'setmodlogchannel', permissions: { user: :manage_server }
+    register 'setmodlogchannel', permissions: { member: :manage_server }
 
     args do |a|
       a.arg :channel, Discordrb::Channel

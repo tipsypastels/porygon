@@ -21,6 +21,11 @@ module Packages
       t(:desc)
     end
 
+    def commands
+      @commands ||= Commands.select { |command| command.package == self }
+                            .sort_by(&:tag)
+    end
+
     def server_ids
       Packages::SERVER_LOCKS[tag]
     end
@@ -31,7 +36,7 @@ module Packages
 
     def supports?(server)
       return true unless server_specific?
-      server.resolve_id.in? server_ids
+      server&.resolve_id.in? server_ids
     end
 
     def <=>(other)
@@ -40,7 +45,37 @@ module Packages
       nil
     end
 
+    def super_global
+      Packages::SUPER_GLOBALS[tag]
+    end
+
+    def enable(channels)
+      EnabledPackage.enable(tag, channels)
+    end
+
+    def disable(channels)
+      EnabledPackage.disable(tag, channels)
+    end
+
+    def enabled?(channel, member = nil)
+      return true if check_super_global(member)
+      EnabledPackage.enabled?(channel, tag)
+    end
+
+    def enabled_in_at_least_one_channel?(server, member = nil)
+      return true if check_super_global(member)
+      EnabledPackage.enabled_in_at_least_one_channel?(tag, server)
+    end
+
+    def channels(server)
+      EnabledPackage.enabled_channels(tag, server)
+    end
+
     private
+
+    def check_super_global(member)
+      member && super_global&.call(member)
+    end
 
     def warn_if_missing_i18n_entry
       t(:name, default: false) || 

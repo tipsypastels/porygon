@@ -3,6 +3,10 @@ module Commands
     class Checker
       include Porygon.i18n_scope('command_env.logging.permission_error_reasons')
 
+      def self.valid?(...)
+        new(...).valid?
+      end
+
       attr_reader :perms, :command, :silent
       delegate :server, :author, :channel, to: :command
       delegate :bot_perms, :member_perms, to: :perms
