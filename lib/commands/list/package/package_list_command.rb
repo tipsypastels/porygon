@@ -43,8 +43,8 @@ module Commands
 
     def packages
       @packages ||= 
-        Packages.select { |pkg| include_package?(pkg) }
-                .partition { |pkg| pkg.enabled_in_at_least_one_channel?(server, author) }
+        Packages.select(&method(:include_package?))
+                .partition(&method(:enabled_package?))
     end
 
     def include_package?(package)
@@ -52,6 +52,10 @@ module Commands
       return package.super_global.call(author) if package.super_global
 
       true
+    end
+
+    def enabled_package?(package)
+      package.enabled_in_at_least_one_channel?(server, author)
     end
   end
 end

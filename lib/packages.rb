@@ -2,7 +2,7 @@ module Packages
   extend Enumerable
 
   SERVER_LOCKS = HashWithIndifferentAccess.new({
-    games_duck_only: [ServerIds::DUCK],
+    games_duck_only: [ServerIds::DUCK, ServerIds::TEST],
   })
 
   SUPER_GLOBALS = HashWithIndifferentAccess.new({
