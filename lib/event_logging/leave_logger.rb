@@ -34,7 +34,7 @@ module EventLogging
         t 'left_console', name: user.username, 
                           discrim: user.discriminator,
                           id: user.id,
-                          server: user.name
+                          server: server.name
     end
 
     def log_embed_for_kick
