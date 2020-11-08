@@ -36,7 +36,7 @@ module Porygon
     private
 
     def setup_translation_globals
-      I18n.config.globals[:prefix] = prefix
+      I18n.config.globals[:pre] = prefix
     end
 
     def setup_handlers

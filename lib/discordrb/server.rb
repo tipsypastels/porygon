@@ -46,7 +46,7 @@ module Discordrb
     end
 
     def mod_log_channel=(channel)
-      settings.update(mod_log_channel_id: channel&.id)
+      settings.update(mod_log_channel_id: channel&.resolve_id)
     end
 
     MUTED = 'muted'.freeze
@@ -57,6 +57,10 @@ module Discordrb
       else
         roles.detect { |role| role.name.casecmp(MUTED).zero? }
       end
+    end
+
+    def muted_role=(role)
+      settings.update(muted_role_id: role&.resolve_id)
     end
   end
 end

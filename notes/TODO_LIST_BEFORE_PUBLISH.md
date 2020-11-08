@@ -1,5 +1,4 @@
 - Package management
 - Hiding packages
 - Requestable roles.
-- Ban and unban users.
 - Addpet?

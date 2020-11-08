@@ -7,7 +7,7 @@ module Commands
 
       def embed(message = nil, &block)
         embed = Porygon::EmbedBuilder.build(&block)
-        message = clean_everyone_and_here(message)
+        message &&= clean_everyone_and_here(message)
         channel.send_message(message, false, embed.to_h, embed.attachments)
       end
     end

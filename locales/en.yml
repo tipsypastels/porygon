@@ -21,16 +21,16 @@ en:
       usage:
         base:
           title: Looks like you're using the command wrong.
-          desc: " Here's how to use `%{prefix}%{command}`.%{usage}"
-          footer: "For more information, see %{prefix}help %{command}."
+          desc: " Here's how to use `%{pre}%{command}`.%{usage}"
+          footer: "For more information, see %{pre}help %{command}."
           usage: Usage
           examples: Examples
         missing_arg: Did you forget to provide a value for `%{arg}`?
         wrong_arg_type: Looks like you provided the wrong type of value for `%{arg}`! Here's how you use it.
-        no_muted_role: 'You must first define a muted role to use this command! Either create a role with the name "Muted" and the desired effects, or use `%{prefix}setMutedRole` to select an arbitrary role.'
+        no_muted_role: 'You must first define a muted role to use this command! Either create a role with the name "Muted" and the desired effects, or use `%{pre}setMutedRole` to select an arbitrary role.'
         conversions:
           commands/command:
-            nonexistant: "There is no command named `%{arg}`. Use `%{prefix}commands` to see a list of commands."
+            nonexistant: "There is no command named `%{arg}`. Use `%{pre}commands` to see a list of commands."
           packages/package:
             nonexistant: "There is no package named `%{arg}`."
           discordrb/role:
@@ -66,10 +66,10 @@ en:
         footer:
           text: Created by Dakota.
           icon_url: https://i.imgur.com/uTRBrKS.png
-        desc: You can get a list of commands using `%{prefix}commands`. To get detailed information about a specific command, re-run `%{prefix}help` with the name of that command - for example, `%{prefix}help ping`! If anything else confuses you, don't be afraid to ask!
+        desc: You can get a list of commands using `%{pre}commands`. To get detailed information about a specific command, re-run `%{pre}help` with the name of that command - for example, `%{pre}help ping`! If anything else confuses you, don't be afraid to ask!
     commands:
       title: Command List
-      desc: To get information about a specific command, use `%{prefix}help` with the name of the command. For example, `%{prefix}help ping`.
+      desc: To get information about a specific command, use `%{pre}help` with the name of the command. For example, `%{pre}help ping`.
     pory:
       _desc: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
       _examples:
@@ -89,7 +89,7 @@ en:
     version:
       _desc: Prints the current version of Porygon.
       title: "Porygon Update #%{version} reporting for duty!"
-      desc: "You can see what's new in this version, or any previous version, by using `%{prefix}changelog` with the version number. For example, `%{prefix}changelog %{version}`."
+      desc: "You can see what's new in this version, or any previous version, by using `%{pre}changelog` with the version number. For example, `%{pre}changelog %{version}`."
     changelog:
       _desc: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
       _examples:
@@ -329,7 +329,7 @@ en:
       _desc: Disables mod logging in the channel it's currently set to, if any. **Does not delete the channel itself.**
       done:
         title: 'Mod logging disabled!'
-        desc: 'Change this back at any time with `%{prefix}setmodlogchannel`.'
+        desc: 'Change this back at any time with `%{pre}setmodlogchannel`.'
       none:
         title: "Funnily enough, this server doesn't actually *have* a mod log channel."
         desc: 'No changes made.'
@@ -384,13 +384,26 @@ en:
         title: "%{member} is not globally ignored!"
         desc: 'No changes made.'
     mute:
-      _desc: 'Gives a muted role to a member. This command has no effect unless you either have a role named \"Muted\" or have designated a different role as the muted role using `%{prefix}setMutedRole`. No special permissions are applied to the role, you must configure it yourself with whatever permissions you wish to deny from muted users.'
+      _desc: 'Gives a muted role to a member. This command has no effect unless you either have a role named \"Muted\" or have designated a different role as the muted role using `%{pre}setMutedRole`. No special permissions are applied to the role, you must configure it yourself with whatever permissions you wish to deny from muted users.'
       _examples:
         - Inky
         - Inky --reason "was annoying me"
       muted:
-        title: 'Member muted!'
-        desc: 'Remove the muted role at any time with `%{prefix}unmute`.'
+        title: '%{member} was muted!'
+        desc: 'Remove the muted role at any time with `%{pre}unmute`.'
+    unmute:
+      _desc: 'Takes a muted role from a member. See `%{pre}help mute` for a full explanation.'
+      _examples:
+        - Inky
+        - Inky --reason "i think he's served his time"
+      unmuted:
+        title: '%{member} was unmuted!'
+    setmutedrole:
+      _name: Set Muted Role
+      _description: 'Changes the role that will be given to members when the `%{pre}mute` command is used.'
+      done:
+        title: "Muted role set!"
+        desc: "%{role} will be assigned to users when you use the `%{pre}mute` command."
     package:
       _name: Package Information
       _desc: Shows information about a package.
@@ -526,30 +539,34 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    13:
+      changes:
+        - 'Porygon can now log join, leave, message delete, kick, and ban events in the mod log channel if one is set.'
+        - 'Added `%{pre}unmute` and `%{pre}setMutedRole`, which were previously omitted.'
     12:
       desc: No new commands! Just lots of backend stuff.
       changes:
         - 'Changed the way commands are registered, now uses a macro instead of searching through the ancestry tree for children of `Commands::Command`.'
         - 'Split permissions into three systems - member permissions, bot permissions, and owner only permissions.'
         - "Removed bot permission error handling, the bot now checks its permissions ahead of time. This enables better errors as it can tell you exactly what permission it's missing instead of a generic message."
-        - "`%{prefix}help`, `%{prefix}commands`, and `%{prefix}!` are now usable in DMs."
-        - "All commands now show up in `%{prefix}commands`, even ones the user does not have permission to use. This will change later once package hiding is introduced."
+        - "`%{pre}help`, `%{pre}commands`, and `%{pre}!` are now usable in DMs."
+        - "All commands now show up in `%{pre}commands`, even ones the user does not have permission to use. This will change later once package hiding is introduced."
     11:
       changes:
         - 'Removed, split, and merged some packages.'
         - 'Packages are now derived from the filesystem instead of explicitly defined.'
         - 'Removed some unused error utilities and simplified `TranslatedError`.'
         - 'Shorter syntax for defining command arguments.'
-        - "Added back the `%{prefix}package` command, but it doesn't do much yet."
-        - "Added `%{prefix}globalIgnore` and `%{prefix}globalUnignore`."
-        - "Added `%{prefix}botIgnore` and `%{prefix}botUnignore`."
+        - "Added back the `%{pre}package` command, but it doesn't do much yet."
+        - "Added `%{pre}globalIgnore` and `%{pre}globalUnignore`."
+        - "Added `%{pre}botIgnore` and `%{pre}botUnignore`."
     10:
       changes:
         - 'Turned off Discordrb logging.'
         - 'Add logging of command usage and errors.'
         - 'For security, commands now default to disabled in DMs unless explicitly set otherwise.'
-        - 'Added Ruby-style setter command syntax, where `%{prefix}x = ...` is an alias for `%{prefix}setx ...`.'
-        - 'Added `%{prefix}renameServer` and `%{prefix}renameChannel`.'
+        - 'Added Ruby-style setter command syntax, where `%{pre}x = ...` is an alias for `%{pre}setx ...`.'
+        - 'Added `%{pre}renameServer` and `%{pre}renameChannel`.'
         - 'Rebuilt the permission checks system.'
     9:
       changes:
@@ -558,37 +575,37 @@ en:
     8:
       desc: 'The poll update.'
       changes:
-        - 'Added `%{prefix}poll`.'
+        - 'Added `%{pre}poll`.'
     7:
       changes:
         - "Package list sorting is now deterministic."
         - "Rewrote arguments parsing (again)"
-        - "Added `%{prefix}inky`."
+        - "Added `%{pre}inky`."
     6:
       changes:
-        - "Added `%{prefix}thanos`."
+        - "Added `%{pre}thanos`."
     5:
       changes:
-        - "`%{prefix}dice` now uses dice notation instead of flags."
+        - "`%{pre}dice` now uses dice notation instead of flags."
     4:
       changes:
         - "Improved error handling."
-        - "Removed the variables feature from `%{prefix}calc`."
-        - "`%{prefix}pory` works with quotes now."
+        - "Removed the variables feature from `%{pre}calc`."
+        - "`%{pre}pory` works with quotes now."
         - "Versions are now consecutive integers rather than semver."
     3:
       desc: Mostly meta stuff this time around.
       changes:
-        - "Added `%{prefix}version` and `%{prefix}changelog`."
-        - "`%{prefix}ping` now uses an embed."
+        - "Added `%{pre}version` and `%{pre}changelog`."
+        - "`%{pre}ping` now uses an embed."
         - "Renamed package `debug` to `meta`."
     2:
       desc: This update includes many minor changes to command semantics.
       changes:
-        - "Added `%{prefix}help` and `%{prefix}commands`."
+        - "Added `%{pre}help` and `%{pre}commands`."
         - "Pory is back to generating one sentence instead of two. Funnier."
-        - "You can put multiple words in command options now by wrapping them in quotes, such as `%{prefix}flip -h \"do it\" -t \"don't do it\"`."
-        - "`%{prefix}calc` is much smarter now, has better error messages and lets you define variables in a block at the beginning `%{prefix}calc x = 1, y = 2 || x + y`."
-        - "Re-broke `%{prefix}dice` working with zero rolls. For now."
+        - "You can put multiple words in command options now by wrapping them in quotes, such as `%{pre}flip -h \"do it\" -t \"don't do it\"`."
+        - "`%{pre}calc` is much smarter now, has better error messages and lets you define variables in a block at the beginning `%{pre}calc x = 1, y = 2 || x + y`."
+        - "Re-broke `%{pre}dice` working with zero rolls. For now."
     1:
       desc: In the beginning, Porygon was created.

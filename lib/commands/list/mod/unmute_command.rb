@@ -1,6 +1,6 @@
 module Commands
-  class MuteCommand < Command
-    register %w[mute silence], 
+  class UnmuteCommand < Command
+    register %w[unmute unsilence], 
       permissions: { bot: :manage_roles, member: :manage_roles }
 
     args do |a|
@@ -9,12 +9,11 @@ module Commands
     end
 
     def call(member:, reason:)
-      member.add_role(role, reason)
+      member.remove_role(role, reason)
 
       embed do |e|
         e.color = Porygon::COLORS.ok
-        e.title = t('muted.title', member: member.display_name)
-        e.desc  = t('muted.desc')
+        e.title = t('unmuted.title', member: member.display_name)
       end
     end
 
