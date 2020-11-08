@@ -2,6 +2,10 @@ module EventLogging
   class EventLogger
     include Porygon::MessageFormatter
 
+    def self.log(...)
+      new(...).log
+    end
+
     attr_reader :server
 
     def initialize(server)
@@ -12,10 +16,10 @@ module EventLogging
 
     def embed(message = nil, &block)
       embed = Porygon::EmbedBuilder.build(&block)
-      channel&.send_message(message, false, embed.to_h, embed.attachments)
+      mod_channel&.send_message(message, false, embed.to_h, embed.attachments)
     end
 
-    def channel
+    def mod_channel
       server.mod_log_channel
     end
 

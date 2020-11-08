@@ -456,6 +456,31 @@ en:
       id: ID
       joined_at: Joined At
       joined_at_unknown: Unknown
+      kick:
+        title: "%{name} was kicked by %{mod}."
+        reason: "Reason: %{reason}"
+        no_reason: '_(no reason given)_'
+    ban_logger:
+      banned: "%{name} was banned by %{mod}."
+      reason: "Reason: %{reason}"
+      no_reason: '_(no reason given)_'
+      log_missing:
+        title: '%{name} was banned from the server.'
+        desc: 'No information about the ban could be found. You may be able to check audit logs manually to find the mod and reason.'
+    unban_logger:
+      unbanned: "%{name} was unbanned by %{mod}."
+      reason: "Reason: %{reason}"
+      no_reason: '_(no reason given)_'
+      log_missing:
+        title: '%{name} was unbanned from the server.'
+        desc: 'No information about the unban could be found. You may be able to check audit logs manually to find the mod and reason.'
+    delete_logger:
+      deleted: 'Message Deleted'
+      channel: 'Channel'
+      sent_at: 'Sent at'
+      deleted_at: 'Deleted at'
+      message_id: 'Message ID: %{id}'
+      not_in_cache: "A message was deleted, but I didn't have a copy of it in my cache, so I can't show you what the content was. Sorry! :("
   packages:
     ai:
       name: AI
