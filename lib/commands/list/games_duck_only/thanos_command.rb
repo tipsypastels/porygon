@@ -11,8 +11,8 @@ module Commands
       embed do |e|
         e.color = COLORS[result]
         e.title = t("#{result}.title")
-        e.thumb = Porygon::Asset("thanos/#{result}.png")
         e.desc  = t("#{result}.desc")
+        e.thumb = Porygon::Asset("thanos/#{result}.jpeg")
       end
     end
 
