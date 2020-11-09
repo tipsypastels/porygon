@@ -53,6 +53,8 @@ en:
             too_many_options: "Hey, that's a little overboard. Polls are limited to %{max} options."
           color:
             malformed: "`%{arg}` isn't a color as var as I can tell!. Valid formats for colours are any of the following: `#ff0000`, `11806a`, or `ff0`."
+          integer:
+            malformed: "`%{arg}` isn't an integer value."
       unknown:
         title: Hmmm. That's an error.
   commands:
@@ -447,6 +449,34 @@ en:
       desc: Use `%{pre}package [package]` to show information on a specific package.
       on_this_server: On this server
       off_this_server: Other packages
+    addpet:
+      _name: Add Pet
+      _desc: Adds a pet image to Porygon's repository, to be recalled later using the `%{pre}pet` command. Use this command with an image of your pet as an attachment. Images must be of your own pet.
+      no_attachment:
+        title: I need a pet image to add!
+        desc: Try again with an attachment image of your pet.
+      added:
+        title: Pet added!
+        desc: Delete this pet from the database at any time via `%{pre}delpet %{id}`.
+    delpet:
+      _name: Delete Pet
+      _desc: Deletes a pet image from Porygon's repository. Requires the ID of the pet image that was provided to you when it was uploaded.
+      _examples:
+        - 500
+      deleted: Pet deleted!
+      not_found: "There is no pet with ID %{id}."
+      no_permission:
+        title: "Sorry, you can't delete that pet!"
+        desc: "You may only delete pets that you've uploaded."
+    pets:
+      _desc: Shows a pet image uploaded by a member. If you don't specify a member, a random pet image from anyone on the server will be shown.
+      _examples:
+        -
+        - dakota
+      none_found:
+        member: '%{name} has not uploaded any pets.'
+        no_member: 'There are no pets in the database! Start adding some with %{pre}addpet.'
+      footer: "Delete this entry with %{pre}delpet %{id}"
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
@@ -559,6 +589,9 @@ en:
     util:
       name: Utilities
       desc: Useful helper commands.
+    pets:
+      name: Pets
+      desc: Commands relating to viewing, saving, and deleting pet images.
   porygon:
     internals:
       startup:
@@ -579,6 +612,10 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    15:
+      desc: 'The pets update!'
+      changes:
+        - 'Introduced `%{pre}pets`, `%{pre}addpet`, and `%{pre}delpet`.'
     14:
       desc: 'The long-awaited (by me putting it off) package update.'
       changes:

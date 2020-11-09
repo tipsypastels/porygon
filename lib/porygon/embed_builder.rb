@@ -23,7 +23,7 @@ module Porygon
       @attachments.presence
     end
 
-    ELEMENTARY_GETTERS = %i[title color description footer author thumbnail]
+    ELEMENTARY_GETTERS = %i[title color description footer author thumbnail image]
     ELEMENTARY_SETTERS = %i[title description]
 
     ELEMENTARY_GETTERS.each do |prop|
@@ -91,6 +91,20 @@ module Porygon
 
     alias thumb thumbnail
     alias thumb= thumbnail=
+
+    def image=(value)
+      case value
+      when NilClass
+        # pass
+      when Hash
+        @hash[:image] = value
+      when Porygon::Asset
+        @attachments << value.file
+        @hash[:image] = { url: value.attachment_path }
+      when String 
+        @hash[:image] = { url: convert(value) }
+      end
+    end
 
     def field(name, value, inline: @is_inline)
       return if value.blank?
