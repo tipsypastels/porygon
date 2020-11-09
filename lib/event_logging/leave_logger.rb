@@ -60,7 +60,7 @@ module EventLogging
       @kick ||= 
         begin
           service = AuditLogService.new(server)
-          service.fetch(user, :member_kick)
+          service.listen(user, :member_kick)
         end
     end
   end
