@@ -7,7 +7,7 @@ module Commands
     end
 
     def call(id:)
-      pet = Pet[id]
+      pet = Pet.where(id: id, server_id: server.id).first
       return not_found(id) unless pet
       return no_permission unless can_delete?(pet)
 
