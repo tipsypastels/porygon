@@ -74,9 +74,7 @@ en:
         usage: Usage
       info:
         title: Hello! I'm Porygon.
-        footer:
-          text: Created by Dakota.
-          icon_url: https://i.imgur.com/uTRBrKS.png
+        footer: Created by Dakota.
         desc: You can get a list of commands using `%{pre}commands`. To get detailed information about a specific command, re-run `%{pre}help` with the name of that command - for example, `%{pre}help poll`! If anything else confuses you, please speak up about it!
     commands:
       title: Command List
