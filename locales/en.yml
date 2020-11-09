@@ -77,7 +77,7 @@ en:
         desc: You can get a list of commands using `%{pre}commands`. To get detailed information about a specific command, re-run `%{pre}help` with the name of that command - for example, `%{pre}help ping`! If anything else confuses you, don't be afraid to ask!
     commands:
       title: Command List
-      desc: To get information about a specific command, use `%{pre}help` with the name of the command. For example, `%{pre}help ping`.
+      desc: To get information about a specific command, use `%{pre}help` with the name of the command.
       enabled: "Enabled in %{channels}\n"
       super_global: "Super Global (Enabled in all channels for you)\n"
     pory:
