@@ -13,6 +13,8 @@ module Commands
     private
 
     def help_with_command(command)
+      check_command_is_usable_and_enabled(command)
+
       embed do |e|
         e.color  = Porygon::COLORS.info
         e.title  = command.human_name
@@ -42,6 +44,21 @@ module Commands
 
     def build_aliases(command)
       command.alternative_tags.map { code(_1) }.join(', ').presence
+    end
+
+    def check_command_is_usable_and_enabled(command)
+      unless command_is_usable_and_enabled?(command)
+        raise UsageError.new('conversions.commands/command.nonexistant', arg: raw_args)
+      end
+    end
+
+    # TODO: this is ugly. unify this into one service that's used across the board
+    def command_is_usable_and_enabled?(command)
+      package = command.package
+      
+      package.supports?(server) && 
+        package.enabled?(channel, author) &&
+        Permissions::Checker.valid?(command.permission, self, silent: true) 
     end
   end
 end

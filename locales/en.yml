@@ -42,6 +42,8 @@ en:
             nonexistant: "I couldn't find a member named `%{arg}`. Sure you got it right?"
           discordrb/channel:
             nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
+          discordrb/channel_array:
+            nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
           porygon/version:
             nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
             malformed: "`%{version}` is not a valid version. Versions are positive integers."
