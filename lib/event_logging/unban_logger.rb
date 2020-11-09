@@ -28,7 +28,7 @@ module EventLogging
       @unban ||=
         begin
           service = AuditLogService.new(server)
-          service.latest_for_target(user, :member_ban_remove)
+          service.fetch(user, :member_ban_remove)
         end
     end
   end

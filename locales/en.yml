@@ -590,14 +590,15 @@ en:
     join_logger:
       joined_console: "%{name}#%{discrim} (%{id}) joined %{server}."
       joined: Member Joined
-      name: Name
       discriminator: Discriminator
       id: ID
       age: Account Age
+      days:
+        one: " (%{count} day)"
+        other: " (%{count} days)"
     leave_logger:
       left_console: "%{name}#%{discrim} (%{id}) left %{server}."
       left: Member Left
-      name: Name
       discriminator: Discriminator
       id: ID
       joined_at: Joined At

@@ -15,6 +15,10 @@ module Porygon
         end
       end
     end
+
+    def development?
+      ENV.fetch('DEV', false)
+    end
   end
 
   COLORS   = ColorPalette.new

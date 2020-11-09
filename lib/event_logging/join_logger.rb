@@ -18,8 +18,7 @@ module EventLogging
         e.title  = t('joined')
         e.author = member
 
-        e.field(t('name'), member.username)
-        e.field(t('age'), time_ago_in_words(member.creation_time))
+        e.field(t('age'), account_age)
         e.field(t('discriminator'), code(member.discriminator))
         e.field(t('id'), code(member.id))
       end
@@ -37,6 +36,18 @@ module EventLogging
 
     def add_to_cache
       Bot.member_join_list << member
+    end
+    
+    def account_age
+      base = time_ago_in_words(member.creation_time)
+      base += t('days', count: days_since_creation) unless base[/days?/]
+      base
+    end
+
+    SECONDS_PER_DAY = 86_400
+
+    def days_since_creation
+      ((Time.now - member.creation_time) / SECONDS_PER_DAY).round
     end
   end
 end

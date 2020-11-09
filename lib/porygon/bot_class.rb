@@ -68,6 +68,8 @@ module Porygon
     WAIT_TIME = 30.seconds
 
     def wait_for_member_list_to_be_accurate
+      return if Porygon.development?
+
       Porygon::LOGGER.info \
         "Sleeping for #{WAIT_TIME} seconds until the member list is accurate."
 

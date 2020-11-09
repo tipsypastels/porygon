@@ -1,6 +1,4 @@
 class AuditLogService
-  MAX_TIME_DIFF_TO_BE_CONSIDERED_RELEVANT = 3
-
   LOOP = 10
   INTERVAL = 5
 
@@ -11,25 +9,33 @@ class AuditLogService
     @server = server
   end
   
-  def latest_for_target(...)
-    LOOP.times do
-      result = latest_for_target_once(...)
-      return result if result
+  def fetch(target, action)
+    Porygon::LOGGER.info('Searching for audit logs relating to the last event...')
+    start = INTERVAL.seconds.ago
+
+    LOOP.times do |i|
+      result = fetch_once(target, action, after: start) 
+
+      if result
+        Porygon::LOGGER.info("Found after #{i} iterations.")
+        return result
+      end
 
       sleep INTERVAL
     end
 
+    Porygon::LOGGER.info('None were found.')
     nil
   end
   
-  def latest_for_target_once(target, action)
+  def fetch_once(target, action, after: INTERVAL.seconds.ago)
     log = audit_logs(limit: 1, action: action).latest
-    log if log && within_time_range?(log) && log.target == target
+    log if log && comes_after?(log, after) && log.target == target
   end
 
   private
 
-  def within_time_range?(log)
-    (Time.now - log.creation_time) <= MAX_TIME_DIFF_TO_BE_CONSIDERED_RELEVANT
+  def comes_after?(log, start)
+    log.creation_time >= start
   end
 end

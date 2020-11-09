@@ -17,7 +17,6 @@ module EventLogging
         e.title  = t('left')
         e.author = user
         
-        e.field(t('name'), user.username)
         e.field(t('joined_at'), joined_at)
         e.field(t('discriminator'), code(user.discriminator))
         e.field(t('id'), code(user.id))
@@ -61,7 +60,7 @@ module EventLogging
       @kick ||= 
         begin
           service = AuditLogService.new(server)
-          service.latest_for_target(user, :member_kick)
+          service.fetch(user, :member_kick)
         end
     end
   end
