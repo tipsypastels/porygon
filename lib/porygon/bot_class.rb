@@ -1,12 +1,12 @@
 module Porygon
   class BotClass
-    attr_reader :markov, :member_join_cache, :message_cache
+    attr_reader :markov, :member_join_list, :message_cache
     delegate :avatar_url, to: :profile
 
     def initialize
       @bot = Discordrb::Bot.new(token: ENV['BOT_TOKEN'])
       @markov = Porygon::MarkovStore.new
-      @member_join_cache = MemberJoinCache.new(@bot)
+      @member_join_list = MemberJoinList.new(@bot)
       @message_cache = MessageCache.new(@bot)
 
       setup_translation_globals
@@ -58,8 +58,9 @@ module Porygon
     end
 
     def ready
+      @member_join_list.build
+
       Database.start_logging
-      @member_join_cache.build
     end
   end
 end

@@ -36,7 +36,7 @@ module EventLogging
     end
 
     def add_to_cache
-      Bot.member_join_cache << member
+      Bot.member_join_list << member
     end
   end
 end

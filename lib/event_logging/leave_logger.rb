@@ -49,12 +49,12 @@ module EventLogging
     end
 
     def joined_at
-      time = Bot.member_join_cache.user(server, user)
+      time = Bot.member_join_list.user(server, user)
       time&.strftime(TIME_FORMAT) || t('joined_at_unknown')
     end
 
     def remove_from_cache
-      Bot.member_join_cache.delete_user(server, user)
+      Bot.member_join_list.delete_user(server, user)
     end
 
     def kick
