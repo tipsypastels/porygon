@@ -17,5 +17,17 @@ module Commands
         e.desc  = code_block(result, :ruby, inspect: true)
       end
     end
+
+    private
+
+    # methods provided for ease of use debugging
+
+    def find_role(name)
+      Discordrb::Role.from_argument(proc {}, name, self)
+    end
+
+    def find_member(name)
+      Discordrb::Member.from_argument(proc {}, name, self)
+    end
   end
 end

@@ -18,21 +18,22 @@ module Commands
         e.title  = command.human_name
         e.footer = command.footer
         e.desc   = command.desc
-
+        
         e.inline do
           e.field(t('with_command.command'), code(command.tag))
           e.field(t('with_command.aliases'), build_aliases(command))
           e.field(t('with_command.package'), command.package_name)
         end
-
+        
         e.field(t('with_command.usage'), command.usage)
         e.field(t('with_command.examples'), command.examples)
       end
     end
-
+    
     def help_info
       embed do |e|
         e.color  = Porygon::COLORS.info
+        e.thumb  = Porygon::PORTRAIT
         e.title  = t('info.title')
         e.footer = t('info.footer')
         e.desc   = t('info.desc', prefix: Bot.prefix)

@@ -41,6 +41,10 @@ module Packages
               end
             end
         end
+
+        def garbage_collect(channel)
+          where(channel_id: channel.id, server_id: channel.server.id).destroy
+        end
       end
 
       def after_create

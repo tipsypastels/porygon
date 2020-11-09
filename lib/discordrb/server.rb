@@ -39,6 +39,7 @@ module Discordrb
     def settings
       @settings ||= ServerSetting.find_or_create(id: id)
     end
+    private :settings
 
     def mod_log_channel
       id = settings.mod_log_channel_id
@@ -61,6 +62,13 @@ module Discordrb
 
     def muted_role=(role)
       settings.update(muted_role_id: role&.resolve_id)
+    end
+
+    delegate :role_list_url, to: :settings
+
+    def role_list_url=(url)
+      url = url.to_s if url.is_a?(URI)
+      settings.update(role_list_url: url)
     end
   end
 end

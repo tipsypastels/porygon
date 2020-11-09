@@ -20,6 +20,7 @@ class CreateRoleService
                                 hoist: hoist,
                                 mentionable: mentionable
     
+    set_bits
     make_requestable
     give_to_author
     self
@@ -27,8 +28,12 @@ class CreateRoleService
 
   private
 
+  def set_bits
+    role.packed = server.everyone_role.permissions.bits
+  end
+
   def make_requestable
-    # TODO: make requestable roles
+    role.requestable = true if requestable
   end
 
   def give_to_author

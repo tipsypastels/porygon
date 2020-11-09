@@ -41,8 +41,6 @@ en:
             nonexistant: "I couldn't find a member named `%{arg}`. Sure you got it right?"
           discordrb/channel:
             nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
-          discordrb/channel_array:
-            nonexistant: "I couldn't find a channel named `%{arg}`. Sure you got it right?"
           porygon/version:
             nonexistant: "Version `%{version}` does not exist. Versions are numbered starting from `1`, and the current latest is `%{current}`."
             malformed: "`%{version}` is not a valid version. Versions are positive integers."
@@ -55,6 +53,8 @@ en:
             malformed: "`%{arg}` isn't a color as var as I can tell!. Valid formats for colours are any of the following: `#ff0000`, `11806a`, or `ff0`."
           integer:
             malformed: "`%{arg}` isn't an integer value."
+          uri:
+            malformed: "`%{arg}` isn't a valid URL."
       unknown:
         title: Hmmm. That's an error.
   commands:
@@ -62,7 +62,7 @@ en:
       _desc: Displays help information about commands.
       _examples:
         - 
-        - ping
+        - poll
       with_command:
         command: Command
         aliases: Aliases
@@ -74,13 +74,13 @@ en:
         footer:
           text: Created by Dakota.
           icon_url: https://i.imgur.com/uTRBrKS.png
-        desc: You can get a list of commands using `%{pre}commands`. To get detailed information about a specific command, re-run `%{pre}help` with the name of that command - for example, `%{pre}help ping`! If anything else confuses you, don't be afraid to ask!
+        desc: You can get a list of commands using `%{pre}commands`. To get detailed information about a specific command, re-run `%{pre}help` with the name of that command - for example, `%{pre}help poll`! If anything else confuses you, please speak up about it!
     commands:
       title: Command List
       desc: To get information about a specific command, use `%{pre}help` with the name of the command.
       enabled: "Enabled in "
       enabled_except: 'Enabled everywhere except '
-      super_global: "Super Global (Enabled in all channels for you)\n"
+      super_global: "Super Global (Enabled in all channels for you)"
     pory:
       _desc: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
       _examples:
@@ -480,6 +480,66 @@ en:
         member: '%{name} has not uploaded any pets.'
         no_member: 'There are no pets in the database! Start adding some with %{pre}addpet.'
       footer: "Delete this entry with %{pre}delpet %{id}"
+    addrole:
+      _name: Add Role
+      _desc: Gives you a requestable role.
+      _examples:
+        - Music Fans
+      not_requestable:
+        title: "\"%{role}\" isn't a requestable role, sorry!"
+        desc_for_list: "You can find a list of roles that can be requested [here](%{url})."
+      already_has: "Looks like you already have that role! 😛"
+      given: "Gave you \"%{role}\"!"
+    removerole:
+      _name: Remove Role
+      _desc: Removes a requestable role from you.
+      _examples:
+        - Music Fans
+      doesnt_have: "Looks like you don't even have that role."
+      not_requestable: "I can't take that away from you, because it's not a requestable role."
+      taken: "Took away \"%{role}\"!"
+    rolelist:
+      _name: Role List
+      _desc: Lists roles that can be requested.
+      none: "This server has no role list."
+      result:
+        title: Role List
+        desc: "[Click here](%{url}) to view a list of roles you can request on this server."
+    setrolelisturl:
+      _name: Set Role List URL
+      _desc: Sets the URL provided by `%{pre}rolelist` to a URL on your site where available roles are listed.
+      _examples:
+        - 'https://my.site.com/discord/roles'
+      done:
+        title: Role list URL set!
+        desc: 'This URL will now be shown to users using the `%{pre}rolelist` command.'
+    clearrolelisturl:
+      _name: Clear Role List URL
+      _desc: Removes the URL provided by `%{pre}rolelist`, if one is set.
+      done:
+        title: Role list URL cleared!
+        desc: The requestable role list is now unavailable to members.
+    makerequestable:
+      _name: Make Role Requestable
+      _desc: Allows members to request an existing role via the `%{pre}addrole` command.
+      _examples:
+        - Music Fans
+      already_requestable: "%{role} is already requestable!"
+      highest_role: "That role is your highest role or higher, you can't make it requestable."
+      higher_than_bot: "Requestable roles must be lower than the bot's role."
+      has_permissions:
+        title: "Warning!"
+        desc: "** You are about to make requestable a role that has non-default permissions applied to it.**\n\nIt's probably worth double checking that everything is as it should be and you're not about to give your users any undesired powers. If you know what you're doing and want to bypass this message, rerun the command as:\n```\n%{pre}%{tag} %{args} --unsafe```"
+      done:
+        title: "%{role} is now requestable!"
+        desc: "Members of this server can request it using `%{pre}addrole %{role}`."
+    makeunrequestable:
+      _name: Make Role Un-requestable
+      _desc: Removes the ability for members to request this role. Inverse of `%{pre}makerequestable`.
+      not_requestable: "%{role} isn't requestable anyways."
+      done:
+        title: "%{role} is no longer requestable!"
+        desc: "The role has not been removed from any members who already have it. You'll want to do that manually or delete it with `%{pre}deleterole %{args}`."
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
@@ -618,6 +678,13 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    16:
+      desc: 'Version 1.0! 🎊 🥳 🎉'
+      changes:
+        - "Added the `req_role` package, with `%{pre}rolelist`, `%{pre}addrole` and `%{pre}removerole`."
+        - "To accompany that, added `%{pre}makerequestable`, `%{pre}makeunrequestable`, `%{pre}setrolelisturl`, and `%{pre}clearrolelisturl` to the mod package."
+        - "Fixed an issue where having a package enabled in too many (but not all) channels could cause the embed to go over the max length listing all of them. As of now, that case will be handled by listing all channels a package is *not* enabled in, as long as it's enabled in more than half and over a certain minimum number."
+        - "Porygon's portrait now appears in `%{pre}help` when using it without an argument."
     15:
       desc: 'The pets update!'
       changes:

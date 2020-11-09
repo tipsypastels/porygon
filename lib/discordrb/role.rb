@@ -9,5 +9,13 @@ module Discordrb
     def requestable?
       in? RequestableRole
     end
+
+    def requestable=(req)
+      if req
+        RequestableRole.find_or_create(id: id, server_id: server.id)
+      else
+        RequestableRole.where(id: id, server_id: server.id).destroy
+      end
+    end
   end
 end
