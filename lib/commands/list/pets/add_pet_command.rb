@@ -1,6 +1,6 @@
 module Commands
   class AddPetCommand < Command
-    register 'addpet'
+    register %w[addpet addpets]
 
     def call
       return no_attachment if message.attachments.empty?

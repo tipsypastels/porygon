@@ -1,6 +1,6 @@
 module Commands
   class DeletePetCommand < Command
-    register 'delpet'
+    register %w[delpet delpets]
 
     args do |a|
       a.arg :id, Integer

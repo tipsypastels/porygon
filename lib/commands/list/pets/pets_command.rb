@@ -1,6 +1,6 @@
 module Commands
   class PetsCommand < Command
-    register 'pets'
+    register %w[pets pet]
 
     args do |a|
       a.arg :member, Discordrb::Member, optional: true
