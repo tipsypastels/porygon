@@ -37,6 +37,7 @@ en:
             no_super_global: "`%{arg}` is a super-global package and can't be enabled or disabled."
           discordrb/role:
             nonexistant: "I couldn't find a role named `%{arg}`. Sure you got it right?"
+            everyone: "You can't use the everyone role as a role."
           discordrb/member:
             nonexistant: "I couldn't find a member named `%{arg}`. Sure you got it right?"
           discordrb/channel:
