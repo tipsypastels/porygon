@@ -4,7 +4,7 @@ class Arguments
     def Array(type, split: /\s*,\s*/)
       Class.new do
         define_singleton_method :from_argument do |error, arg, command|
-          arg.split(split).map { type.from_argument(error, _1, command) }
+          arg.split(split).map { type.from_argument(error, _1.strip, command) }
         end
 
         define_singleton_method :to_s do
