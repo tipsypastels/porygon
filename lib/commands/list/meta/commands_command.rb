@@ -17,7 +17,7 @@ module Commands
     private
 
     def build_description(package, commands)
-      "#{enabled_channels(package)}#{format_commands(commands)}"
+      "#{enabled_channels(package)}\n#{format_commands(commands)}"
     end
 
     def enabled_channels(package)
@@ -30,7 +30,7 @@ module Commands
       end
 
       if channels.size < server.text_channels.size
-        t('enabled', channels: channels.map(&:mention).join(','))
+        ChannelListService.list(server, channels, t('enabled'), t('enabled_except'))
       end
     end
 

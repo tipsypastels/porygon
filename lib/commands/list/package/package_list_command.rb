@@ -30,7 +30,7 @@ module Commands
       channels = package.channels(server)
 
       return if channels.empty? || channels.size == server.text_channels.size
-      "- #{channels.map(&:mention).join(', ')}"
+      ChannelListService.list(server, channels, t('enabled'), t('enabled_except'))
     end
 
     def enabled

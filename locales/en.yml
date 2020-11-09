@@ -78,7 +78,8 @@ en:
     commands:
       title: Command List
       desc: To get information about a specific command, use `%{pre}help` with the name of the command.
-      enabled: "Enabled in %{channels}\n"
+      enabled: "Enabled in "
+      enabled_except: 'Enabled everywhere except '
       super_global: "Super Global (Enabled in all channels for you)\n"
     pory:
       _desc: Speaks to Porygon. Providing an optional message will allow it to be mixed in to future sentences.
@@ -449,6 +450,8 @@ en:
       desc: Use `%{pre}package [package]` to show information on a specific package.
       on_this_server: On this server
       off_this_server: Other packages
+      enabled: "- "
+      enabled_except: "- Everywhere except"
     addpet:
       _name: Add Pet
       _desc: Adds a pet image to Porygon's repository, to be recalled later using the `%{pre}pet` command. Use this command with an image of your pet as an attachment. Images must be of your own pet.
@@ -592,6 +595,9 @@ en:
     pets:
       name: Pets
       desc: Commands relating to viewing, saving, and deleting pet images.
+    req_role:
+      name: Requestable Roles
+      desc: Commands that allow users to request certain roles.
   porygon:
     internals:
       startup:
