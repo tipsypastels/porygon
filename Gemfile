@@ -24,7 +24,7 @@ gem 'rake'
 
 # Translation
 gem 'i18n'
-gem 'i18n-globals'
+gem 'i18n-globals', github: 'tipsypastels/i18n-globals'
 
 # Utility
 gem 'actionview'

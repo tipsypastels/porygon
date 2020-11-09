@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/tipsypastels/i18n-globals.git
+  revision: 4cfd270ffa8766d1b1229fb64d0616d34419a702
+  specs:
+    i18n-globals (0.0.4)
+      i18n
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,8 +48,6 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
-    i18n-globals (0.0.4)
-      i18n
     loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -120,7 +125,7 @@ DEPENDENCIES
   dotenv
   fast_blank
   i18n
-  i18n-globals
+  i18n-globals!
   marky_markov
   pg
   rake
