@@ -1,14 +1,28 @@
 class AuditLogService
   MAX_TIME_DIFF_TO_BE_CONSIDERED_RELEVANT = 3
 
+  LOOP = 10
+  INTERVAL = 5
+
   attr_reader :server
   delegate :audit_logs, to: :server
 
   def initialize(server)
     @server = server
   end
+  
+  def latest_for_target(...)
+    LOOP.times do
+      result = latest_for_target_once(...)
+      return result if result
 
-  def latest_for_target(target, action)
+      sleep INTERVAL
+    end
+
+    nil
+  end
+  
+  def latest_for_target_once(target, action)
     log = audit_logs(limit: 1, action: action).latest
     log if log && within_time_range?(log) && log.target == target
   end
