@@ -1,12 +1,19 @@
 module Porygon
   class MemberJoinList
     def initialize(bot)
-      @bot = bot
+      @bot  = bot
+      @done = false
     end
     
     def build
-      log do
-        @bot.servers.each_value { |server| cache server }
+      unless @done
+        wait_for_member_list_to_be_accurate
+
+        log do
+          @bot.servers.each_value { |server| cache server }
+        end
+
+        @done = true
       end
     end
 
@@ -35,6 +42,17 @@ module Porygon
     private
 
     delegate :find_or_create, to: :MemberJoinDate
+
+    WAIT_TIME = 30.seconds
+
+    def wait_for_member_list_to_be_accurate
+      # return if Porygon.development?
+
+      Porygon::LOGGER.info \
+        "Sleeping for #{WAIT_TIME} seconds until the member list is accurate."
+
+      sleep WAIT_TIME
+    end
 
     def find(server, user)
       MemberJoinDate.where(user_id: user.id, server_id: server.id)

@@ -58,22 +58,8 @@ module Porygon
     end
 
     def ready
-      wait_for_member_list_to_be_accurate
-
       @member_join_list.build
-
       Database.start_logging
-    end
-
-    WAIT_TIME = 30.seconds
-
-    def wait_for_member_list_to_be_accurate
-      return if Porygon.development?
-
-      Porygon::LOGGER.info \
-        "Sleeping for #{WAIT_TIME} seconds until the member list is accurate."
-
-      sleep WAIT_TIME
     end
   end
 end
