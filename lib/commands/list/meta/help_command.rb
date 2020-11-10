@@ -37,8 +37,8 @@ module Commands
         e.color  = Porygon::COLORS.info
         e.thumb  = Porygon::PORTRAIT
         e.title  = t('info.title')
-        e.footer = info_footer
         e.desc   = t('info.desc', prefix: Bot.prefix)
+        e.footer = { text: t('info.footer'), icon_url: Bot.owner_avatar }
       end
     end
 
@@ -59,13 +59,6 @@ module Commands
       package.supports?(server) && 
         package.enabled?(channel, author) &&
         Permissions::Checker.valid?(command.permission, self, silent: true) 
-    end
-
-    def info_footer
-      {
-        text: t('info.footer'),
-        icon_url: BotOwnerAvatarService.url(server),
-      }
     end
   end
 end
