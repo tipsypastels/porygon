@@ -52,13 +52,13 @@ module Commands
       end
     end
 
-    # TODO: this is ugly. unify this into one service that's used across the board
     def command_is_usable_and_enabled?(command)
       package = command.package
       
-      package.supports?(server) && 
-        package.enabled?(channel, author) &&
-        Permissions::Checker.valid?(command.permission, self, silent: true) 
+      return unless package.supports?(server) 
+      return unless package.enabled?(channel, author)
+
+      CommandAccessService.new(author, channel, command).check_member
     end
   end
 end

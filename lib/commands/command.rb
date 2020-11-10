@@ -47,7 +47,7 @@ module Commands
     end
 
     def invalid_access?
-      !command_permission.check(self, silent: false)
+      !permission.check(self)
     end
 
     def disabled_in_channel?

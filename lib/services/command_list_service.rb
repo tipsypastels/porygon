@@ -5,10 +5,10 @@ class CommandListService
     new(...).list
   end
 
-  attr_reader :server, :member, :channel
+  attr_reader :member, :channel
+  delegate :server, to: :channel
 
-  def initialize(server, member, channel)
-    @server  = server 
+  def initialize(member, channel)
     @member  = member
     @channel = channel
   end
@@ -41,10 +41,7 @@ class CommandListService
 
   def package_commands(package)
     package.commands.select do |command|
-      permission = command.permission
-
-      next if permission.owner_only? && !Bot.owner?(member)
-      permission.member_perms.none? { |perm| !member.permission?(perm, channel) }
+      CommandAccessService.new(member, channel, command).check_member
     end
   end
 end

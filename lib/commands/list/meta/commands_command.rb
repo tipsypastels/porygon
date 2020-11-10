@@ -41,7 +41,7 @@ module Commands
     end
 
     def packages
-      @packages ||= CommandListService.list(server, author, channel)
+      @packages ||= CommandListService.list(author, channel)
     end
   end
 end

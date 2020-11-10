@@ -12,8 +12,8 @@ module Commands
       @owner_only
     end
 
-    def check(command, silent:)
-      Checker.new(self, command, silent: silent).valid?
+    def check(command)
+      Checker.check(command)
     end
   end
 end

@@ -66,10 +66,8 @@ module Commands
         delegate :tags, :tag, :alternative_tags,
                  :human_name, :banner, :usage, :desc, :examples,
                  :package, :package_name, :package_tag,
+                 :permission,
                  to: :class
-
-        # more generic name that might be used in other contexts, prefix it
-        delegate :permission, to: :class, prefix: :command
       end
     end
   end
