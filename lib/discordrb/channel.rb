@@ -27,5 +27,9 @@ module Discordrb
       yield(embed) if block_given?
       send_message(message, false, embed, attachments)
     end
+
+    def readable_by?(member)
+      member.permission?(:read_messages, self)
+    end
   end
 end

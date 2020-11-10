@@ -30,7 +30,9 @@ module Commands
       channels = package.channels(server)
 
       return if channels.empty? || channels.size == server.text_channels.size
-      ChannelListService.list(server, channels, t('enabled'), t('enabled_except'))
+      
+      ChannelListService.new(server, channels, author)
+                        .prefixed(t('enabled'), t('enabled_except'))
     end
 
     def enabled

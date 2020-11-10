@@ -1,43 +1,57 @@
 class ChannelListService
-  attr_reader :server, :channels
-  attr_reader :include_phrase, :exclude_phrase
+  ChannelsResult = Struct.new(:type, :channels) do
+    def exclusive?
+      type == :exclusive
+    end
+  end
+  
+  attr_reader :server, :channels, :member
 
   def self.list(...)
     new(...).list
   end
 
-  def initialize(server, channels, include_phrase = '', exclude_phrase = '')
+  def initialize(server, channels, member)
     @server   = server
     @channels = channels
+    @member   = member
+  end
 
-    @include_phrase = include_phrase
-    @exclude_phrase = exclude_phrase
+  def prefixed(inclusion_phrase, exclusion_phrase)
+    return if list.channels.empty?
+
+    if list.exclusive?
+      exclusion_phrase + list.channels
+    else
+      inclusion_phrase + list.channels
+    end
   end
 
   def list
-    if use_exclusion_list?
-      exclusion_list
-    else
-      inclusion_list
-    end
+    @list ||= 
+      if use_exclusion_list?
+        ChannelsResult.new(:exclusive, exclusion_list)
+      else
+        ChannelsResult.new(:inclusive, inclusion_list)
+      end
   end
 
   private
 
   def exclusion_list
-    exclude_phrase + flatten_channels(excluded_channels)
+    flatten_channels(excluded_channels)
   end
 
   def inclusion_list
-    include_phrase + flatten_channels(channels)
+    flatten_channels(channels)
   end
 
   def excluded_channels
-    server.text_channels - channels
+    all_visible_text_channels - channels
   end
 
   def flatten_channels(channels)
-    channels.collect(&:mention).join(', ')
+    channels.collect(&:mention).join(', ').strip
   end
 
   MIN_COUNT_TO_EXCLUSION = 6
@@ -48,5 +62,9 @@ class ChannelListService
   
   def at_least_half_of_channels_included?
     channels.size >= (server.text_channels.size / 2)
+  end
+
+  def all_visible_text_channels
+    server.text_channels.select { |chan| chan.readable_by?(member) }
   end
 end
