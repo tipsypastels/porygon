@@ -59,7 +59,7 @@ module Porygon
     end
 
     def cache(server)
-      ServerCacheOperation.cache(server, &method(:<<))
+      ServerCacheOperation.cache(server)
     end
 
     def log
@@ -68,9 +68,6 @@ module Porygon
       yield
 
       Porygon::LOGGER.cache('All join dates have been allocated.')
-    end
-
-    class MemberJoinDate < Sequel::Model
     end
   end
 end

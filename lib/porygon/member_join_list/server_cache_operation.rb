@@ -1,16 +1,15 @@
 module Porygon
   class MemberJoinList
     class ServerCacheOperation
-      def self.cache(...)
-        new(...).cache
+      def self.cache(server)
+        new(server).cache
       end
 
-      attr_reader :server, :create_entry
+      attr_reader :server
       delegate :members, to: :server
 
-      def initialize(server, &create_entry)
-        @server       = server
-        @create_entry = create_entry
+      def initialize(server)
+        @server = server
       end
 
       def cache
@@ -26,8 +25,8 @@ module Porygon
       
       def build_new_cache
         Porygon::LOGGER.cache("Allocating join dates for #{server.name}.")
-        
-        members.each { |member| create_entry.call(member) }
+
+        MembersCacheOperation.cache(server)
         save_hash_of_members_for_next_run
       end
       
