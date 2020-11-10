@@ -59,8 +59,7 @@ module Porygon
     end
 
     def cache(server)
-      Porygon::LOGGER.info("Allocating join dates for #{server.name}.")
-      server.members.each { |member| self << member }
+      ServerCacheOperation.cache(server, &method(:<<))
     end
 
     def log
