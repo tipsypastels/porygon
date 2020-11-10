@@ -17,7 +17,7 @@ module Porygon
         if server_members_changed_since_last_run?
           build_new_cache
         else
-          Porygon::LOGGER.info \
+          Porygon::LOGGER.cache \
             "No change in #{server.name} members, reusing old cache."
         end
       end
@@ -25,7 +25,7 @@ module Porygon
       private
       
       def build_new_cache
-        Porygon::LOGGER.info("Allocating join dates for #{server.name}.")
+        Porygon::LOGGER.cache("Allocating join dates for #{server.name}.")
         
         members.each { |member| create_entry.call(member) }
         save_hash_of_members_for_next_run

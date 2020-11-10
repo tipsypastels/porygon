@@ -48,7 +48,7 @@ module Porygon
     def wait_for_member_list_to_be_accurate
       return if Porygon.development?
 
-      Porygon::LOGGER.info \
+      Porygon::LOGGER.cache \
         "Sleeping for #{WAIT_TIME} seconds until the member list is accurate."
 
       sleep WAIT_TIME
@@ -63,11 +63,11 @@ module Porygon
     end
 
     def log
-      Porygon::LOGGER.info('Allocating join dates. Prepare for lag!')
+      Porygon::LOGGER.cache('Allocating join dates. Prepare for lag!')
 
       yield
 
-      Porygon::LOGGER.info('All join dates have been allocated.')
+      Porygon::LOGGER.cache('All join dates have been allocated.')
     end
 
     class MemberJoinDate < Sequel::Model
