@@ -66,6 +66,8 @@ module Porygon
     end
 
     def ready
+      Porygon::LOGGER.info("We're ready to go!")
+
       @member_join_list.build
       Database.start_logging
     end
