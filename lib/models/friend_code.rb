@@ -1,4 +1,12 @@
 class FriendCode < Sequel::Model
+  CONSOLE_TO_COLUMN = {
+    '3ds'    => :ds3_friend_code,
+    'switch' => :switch_friend_code,
+    'go'     => :go_friend_code,
+  }
+
+  CONSOLES = CONSOLE_TO_COLUMN.keys
+
   SYNTAX = /\A\d{4}[- ]*\d{4}[- ]*\d{4}\z/
   NORMALIZE = /(\d{4})(?=\d)/
 

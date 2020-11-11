@@ -1,28 +1,26 @@
 class FriendCode
   class SetOperation
-    PLATFORMS = %w[switch 3ds go]
-
     def self.from_argument(error, arg, command)
-      plat, code = arg.downcase.split(/\s+/)
+      cons, code = arg.downcase.split(/\s+/)
 
       # support inverted positions
-      code, plat = plat, code if plat.match?(SYNTAX)
+      code, cons = cons, code if cons.match?(SYNTAX)
+
+      error[:invalid_console, arg: cons] unless cons.in?(CONSOLES)
+      error[:missing_console] if cons.blank?
       
-      error[:invalid_platform, arg: plat] unless plat.in?(PLATFORMS)
-      error[:missing_platform] if plat.blank?
-      
-      error[:missing_code, no_help: true, plat: plat] if code.blank?
+      error[:missing_code, no_help: true, cons: cons] if code.blank?
       error[:malformed, arg: code] unless code.match?(SYNTAX)
 
-      new(plat, code, command.author)
+      new(cons, code, command.author)
     end
 
-    attr_reader :code, :platform, :member
+    attr_reader :code, :console, :member
 
-    def initialize(platform, code, member)
-      @member   = member
-      @platform = platform
-      @code     = FriendCode.normalize(code)
+    def initialize(console, code, member)
+      @member  = member
+      @console = console
+      @code    = FriendCode.normalize(code)
     end
 
     def save
@@ -49,14 +47,8 @@ class FriendCode
       { column => code }
     end
 
-    PLATFORM_TO_COLUMN = {
-      '3ds'    => :ds3_friend_code,
-      'switch' => :switch_friend_code,
-      'go'     => :go_friend_code,
-    }
-
     def column
-      PLATFORM_TO_COLUMN.fetch(platform)
+      CONSOLE_TO_COLUMN.fetch(console)
     end
   end
 end

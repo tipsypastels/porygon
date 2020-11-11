@@ -28,9 +28,9 @@ module Commands
 
     def code_fields(codes)
       {}.tap do |hash|
-        hash[t('ds3')]    = codes.ds3_friend_code || t('undefined')
-        hash[t('switch')] = codes.switch_friend_code || t('undefined')
-        hash[t('go')]     = codes.go_friend_code || t('undefined')
+        hash[t('ds3')]    = codes.ds3_friend_code
+        hash[t('switch')] = codes.switch_friend_code
+        hash[t('go')]     = codes.go_friend_code
       end
     end
 

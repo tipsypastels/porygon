@@ -59,10 +59,12 @@ en:
             malformed: "`%{arg}` isn't a valid URL."
           friend_code/set_operation:
             missing: "Please provide the name of the console that the friend code is from (supported: `3ds`, `switch`, `go`), and the friend code itself after that. Like this. ```\n%{pre}setfc 3ds ####-####-####```"
-            invalid_platform: "`%{arg}` isn't a supported console for setting friend codes. You can use `3ds`, `switch`, or `go`."
+            invalid_console: "`%{arg}` isn't a supported console for setting friend codes. You can use `3ds`, `switch`, or `go`."
             malformed: "Are you sure that's a friend code? Friend codes look like this: `####-####-####`."
             missing_code: "Please provide the friend code you'd like to set after the console name. Like this. ```\n%{pre}setfc %{plat} ####-####-####```"
-            missing_platform: "Please provide the name of the console the friend code is from. You can use `3ds`, `switch`, or `go`."
+            missing_console: "Please provide the name of the console the friend code is from. You can use `3ds`, `switch`, or `go`."
+          friend_code/delete_console:
+            invalid: "`%{arg}` isn't a console I can delete for. Please use `3ds`, `switch`, `go`, or `all` to delete all three at once."
       unknown:
         title: Hmmm. That's an error.
   commands:
@@ -566,7 +568,6 @@ en:
         - dakota
       title: Friend Codes
       footer: Set or update friend codes with %{pre}setfc.
-      undefined: '_(not set)_'
       none:
         me:
           title: You have no friend codes set!
@@ -576,7 +577,21 @@ en:
           desc: "They can set or update friend codes using `%{pre}setfc`."
       ds3: '3DS'
       switch: Switch
-      go: Pokémon Go    
+      go: Pokémon Go
+    delfc:
+      _name: Delete Friend Code
+      _desc: Removes your friend code for a specific console from Porygon's database, or removes all at once if you use `all`.
+      _examples:
+        - 3ds
+        - all
+      no_op:
+        title:
+          all: "You didn't have any friend codes set anyways."
+          no_all: "You didn't have a friend code for that console set anyways."
+        desc: "Not much that can be done here."
+      deleted:
+        title: "Deleted!"
+        desc: "Please have a nice day."
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
@@ -719,7 +734,7 @@ en:
     18:
       changes:
         - "Moved and merged some redundant packages."
-        - "Added the `fc` package with `%{pre}fc` and `%{pre}setfc`."
+        - "Added the `fc` package with `%{pre}fc`, `%{pre}setfc` and `%{pre}delfc`."
     17:
       changes:
         - "Startup is now faster as Porygon uses several techniques to skip as much rebuilding of the join time cache as possible."
