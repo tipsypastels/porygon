@@ -2,7 +2,7 @@ module Packages
   extend Enumerable
 
   SERVER_LOCKS = HashWithIndifferentAccess.new({
-    games_duck_only: [ServerIds::DUCK, ServerIds::TEST],
+    duck: [ServerIds::DUCK, ServerIds::TEST],
   })
 
   SUPER_GLOBALS = HashWithIndifferentAccess.new({
@@ -14,7 +14,7 @@ module Packages
     Dir['lib/commands/list/*'].map { |dir|
       tag = dir.split('/').last
       [tag, Package.new(tag)]
-    }.sort_by { |tag, _pkg| tag }.to_h
+    }.sort_by { |_tag, pkg| pkg.name }.to_h
   
   class << self
     def [](tag)

@@ -21,13 +21,12 @@ en:
         desc: "I need the `%{perm}` permission to make this command work. If you believe this is a mistake, please poke a server staff member."
       usage:
         base:
-          title: Looks like you're using the command wrong.
+          title: "Hi! Here's how to use the command." 
           desc: " Here's how to use `%{pre}%{command}`.%{usage}"
           footer: "For more information, see %{pre}help %{command}."
           usage: Usage
           examples: Examples
-        missing_arg: Did you forget to provide a value for `%{arg}`?
-        wrong_arg_type: Looks like you provided the wrong type of value for `%{arg}`! Here's how you use it.
+        missing_arg: "It looks like you forgot to provide a value for `%{arg}`."
         no_muted_role: 'You must first define a muted role to use this command! Either create a role with the name "Muted" and the desired effects, or use `%{pre}setMutedRole` to select an arbitrary role.'
         conversions:
           commands/command:
@@ -58,6 +57,12 @@ en:
             malformed: "`%{arg}` isn't an integer value."
           uri:
             malformed: "`%{arg}` isn't a valid URL."
+          friend_code/set_operation:
+            missing: "Please provide the name of the console that the friend code is from (supported: `3ds`, `switch`, `go`), and the friend code itself after that. Like this. ```\n%{pre}setfc 3ds ####-####-####```"
+            invalid_platform: "`%{arg}` isn't a supported console for setting friend codes. You can use `3ds`, `switch`, or `go`."
+            malformed: "Are you sure that's a friend code? Friend codes look like this: `####-####-####`."
+            missing_code: "Please provide the friend code you'd like to set after the console name. Like this. ```\n%{pre}setfc %{plat} ####-####-####```"
+            missing_platform: "Please provide the name of the console the friend code is from. You can use `3ds`, `switch`, or `go`."
       unknown:
         title: Hmmm. That's an error.
   commands:
@@ -541,6 +546,37 @@ en:
       done:
         title: "%{role} is no longer requestable!"
         desc: "The role has not been removed from any members who already have it. You'll want to do that manually or delete it with `%{pre}deleterole %{args}`."
+    setfc:
+      _name: Set Friend Code
+      _desc: Saves your friend code for any of the supported consoles (`3ds`, `switch`, `go`) so others can find it at any time.
+      _args:
+        setter: 
+          name: '[console] [friend code]'
+      _examples:
+        - 3ds 1924-4923-5939
+        - switch 9493-3321-9524
+        - go 3994-2392-3922
+      title: 'Friend code saved!'
+      desc: 'Others can lookup your friend codes via `%{pre}fc %{name}`.'
+    fc:
+      _name: Friend Code
+      _desc: Looks up the friend codes of a member, or your own friend codes if you don't specify a name. Friend codes must be set in advance via the `%{pre}setfc` command.
+      _examples:
+        - 
+        - dakota
+      title: Friend Codes
+      footer: Set or update friend codes with %{pre}setfc.
+      undefined: '_(not set)_'
+      none:
+        me:
+          title: You have no friend codes set!
+          desc: "Set or update your friend codes using `%{pre}setfc`."
+        other:
+          title: "%{name} has no friend codes set!"
+          desc: "They can set or update friend codes using `%{pre}setfc`."
+      ds3: '3DS'
+      switch: Switch
+      go: Pokémon Go    
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
@@ -630,11 +666,8 @@ en:
       message_id: 'Message ID: %{id}'
       not_in_cache: "A message was deleted, but I didn't have a copy of it in my cache, so I can't show you what the content was. Sorry!"
   packages:
-    games:
-      name: Games
-      desc: Random utility or fun commands.
-    games_duck_only:
-      name: Games+ (Duck Communism Only)
+    duck:
+      name: Duck Communism
       desc: More games, including inside jokes specific to duck communism members. Not available elsewhere.
     package:
       name: Package Management
@@ -644,10 +677,10 @@ en:
       desc: Commands about Porygon itself.
     mod:
       name: Moderation
-      desc: Mod-only server management.
-    guild:
-      name: Guild
-      desc: Commands relating to the current server.
+      desc: Useful commands for server staff.
+    setup:
+      name: Bot Setup
+      desc: Mod & admin controls to manage the bot on a server.
     operator:
       name: Operator
       desc: Commands to operate and debug Porygon.
@@ -660,6 +693,9 @@ en:
     req_role:
       name: Requestable Roles
       desc: Commands that allow users to request certain roles.
+    fc:
+      name: Friend Codes
+      desc: Commands to set and view friend codes.
   porygon:
     internals:
       startup:
@@ -680,6 +716,10 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    18:
+      changes:
+        - "Moved and merged some redundant packages."
+        - "Added the `fc` package with `%{pre}fc` and `%{pre}setfc`."
     17:
       changes:
         - "Startup is now faster as Porygon uses several techniques to skip as much rebuilding of the join time cache as possible."
