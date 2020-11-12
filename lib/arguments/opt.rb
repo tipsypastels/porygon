@@ -17,7 +17,7 @@ class Arguments
 
     def eat(tokens, output, command)
       unless (index = index_in(tokens))
-        return output[@long] = default || missing
+        return output[@long] = default(command) || missing
       end
 
       result = convert(tokens[index + 1], command)
@@ -51,8 +51,8 @@ class Arguments
 
     private
 
-    def default
-      @default.is_a?(Proc) ? @default.call : @default 
+    def default(command)
+      @default.is_a?(Proc) ? @default.call(command) : @default 
     end
 
     def missing

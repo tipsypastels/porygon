@@ -12,7 +12,7 @@ class Arguments
 
     def eat(tokens, output, command)
       unless (rest = tokens.join(' ').presence)
-        return output[@name] = default || missing
+        return output[@name] = default(command) || missing
       end
 
       output[@name] = convert(rest, command)
@@ -25,8 +25,8 @@ class Arguments
 
     private
 
-    def default
-      @default.is_a?(Proc) ? @default.call : @default 
+    def default(command)
+      @default.is_a?(Proc) ? @default.call(command) : @default 
     end
 
     def missing

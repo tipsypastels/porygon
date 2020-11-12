@@ -10,6 +10,10 @@ class Arguments
         define_singleton_method :to_s do
           type.to_s.pluralize
         end
+
+        define_singleton_method :name do
+          type.name
+        end
       end
     end
     # rubocop:enable Naming/MethodName

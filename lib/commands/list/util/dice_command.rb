@@ -3,7 +3,7 @@ module Commands
     register %w[dice roll diceroll rolldice]
 
     args do |a|
-      a.arg :rolls, DiceRoll, default: -> { DiceRoll.new }
+      a.arg :rolls, DiceRoll, default: proc { DiceRoll.new }
     end
 
     def call(rolls:)

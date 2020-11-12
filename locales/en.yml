@@ -441,16 +441,16 @@ en:
         - games --channels "random, bot-spam"
         - mod --channels all
       added:
-        title: "Package enabled!"
-        desc: "See `%{pre}packageList` to see a summary of all enabled packages and locations."
+        title: "Got it. Here's what I'm changing."
+        footer: "See %{pre}packagelist to see a summary of all enabled packages and locations."
     disablepackage:
       _name: Disable Package
       _desc: Disables a package from one or more channels. All packages are disabled by default. See `%{pre}help enablepackage`.
       _examples:
         - games --channels "general"
       removed:
-        title: 'Package disabled!'
-        desc: "See `%{pre}packageList` to see a summary of all enabled packages and locations."
+        title: "Got it. Here's what I'm changing."
+        footer: "See %{pre}packagelist to see a summary of all enabled packages and locations."
     packagelist:
       _name: List Packages
       _desc: Lists all packages and what locations they are enabled in. Similar to `%{pre}commands`, but is only available to server admins, shows disabled packages, and does not omit commands not usable to the current user.
@@ -828,3 +828,15 @@ en:
         - "Re-broke `%{pre}dice` working with zero rolls. For now."
     1:
       desc: In the beginning, Porygon was created.
+  services:
+    package_change_summary:
+      enabled:
+        enabled: "**Newly enabled** in %{channels}."
+        already: "**Already** enabled in %{channels}."
+        total: "**Summary:** enabled %{channels}"
+        in: "in "
+        in_except: "everywhere except "
+      disabled:
+        disabled: "❌ Disabled in %{channels}."
+        already: "🚫 Was already disabled in %{channels}."
+        none_now: "⚠️ No longer in any channels, removing from `%{pre}commands`."

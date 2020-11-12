@@ -9,7 +9,7 @@ module Commands
     end
 
     args do |a|
-      a.arg :setter, FriendCode::SetOperation, default: -> { custom_missing }
+      a.arg :setter, FriendCode::SetOperation, default: proc { custom_missing }
     end
 
     def call(setter:)
