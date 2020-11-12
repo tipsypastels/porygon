@@ -29,5 +29,9 @@ module Commands
     def find_member(name)
       Discordrb::Member.from_argument(proc {}, name, self)
     end
+
+    def find_channel(name)
+      Discordrb::Channel.from_argument(proc {}, name, self)
+    end
   end
 end

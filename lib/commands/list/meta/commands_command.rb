@@ -20,6 +20,8 @@ module Commands
       channels = format_channels(package_result)
       commands = format_commands(package_result.commands)
 
+      return commands unless Porygon.development?
+
       "#{channels}\n#{commands}"
     end
 
