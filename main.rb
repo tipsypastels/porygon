@@ -13,6 +13,8 @@ Startup.log :load_gems do
   require 'sequel'
   require 'ostruct'
   require 'dentaku'
+  require 'rack'
+  require 'thin'
   require 'pg'
 end
 
@@ -47,3 +49,5 @@ end
 Startup.log :start_bot do
   Bot.start
 end
+
+Admin.start

@@ -15,7 +15,7 @@ module Porygon
 
     def start
       @bot.ready { ready }
-      @bot.run
+      @bot.run(true)
     end
 
     def prefix

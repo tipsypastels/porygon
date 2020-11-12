@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '>= 2.7.1'
 
+# Admin authentication
+gem 'omniauth'
+gem 'omniauth-discord'
+
 # Command-specific
 gem 'dentaku'
 gem 'marky_markov'
@@ -25,6 +29,10 @@ gem 'rake'
 # Translation
 gem 'i18n'
 gem 'i18n-globals', github: 'tipsypastels/i18n-globals'
+
+# Web server
+gem 'thin'
+gem 'rack'
 
 # Utility
 gem 'actionview'
