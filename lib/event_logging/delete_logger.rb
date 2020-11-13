@@ -47,7 +47,7 @@ module EventLogging
     end
 
     def message
-      @message ||= Bot.message_cache[message_id]
+      @message ||= Discordrb::Message.cached(message_id)
     end
 
     def attachments

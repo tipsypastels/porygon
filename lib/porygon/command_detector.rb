@@ -13,8 +13,6 @@ module Porygon
     end
     
     def detect
-      return unless message.server
-
       return if content.blank?
 
       return unless content.slice!(0...prefix.size) == prefix
