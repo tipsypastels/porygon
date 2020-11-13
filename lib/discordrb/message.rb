@@ -36,7 +36,7 @@ module Discordrb
     end
 
     class CachedMessage < Sequel::Model
-      SIZE = 1500
+      SIZE = 8000
       
       unrestrict_primary_key
 
