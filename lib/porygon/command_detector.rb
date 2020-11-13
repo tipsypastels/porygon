@@ -15,8 +15,12 @@ module Porygon
     def detect
       return unless message.server
 
+      return if content.blank?
+
       return unless content.slice!(0...prefix.size) == prefix
       transform_content
+
+      return if content.blank?
 
       tag  = content.split(/\s+/).first.downcase
       args = content[tag.size..].strip
