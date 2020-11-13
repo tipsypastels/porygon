@@ -34,9 +34,7 @@ class CommandListService
   end
 
   def package_channels(package)
-    package.channels(server).select do |channel| 
-      member.permission?(:read_messages, channel)
-    end
+    package.channels(server).select { |chan| chan.readable_by?(member) }
   end
 
   def package_commands(package)
