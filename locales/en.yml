@@ -731,6 +731,9 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    19:
+      changes:
+        - 'Deleted message events are now stored in the database rather than in memory.'
     18:
       changes:
         - "Moved and merged some redundant packages."
