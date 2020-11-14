@@ -113,8 +113,8 @@ en:
     opstats:
       _desc: Shows stats for operators.
       title: Stats for operators
-      servers: Porygon Servers
-      uptime: Porygon Uptime
+      servers: Porygon servers
+      uptime: Porygon uptime
       cached_members: 'Join date cache size'
       cached_messages: 'Deleted content cache size'
       del_missing_percent: "% of deletions with missing content"
