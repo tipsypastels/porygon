@@ -4,7 +4,9 @@ module Porygon
     include ConnectionLogging
 
     include Activities, BotAccount, Ownership, Prefixed
-    include MarkovCaching, MemberJoinLogging, MessageBusListening, StatTracking
+    include MarkovCaching, MemberJoinLogging, StatTracking
+
+    include MessageBusListening # blocks thread, keep last
 
     def initialize
       run_callbacks :init
