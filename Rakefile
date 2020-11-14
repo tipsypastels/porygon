@@ -1,5 +1,4 @@
 namespace :db do
-  desc 'Run migrations'
   task :migrate, [:version] do |_t, args|
     require 'dotenv/load'
     require 'sequel/core'
@@ -13,5 +12,14 @@ namespace :db do
                              database: ENV['DB']
 
     Sequel::Migrator.run(sequel, 'migrations', target: version)
+  end
+end
+
+namespace :cleanup do
+  task :message_cache do
+    ENV['SKIP_BOT'] = 'true'
+    require_relative './main'
+
+    Discordrb::Message::CachedMessage.garbage_collect
   end
 end

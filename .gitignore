@@ -1,3 +1,4 @@
 .env
 .markov
 .byebug_history
+cron_log.log

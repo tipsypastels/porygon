@@ -36,17 +36,15 @@ module Discordrb
     end
 
     class CachedMessage < Sequel::Model
-      SIZE = 8000
+      SIZE = Porygon.development? ? 10 : 8000
       
       unrestrict_primary_key
 
       def self.garbage_collect
-        first.delete if count > SIZE
-      end
-
-      def after_create
-        super
-        self.class.garbage_collect
+        overflow = count - SIZE
+        return unless overflow.positive?
+        
+        limit(overflow).destroy
       end
 
       def author

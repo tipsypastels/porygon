@@ -14,8 +14,10 @@ module Porygon
     end
 
     def start
-      @bot.ready { ready }
-      @bot.run
+      unless ENV['SKIP_BOT']
+        @bot.ready { ready }
+        @bot.run
+      end
     end
 
     def prefix
