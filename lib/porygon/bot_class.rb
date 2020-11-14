@@ -1,11 +1,12 @@
 module Porygon
   class BotClass
-    attr_reader :markov, :member_join_list
+    attr_reader :markov, :member_join_list, :start_time, :stats
     delegate :servers, to: :@bot
     delegate :avatar_url, to: :profile
 
     def initialize
       @bot = Discordrb::Bot.new(token: ENV['BOT_TOKEN'])
+      @stats = OpStatsTracker.new
       @markov = Porygon::MarkovStore.new
       @member_join_list = MemberJoinList.new(@bot)
 
@@ -70,7 +71,9 @@ module Porygon
     def ready
       Porygon::LOGGER.info("We're ready to go!")
 
+      @start_time = Time.now
       @member_join_list.build
+
       Database.start_logging
     end
   end

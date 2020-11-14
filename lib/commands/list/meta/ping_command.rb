@@ -1,5 +1,7 @@
 module Commands
   class PingCommand < Command
+    include ActionView::Helpers::DateHelper
+
     register 'ping'
 
     def call
@@ -9,6 +11,8 @@ module Commands
         e.title  = t('title')
         e.footer = t('footer', version: version)
         e.desc   = t('desc')
+
+        e.field(t('uptime'), uptime)
       end
     end
 
@@ -16,6 +20,10 @@ module Commands
 
     def version
       Porygon::Version.current.id
+    end
+
+    def uptime
+      distance_of_time_in_words(Bot.start_time, Time.now)
     end
   end
 end

@@ -105,10 +105,19 @@ en:
       title: ':sparkles: Pong! Porygon is online~'
       desc: "_beep boop_ How are you all today?"
       footer: "Running Porygon Update #%{version}."
+      uptime: Uptime
     version:
       _desc: Prints the current version of Porygon.
       title: "Porygon Update #%{version} reporting for duty!"
       desc: "You can see what's new in this version, or any previous version, by using `%{pre}changelog` with the version number. For example, `%{pre}changelog %{version}`."
+    opstats:
+      _desc: Shows stats for operators.
+      title: Stats for operators
+      servers: Porygon Servers
+      uptime: Porygon Uptime
+      cached_messages: Messages in cache
+      cached_members: Members in cache
+      del_missing_percent: "% of deletions with missing content"
     changelog:
       _desc: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
       _examples:
