@@ -1,5 +1,7 @@
 module Porygon
   class BotClass
+    ACTIVITIES = I18n.t('bot_activities')
+
     attr_reader :markov, :member_join_list, :stats
     delegate :servers, :profile, to: :@bot
     delegate :avatar_url, to: :profile
@@ -8,6 +10,7 @@ module Porygon
       @bot = Discordrb::Bot.new(token: ENV['BOT_TOKEN'], parse_self: true)
       @stats = OpStatsTracker.new
       @markov = Porygon::MarkovStore.new
+      @message_bus = MessageBus::Output.new
       @member_join_list = MemberJoinList.new(@bot)
 
       setup_translation_globals
@@ -49,6 +52,14 @@ module Porygon
       owner.avatar_url || ENV['FALLBACK_OWNER_AVATAR']
     end
 
+    def activity=(activity)
+      @bot.playing = activity
+    end
+
+    def cycle_activity
+      self.activity = ACTIVITIES.sample
+    end
+
     private
 
     def setup_translation_globals
@@ -74,8 +85,10 @@ module Porygon
 
         Porygon::LOGGER.info("We're ready to go!")
 
+        cycle_activity
         @stats.start_timing
         @member_join_list.build
+        @message_bus.start_listening
 
         Database.start_logging
       end

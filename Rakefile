@@ -1,3 +1,8 @@
+LOAD_PORY = -> do
+  ENV['SKIP_BOT'] = 'true'
+  require_relative './main'
+end
+
 namespace :db do
   task :migrate, [:version] do |_t, args|
     require 'dotenv/load'
@@ -17,9 +22,16 @@ end
 
 namespace :cleanup do
   task :message_cache do
-    ENV['SKIP_BOT'] = 'true'
-    require_relative './main'
+    LOAD_PORY[]
 
     Discordrb::Message::CachedMessage.garbage_collect
+  end
+end
+
+namespace :cycle do
+  task :activity do
+    LOAD_PORY[]
+
+    Porygon::MessageBus::Input.cycle_activity
   end
 end
