@@ -4,6 +4,6 @@ every 24.hours, at: '12:00am' do
   rake 'cleanup:message_cache'
 end
 
-every 15.minutes do
+every 30.minutes do
   rake 'cycle:activity'
 end

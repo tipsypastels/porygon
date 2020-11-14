@@ -28,7 +28,7 @@ module Porygon
       private
 
       def action
-        @action ||= payload['action'].to_sym
+        @action ||= payload['action']&.to_sym
       end
 
       def parse(raw)
