@@ -10,11 +10,15 @@ module Discordrb
     delegate :name,     to: :server,  prefix: true
 
     def run_used_command
-      command&.begin_call
+      command&.begin_call unless from_porygon?
     end
 
     def cache_in_db!
       CachedMessage.create(**to_cache)
+    end
+
+    def from_porygon?
+      author.id == ::Bot.user_id
     end
 
     private
@@ -57,6 +61,10 @@ module Discordrb
 
       def attachments
         JSON.parse(attachment_data, object_class: OpenStruct)
+      end
+
+      def from_porygon?
+        author_id == ::Bot.user_id
       end
     end
   end

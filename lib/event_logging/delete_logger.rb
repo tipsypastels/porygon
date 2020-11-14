@@ -14,6 +14,7 @@ module EventLogging
     def log
       return unless server
       return no_cache_fallback unless message
+      return if message.from_porygon?
 
       Bot.stats.missing_deleted_messages.pass!
       embed_deletion_message
