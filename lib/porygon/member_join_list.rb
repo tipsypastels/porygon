@@ -59,7 +59,7 @@ module Porygon
     end
 
     def cache(server)
-      ServerCacheOperation.cache(server)
+      MembersCacheOperation.cache(server)
     end
 
     def log
