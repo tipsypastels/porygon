@@ -2,7 +2,7 @@ module Porygon
   class BotClass
     ACTIVITIES = I18n.t('bot_activities')
 
-    attr_reader :markov, :member_join_list, :stats
+    attr_reader :markov, :member_join_list, :message_bus, :stats
     delegate :servers, :profile, to: :@bot
     delegate :avatar_url, to: :profile
 

@@ -17,5 +17,9 @@ module Porygon
     def message_cache_size
       Discordrb::Message.cache_size
     end
+
+    def bus_ops_received
+      Bot.message_bus.received
+    end
   end
 end

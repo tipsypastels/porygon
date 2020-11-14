@@ -11,18 +11,21 @@ module Commands
         
         e.field(t('servers'), Bot.servers.size)
         e.field(t('uptime'), uptime)
-        
+
         e.field(t('join_cache_size'), join_cache_size)
         
         e.field(t('message_cache_size'), message_cache_size)
         e.field(t('del_missing_percent'), del_missing_percent)
+
+        e.field(t('bus_ops_received'), bus_ops_received)
       end
     end
     
     private
     
     delegate :stats, to: :Bot
-    delegate :join_cache_size, :message_cache_size, to: :stats
+    delegate :join_cache_size, :message_cache_size, :bus_ops_received,
+      to: :stats
 
     def uptime
       stats.start_time.ago_in_words

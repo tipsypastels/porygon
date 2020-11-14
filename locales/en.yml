@@ -118,6 +118,7 @@ en:
       join_cache_size: 'Join date cache size'
       message_cache_size: 'Deleted content cache size'
       del_missing_percent: "% of deletions with missing content"
+      bus_ops_received: 'Background ops received'
     changelog:
       _desc: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.
       _examples:
