@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+git pull
+bundle
+whenever --update-crontab
+rake db:migrate
+ruby main.rb
