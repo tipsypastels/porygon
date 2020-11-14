@@ -7,10 +7,6 @@ module Database
 
   CONN.test_connection
 
-  def self.start_logging
-    CONN.logger = Porygon::LogDelegator.new('QUERY')
-  end
-
   def self.[](set)
     CONN[set]
   end

@@ -1,7 +1,6 @@
 module Porygon
   class MemberJoinList
-    def initialize(bot)
-      @bot  = bot
+    def initialize
       @done = false
     end
     
@@ -10,7 +9,7 @@ module Porygon
         wait_for_member_list_to_be_accurate
 
         log do
-          @bot.servers.each_value { |server| cache server }
+          Bot.servers.each_value { |server| cache server }
         end
 
         @done = true

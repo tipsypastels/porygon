@@ -8,7 +8,6 @@ module Porygon
       'WARN'      => :yellow,
       'ERROR'     => :red,
       'FATAL'     => :black,
-      'QUERY'     => :light_green,
       'CACHE'     => -> s { s.black.on_cyan },
       'RATELIMIT' => -> s { s.white.on_red },
       'BUS'       => -> s { s.black.on_green },
