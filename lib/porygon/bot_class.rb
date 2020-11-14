@@ -1,6 +1,6 @@
 module Porygon
   class BotClass
-    attr_reader :markov, :member_join_list, :start_time, :stats
+    attr_reader :markov, :member_join_list, :stats
     delegate :servers, :profile, to: :@bot
     delegate :avatar_url, to: :profile
 
@@ -74,7 +74,7 @@ module Porygon
 
         Porygon::LOGGER.info("We're ready to go!")
 
-        @start_time = Time.now
+        @stats.start_timing
         @member_join_list.build
 
         Database.start_logging

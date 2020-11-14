@@ -1,7 +1,5 @@
 module Commands
   class PingCommand < Command
-    include ActionView::Helpers::DateHelper
-
     register 'ping'
 
     def call
@@ -18,12 +16,14 @@ module Commands
 
     private
 
+    delegate :stats, to: :Bot
+
     def version
       Porygon::Version.current.id
     end
 
     def uptime
-      distance_of_time_in_words(Bot.start_time, Time.now)
+      stats.start_time.ago_in_words
     end
   end
 end

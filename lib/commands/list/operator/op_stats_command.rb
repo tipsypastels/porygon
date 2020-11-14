@@ -8,33 +8,28 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.info
         e.title = t('title')
-
+        
         e.field(t('servers'), Bot.servers.size)
         e.field(t('uptime'), uptime)
-
-        e.field(t('cached_members'), cached_members)
-
-        e.field(t('cached_messages'), cached_messages)
+        
+        e.field(t('join_cache_size'), join_cache_size)
+        
+        e.field(t('message_cache_size'), message_cache_size)
         e.field(t('del_missing_percent'), del_missing_percent)
       end
     end
-
+    
     private
+    
+    delegate :stats, to: :Bot
+    delegate :join_cache_size, :message_cache_size, to: :stats
 
     def uptime
-      distance_of_time_in_words(Bot.start_time, Time.now)
-    end
-
-    def cached_messages
-      Discordrb::Message::CachedMessage.count
-    end
-
-    def cached_members
-      Porygon::MemberJoinList::MemberJoinDate.count
+      stats.start_time.ago_in_words
     end
 
     def del_missing_percent
-      Bot.stats.missing_deleted_messages_percent.to_s
+      stats.missing_deleted_messages_percent
     end
   end
 end

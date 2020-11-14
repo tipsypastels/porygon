@@ -1,35 +1,21 @@
 module Porygon
   class OpStatsTracker
-    attr_reader :missing_deleted_messages
+    attr_reader :start_time, :missing_deleted_messages
 
+    delegate :start_timing, to: :start_time
     delegate :percent, to: :missing_deleted_messages, prefix: true
 
     def initialize
-      @missing_deleted_messages = FailurePercentage.new
+      @start_time = TimeSinceEventStat.new
+      @missing_deleted_messages = FailurePercentStat.new
     end
 
-    class FailurePercentage
-      attr_reader :total, :fails
+    def join_cache_size
+      MemberJoinList::MemberJoinDate.count
+    end
 
-      def initialize
-        @total = 0
-        @fails = 0
-      end
-
-      def percent
-        return 0 if @total.zero?
-
-        ((fails.to_f / total) * 100).to_i
-      end
-
-      def pass!
-        @total += 1
-      end
-
-      def fail!
-        @total += 1
-        @fails += 1
-      end
+    def message_cache_size
+      Discordrb::Message.cache_size
     end
   end
 end

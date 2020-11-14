@@ -115,8 +115,8 @@ en:
       title: Stats for operators
       servers: Porygon servers
       uptime: Porygon uptime
-      cached_members: 'Join date cache size'
-      cached_messages: 'Deleted content cache size'
+      join_cache_size: 'Join date cache size'
+      message_cache_size: 'Deleted content cache size'
       del_missing_percent: "% of deletions with missing content"
     changelog:
       _desc: Prints information about any version of Porygon. Defaults to the latest version if one is not provided.

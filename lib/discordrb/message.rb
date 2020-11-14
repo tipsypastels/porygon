@@ -4,6 +4,10 @@ module Discordrb
       CachedMessage[id]
     end
 
+    def self.cache_size
+      CachedMessage.count
+    end
+
     delegate :server,   to: :channel
     delegate :username, to: :author
     delegate :name,     to: :channel, prefix: true
