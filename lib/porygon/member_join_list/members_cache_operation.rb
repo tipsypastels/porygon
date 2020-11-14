@@ -16,8 +16,9 @@ module Porygon
       def cache
         members.each { |mem| cache_member(mem) unless cached?(mem) }
 
-        Porygon::LOGGER.cache \
-          "Created new entries for #{members.size - @cached_count} users."
+        Porygon::LOGGER.cache <<~LOG.strip
+          Created new entries on #{server.name} for #{members.size - @cached_count} users.
+        LOG
       end
 
       private
