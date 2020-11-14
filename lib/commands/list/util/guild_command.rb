@@ -39,8 +39,7 @@ module Commands
     end
 
     class EmojiListPresenter
-      MORE = I18n.t('commands.guild.more_emoji')
-      MAX  = 25
+      MAX = 25
 
       delegate :size, :present?, to: :@emoji
 

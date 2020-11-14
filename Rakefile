@@ -15,3 +15,14 @@ namespace :db do
     Sequel::Migrator.run(sequel, 'migrations', target: version)
   end
 end
+
+namespace :cron do
+  desc 'Just testing'
+  task :test do
+    ENV['SKIP_BOT'] = 'true'
+
+    require_relative './main'
+
+    File.write('test', Porygon.class.name)
+  end
+end

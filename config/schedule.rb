@@ -1,0 +1,1 @@
+set :output, './cron_log.log'
