@@ -67,12 +67,18 @@ module Porygon
     end
 
     def ready
-      Porygon::LOGGER.info("We're ready to go!")
+      if @ready_run
+        Porygon::LOGGER.info('Reconnected!')
+      else
+        @ready_run = true
 
-      @start_time = Time.now
-      @member_join_list.build
+        Porygon::LOGGER.info("We're ready to go!")
 
-      Database.start_logging
+        @start_time = Time.now
+        @member_join_list.build
+
+        Database.start_logging
+      end
     end
   end
 end
