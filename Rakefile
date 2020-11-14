@@ -1,5 +1,4 @@
 namespace :db do
-  desc 'Run migrations'
   task :migrate, [:version] do |_t, args|
     require 'dotenv/load'
     require 'sequel/core'
@@ -16,13 +15,11 @@ namespace :db do
   end
 end
 
-namespace :cron do
-  desc 'Just testing'
-  task :test do
+namespace :cleanup do
+  task :message_cache do
     ENV['SKIP_BOT'] = 'true'
-
     require_relative './main'
 
-    File.write('test', Porygon.class.name)
+    Discordrb::Message::CachedMessage.garbage_collect
   end
 end
