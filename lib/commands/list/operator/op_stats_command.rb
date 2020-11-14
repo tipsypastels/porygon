@@ -12,9 +12,9 @@ module Commands
         e.field(t('servers'), Bot.servers.size)
         e.field(t('uptime'), uptime)
 
-        e.field(t('cached_messages'), cached_messages)
         e.field(t('cached_members'), cached_members)
 
+        e.field(t('cached_messages'), cached_messages)
         e.field(t('del_missing_percent'), del_missing_percent)
       end
     end
