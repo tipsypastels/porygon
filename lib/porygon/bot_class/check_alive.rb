@@ -9,8 +9,8 @@ module Porygon
       TIMEOUT = 2.seconds
 
       def self.alive?
-        Database::CONN.notify(ASK)
-        Database::CONN.listen(TELL, timeout: TIMEOUT)
+        Database.notify(ASK)
+        Database.listen(TELL, timeout: TIMEOUT)
       end
 
       extend ActiveSupport::Concern
@@ -21,15 +21,13 @@ module Porygon
 
       private
 
-      delegate :listen, :notify, to: :'Database::CONN'
-
       def respond_to_alive_checks
-        Thread.new { listen(ASK, loop: true, &method(:handle)) }
+        Thread.new { Database.listen(ASK, loop: true, &method(:handle)) }
       end
 
       def handle(*)
         Porygon::LOGGER.bus('Got an alive check, responding with yes.')
-        notify(TELL)
+        Database.notify(TELL)
       end
     end
   end

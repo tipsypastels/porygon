@@ -10,7 +10,7 @@ module Porygon
 
         def notify(action, **payload)
           payload.reverse_merge!(action: action)
-          Database::CONN.notify(CHANNEL, payload: payload.to_json)
+          Database.notify(CHANNEL, payload: payload.to_json)
         end
       end
     end

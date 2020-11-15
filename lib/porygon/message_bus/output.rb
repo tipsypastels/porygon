@@ -8,12 +8,10 @@ module Porygon
       end
 
       def start_listening
-        Thread.new { listen(CHANNEL, loop: true, &method(:handle)) }
+        Thread.new { Database.listen(CHANNEL, loop: true, &method(:handle)) }
       end
 
       private
-
-      delegate :listen, to: :'Database::CONN'
 
       def handle(_channel, pid, raw_payload)
         @received += 1
