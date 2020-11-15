@@ -1,12 +1,10 @@
 module Porygon
   class BotClass
     include Callbacks
-    include ConnectionLogging
+    include ConnectionLogging, CheckAlive
 
     include Activities, BotAccount, Ownership, Prefixed
-    include MarkovCaching, MemberJoinLogging, StatTracking
-
-    include MessageBusListening # blocks thread, keep last
+    include MarkovCaching, MessageBusListening, MemberJoinLogging, StatTracking
 
     def initialize
       run_callbacks :init

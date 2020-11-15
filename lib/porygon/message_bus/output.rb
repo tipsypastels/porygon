@@ -8,7 +8,7 @@ module Porygon
       end
 
       def start_listening
-        listen(CHANNEL, loop: true, &method(:handle))
+        Thread.new { listen(CHANNEL, loop: true, &method(:handle)) }
       end
 
       private

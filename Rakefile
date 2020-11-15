@@ -3,6 +3,10 @@ LOAD_PORY = -> do
   require_relative './main'
 end
 
+IS_ALIVE = -> do
+  Porygon::BotClass::CheckAlive.alive?
+end
+
 namespace :db do
   task :migrate, [:version] do |_t, args|
     require 'dotenv/load'
@@ -33,5 +37,17 @@ namespace :cycle do
     LOAD_PORY[]
 
     Porygon::MessageBus::Input.cycle_activity
+  end
+end
+
+namespace :check do
+  task :alive do
+    LOAD_PORY[]
+
+    if IS_ALIVE[]
+      puts 'Porygon is alive!'.colorize(:light_green)
+    else
+      puts 'Porygon appears to be offline.'.colorize(:red)
+    end
   end
 end
