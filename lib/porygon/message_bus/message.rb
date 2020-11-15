@@ -8,7 +8,7 @@ module Porygon
       }
 
       MISSING = proc do
-        Porygon::LOGGER.bus('No handler for that action was found.')
+        Porygon::LOGGER.task('No handler for that action was found.')
       end
 
       HANDLERS.default = MISSING
@@ -21,7 +21,7 @@ module Porygon
       end
 
       def handle
-        Porygon::LOGGER.bus("Received \"#{action}\" from process #{pid}")
+        Porygon::LOGGER.task("Received \"#{action}\" from process #{pid}")
         HANDLERS[action].call(payload)
       end
 

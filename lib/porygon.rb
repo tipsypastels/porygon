@@ -19,6 +19,10 @@ module Porygon
     def development?
       ENV.fetch('DEV', false)
     end
+
+    def alive?
+      BotClass::CheckAlive.alive?
+    end
   end
 
   COLORS   = ColorPalette.new

@@ -10,7 +10,7 @@ module Porygon
       'FATAL'     => :black,
       'CACHE'     => -> s { s.black.on_cyan },
       'RATELIMIT' => -> s { s.white.on_red },
-      'BUS'       => -> s { s.black.on_green },
+      'TASK'      => -> s { s.black.on_green },
     }
 
     MODES.each_key do |mode|
