@@ -28,7 +28,7 @@ namespace :cleanup do
   end
 end
 
-namespace :cycle do
+namespace :tick do
   task :activity do
     LOAD_PORY[]
 
