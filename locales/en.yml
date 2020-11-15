@@ -100,6 +100,10 @@ en:
       _args:
         quiet:
           desc: Silences output.
+    cronlog:
+      _desc: Shows a log of cron activity.
+      title: Cron Log
+      empty: 'The cron log is empty!'
     ping:
       _desc: Says hi from Porygon.
       title: ':sparkles: Pong! Porygon is online~'
