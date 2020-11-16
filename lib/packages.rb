@@ -5,10 +5,7 @@ module Packages
     duck: [ServerIds::DUCK, ServerIds::TEST],
   })
 
-  SUPER_GLOBALS = HashWithIndifferentAccess.new({
-    package:  -> member { member.permission?(:manage_server) },
-    operator: -> member { Bot.owner?(member) },
-  })
+  SUPER_GLOBALS = Set['package', 'operator']
 
   TAGS = 
     Dir['lib/commands/list/*'].map { |dir|

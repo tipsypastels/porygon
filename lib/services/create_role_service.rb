@@ -1,5 +1,5 @@
 class CreateRoleService
-  extend Porygon::HashAttributes
+  extend Porygon::Util::HashAttributes
   
   attr_reader :role, :server, :author, :moved
   hash_attr_reader :name, :color, :hoist, :giveme,

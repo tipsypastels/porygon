@@ -2,7 +2,6 @@ module Commands
   class CronLogCommand < Command
     register 'cronlog', permissions: { owner: true }
 
-    
     def call
       embed do |e|
         e.color = Porygon::COLORS.ok

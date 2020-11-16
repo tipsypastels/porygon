@@ -1,59 +1,36 @@
 module Packages
   class Package
     class EnabledPackage < Sequel::Model
-      class << self
-        def enable(tag, channels)
-          channels.each do |channel|
-            find_or_create tag: tag, 
-                           server_id: channel.server.id, 
-                           channel_id: channel.id
+      def self.for(package, server)
+        where(tag: package.tag, server_id: server.id).first
+      end
+
+      delegate :include?, to: :channels
+
+      def channels
+        @channels ||= channels_factory.new(channel_ids)
+      end
+
+      def channels=(channels)
+        self.channel_ids =
+          case channels
+          when Array, Set
+            channels.collect(&:resolve_id).join(',')
+          else
+            channels
           end
-        end
-
-        def disable(tag, channels)
-          server_id   = channels.first.server.id
-          channel_ids = channels.collect(&:id)
-
-          where(tag: tag, channel_id: channel_ids).destroy
-          cache[[server_id, tag]]&.except!(*channel_ids)
-        end
-
-        def enabled_in_at_least_one_channel?(tag, server)
-          cache[[server.id, tag]].present?
-        end
-
-        def enabled_channels(tag, server)
-          (cache[[server.id, tag]] || []).map { |cid,| server.channel(cid) }
-                                         .compact
-        end
-
-        def enabled?(channel, tag)
-          cache[[channel.server.id, tag]]&.[](channel.id)
-        end
-
-        def cache
-          @cache ||= 
-            {}.tap do |cache|
-              each do |entry|
-                key = [entry.server_id, entry.tag]
-                cache[key] ||= {}
-                cache[key][entry.channel_id] = true
-              end
-            end
-        end
-
-        def garbage_collect(channel)
-          where(channel_id: channel.id, server_id: channel.server.id).destroy
-        end
       end
 
-      def after_create
-        self.class.cache[[server_id, tag]] ||= {}
-        self.class.cache[[server_id, tag]][channel_id] = true
+      def enable(new_channels)
+        @channels.push(new_channels)
+        
+        update(channels: @channels)
       end
+      
+      private
 
-      def after_destoy
-        self.class.cache[server_id, tag]&.delete(channel_id)
+      def channels_factory
+        channel_ids.nil? ? SetOfAllChannels : SetOfSomeChannels
       end
     end
   end

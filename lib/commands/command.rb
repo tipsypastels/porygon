@@ -51,9 +51,7 @@ module Commands
     end
 
     def disabled_in_channel?
-      return unless server
-      
-      unless package.enabled?(channel, author)
+      unless package.enabled?(channel)
         CommandLogger.disabled_command(self)
         true
       end

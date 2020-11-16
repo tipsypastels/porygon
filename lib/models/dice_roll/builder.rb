@@ -26,7 +26,7 @@ class DiceRoll
     end
 
     def build
-      out = Porygon::HashThatIgnoresNil.new
+      out = Porygon::Util::HashThatIgnoresNil.new
       out[:count]  = get_clamped(:count, 1..100)
       out[:faces]  = get_clamped(:faces, 2..100)
       out[:offset] = get_int(:offset)
