@@ -15,11 +15,11 @@ module EventLogging
       embed do |e|
         e.color  = Porygon::COLORS.warning
         e.title  = t('left')
-        e.author = user
+
+        e.author_with_disc = user
         
         e.field(t('joined_at'), joined_at)
-        e.field(t('discriminator'), code(user.discriminator))
-        e.field(t('id'), code(user.id))
+        e.field(t('id'), code_block(user.id))
       end
       
       log_embed_for_kick
@@ -39,9 +39,10 @@ module EventLogging
     def log_embed_for_kick
       return unless kick
       
-      embed do |e|
-        e.author = user
-        e.color  = Porygon::COLORS.error
+      embed(warning: true) do |e|
+        e.author_with_disc = user
+
+        e.color  = Porygon::COLORS.warning
         e.title  = t('kick.title', name: user.username, mod: kick.author.username)
         e.desc   = t('kick.reason', reason: kick.reason || t('kick.no_reason'))
       end

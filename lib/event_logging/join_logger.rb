@@ -16,11 +16,11 @@ module EventLogging
       embed do |e|
         e.color  = Porygon::COLORS.ok
         e.title  = t('joined')
-        e.author = member
+
+        e.author_with_disc = member
 
         e.field(t('age'), account_age)
-        e.field(t('discriminator'), code(member.discriminator))
-        e.field(t('id'), code(member.id))
+        e.field(t('id'), code_block(member.id))
       end
     end
 

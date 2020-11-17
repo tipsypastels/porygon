@@ -26,9 +26,9 @@ module EventLogging
       embed do |e|
         e.color  = Porygon::COLORS.info
         e.title  = t('deleted')
-        e.footer = t('message_id', id: message.id)
-        e.author = message.author
         e.desc   = message.content.presence || t('no_content')
+        
+        e.author_with_disc = message.author
   
         e.field(t('attachments'), attachments)
   
@@ -37,6 +37,9 @@ module EventLogging
           e.field(t('sent_at'), message.creation_time.getgm.strftime(TIME_FORMAT))
           e.field(t('deleted_at'), Time.now.getgm.strftime(TIME_FORMAT))
         end
+
+        e.field(t('message_id'), code_block(message.id))
+        e.field(t('user_id'), code_block(message.author.id))
       end
     end
 
@@ -47,10 +50,10 @@ module EventLogging
         e.color  = Porygon::COLORS.warning
         e.thumb  = Porygon::PORTRAIT
         e.title  = t('deleted')
-        e.footer = t('message_id', id: message_id)
         e.desc   = t('not_in_cache')
 
         e.field(t('channel'), channel.mention)
+        e.field(t('message_id'), code_block(message_id))
       end
     end
 

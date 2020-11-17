@@ -356,6 +356,17 @@ en:
       already:
         title: "Beat ya to it. Looks like that's already the mod log channel."
         desc: 'No changes made.'
+    setwarninglogchannel:
+      _name: Set Warning Log Channel
+      _desc: Changes the channel which "warnings" (kicks and bans) will be sent to. Note that if you have a mod log channel defined, they will *also* be sent there, along with joins and leaves which are not sent to warnings.
+      _examples:
+        - '#warnings'
+      done:
+        title: 'Channel set!'
+        desc: 'Warning logs will be printed in %{channel}.'
+      already:
+        title: "Beat ya to it. Looks like that's already the warning log channel."
+        desc: 'No changes made.'
     removemodlogchannel:
       _name: Remove Mod Log Channel
       _desc: Disables mod logging in the channel it's currently set to, if any. **Does not delete the channel itself.**
@@ -364,6 +375,15 @@ en:
         desc: 'Change this back at any time with `%{pre}setmodlogchannel`.'
       none:
         title: "Funnily enough, this server doesn't actually *have* a mod log channel."
+        desc: 'No changes made.'
+    removewarninglogchannel:
+      _name: Remove Warning Log Channel
+      _desc: Disables warning logging in the channel it's currently set to, if any. **Does not delete the channel itself.** See `%{pre}help setwarninglogchannel` for warning an explanation of mod logs versus warning logs.
+      done:
+        title: 'Warning logging disabled!'
+        desc: 'Change this back at any time with `%{pre}setwarninglogchannel`.'
+      none:
+        title: "Funnily enough, this server doesn't actually *have* a warning log channel."
         desc: 'No changes made.'
     botignore:
       _name: Ignore
@@ -653,7 +673,6 @@ en:
     join_logger:
       joined_console: "%{name}#%{discrim} (%{id}) joined %{server}."
       joined: Member Joined
-      discriminator: Discriminator
       id: ID
       age: Account Age
       days:
@@ -662,7 +681,6 @@ en:
     leave_logger:
       left_console: "%{name}#%{discrim} (%{id}) left %{server}."
       left: Member Left
-      discriminator: Discriminator
       id: ID
       joined_at: Joined At
       joined_at_unknown: Unknown
@@ -692,7 +710,8 @@ en:
       channel: 'Channel'
       sent_at: 'Sent at'
       deleted_at: 'Deleted at'
-      message_id: 'Message ID: %{id}'
+      message_id: 'Message ID'
+      user_id: 'User ID'
       not_in_cache: "A message was deleted, but I didn't have a copy of it in my cache, so I can't show you what the content was. Sorry!"
   packages:
     duck:

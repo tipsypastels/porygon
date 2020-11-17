@@ -11,9 +11,9 @@ module Commands
         delegate :name, to: :package, prefix: true
 
         def register(tags, permissions: {})
-          if permissions.key?(:user)
-            raise ArgumentError, "Did you mean to use member: as the key for permissions in #{self}? User is not supported."
-          end
+          raise ArgumentError, <<~ERR if permissions.key?(:user)
+            Did you mean to use member: as the key for permissions in #{self}? User is not supported.
+          ERR
 
           @tags       = Array(tags)
           @permission = Permissions.new(permissions)
@@ -22,6 +22,10 @@ module Commands
         end
 
         def tag
+          if !tags
+            p self
+            p caller_locations(1, 1).first
+          end
           tags.first
         end
 

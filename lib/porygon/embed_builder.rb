@@ -75,6 +75,13 @@ module Porygon
       end
     end
 
+    def author_with_disc=(user)
+      self.author = {
+        name: "#{user.username}##{user.discriminator}",
+        icon_url: user.avatar_url,
+      }
+    end
+
     def thumbnail=(value)
       case value
       when NilClass

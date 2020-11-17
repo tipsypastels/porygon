@@ -14,13 +14,23 @@ module EventLogging
 
     private
 
-    def embed(message = nil, &block)
+    def embed(message = nil, warning: false, &block)
       embed = Porygon::EmbedBuilder.build(&block)
-      mod_channel&.send_message(message, false, embed.to_h, embed.attachments)
+      
+      embed_to_channel(mod_channel, message, embed)
+      embed_to_channel(warning_channel, message, embed) if warning
     end
 
     def mod_channel
       server.mod_log_channel
+    end
+
+    def warning_channel
+      server.warning_log_channel
+    end
+
+    def embed_to_channel(channel, message, embed)
+      channel&.send_message(message, false, embed.to_h, embed.attachments)
     end
 
     def t(key, **interps)

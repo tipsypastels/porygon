@@ -1,28 +1,19 @@
 module Commands
-  class RemoveModLogChannelCommand < Command
-    register 'removemodlogchannel', 
-      permissions: { member: :manage_server }
+  class RemoveModLogChannelCommand < Templates::RemoveLogChannelTemplate
+    register 'removemodlogchannel', permissions: { member: :manage_server }
 
     def call
-      return no_such_channel unless server.mod_log_channel
-
-      server.mod_log_channel = nil
-
-      embed do |e|
-        e.color = Porygon::COLORS.ok
-        e.title = t('done.title')
-        e.desc  = t('done.desc')
-      end
+      super
     end
 
     private
 
-    def no_such_channel
-      embed do |e|
-        e.color = Porygon::COLORS.warning
-        e.title = t('none.title')
-        e.desc  = t('none.desc')
-      end
+    def exist?
+      server.mod_log_channel
+    end
+
+    def remove
+      server.mod_log_channel = nil
     end
   end
 end

@@ -50,6 +50,15 @@ module Discordrb
       settings.update(mod_log_channel_id: channel&.resolve_id)
     end
 
+    def warning_log_channel
+      id = settings.warning_log_channel_id
+      channel(id) if id
+    end
+
+    def warning_log_channel=(channel)
+      settings.update(warning_log_channel_id: channel&.resolve_id)
+    end
+
     MUTED = 'muted'.freeze
 
     def muted_role

@@ -3,12 +3,12 @@ class Arguments
 
   delegate :arg, :opt, :optional, :usage, to: :@stack
 
-  def initialize(command, **config)
+  def initialize(command, **config, &block)
     @command = command
     @config  = config
     @stack   = Stack.new(self)
 
-    yield self
+    (@block = block).call(self)
   end
 
   def parse(raw, command_instance)
@@ -17,6 +17,10 @@ class Arguments
 
   def t(key, **opts)
     @command.t("_args.#{key}", **opts)
+  end
+
+  def dup_with_subclass(command)
+    Arguments.new(command, **@config, &@block)
   end
 
   private

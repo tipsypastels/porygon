@@ -8,9 +8,10 @@ module EventLogging
     end
 
     def log
-      embed do |e|
-        e.color  = Porygon::COLORS.error
-        e.author = user
+      embed(warning: true) do |e|
+        e.color = Porygon::COLORS.error
+
+        e.author_with_disc = user
 
         if ban
           e.title = t('banned', name: user.username, mod: ban.author.username)
