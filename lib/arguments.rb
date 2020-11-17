@@ -25,11 +25,17 @@ class Arguments
 
   private
 
+  SPLIT_QUOTE = / (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/
+  
   def tokenize(raw)
     case @config[:split]
     when :never  then [raw]
     when :spaces then raw.split
-    else              raw.shellsplit
+    else              raw.split(SPLIT_QUOTE).map(&method(:remove_quotes))
     end
+  end
+
+  def remove_quotes(token)
+    token.gsub(/^"/, '').gsub(/"$/, '')
   end
 end
