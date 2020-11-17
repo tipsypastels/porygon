@@ -10,11 +10,15 @@ module Packages
     operator: -> member { Bot.owner?(member) },
   })
 
+  CREATE_PACKAGE = -> dir {
+    tag = dir.split('/').last
+    [tag, Package.new(tag)]
+  }
+
   TAGS = 
-    Dir['lib/commands/list/*'].map { |dir|
-      tag = dir.split('/').last
-      [tag, Package.new(tag)]
-    }.sort_by { |_tag, pkg| pkg.name }.to_h
+    Dir['lib/commands/list/*'].map(&CREATE_PACKAGE)
+                              .sort_by { |_tag, pkg| pkg.name }
+                              .to_h
   
   class << self
     def [](tag)
