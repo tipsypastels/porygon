@@ -198,9 +198,11 @@ en:
       errors:
         title: _Porygon adjusts her glasses and takes another look at that equation._
         unknown: I wasn't able to parse that at all. Are you sure that's math?
+        div_zero: "I can't tell you the answer to that one. It's a secret."
+        domain: "I think the answer to that is undecidable. Ask a mathematician or something."
         unbound_variable: 
-          one: "Unknown constant `%{vars}`."
-          other: "Unknown constants: `%{vars}`."
+          one: "Unknown constant %{vars}."
+          other: "Unknown constants: %{vars}."
         parse:
           undefined_function: "`%{func}` isn't a known function. [See a list of valid functions](https://github.com/rubysolo/dentaku#built-in-operators-and-functions)."
           too_many_operands: Seems like you have an extra operand in there. Typo?
@@ -764,6 +766,15 @@ en:
           text: Everything is ready, starting Porygon!
           color: magenta
   changelog:
+    20:
+      desc: 'The `%{pre}calc` update!'
+      changes:
+        - '`e`, `pi`, and `tau` are now available as constants.'
+        - 'Better error messages for dividing by zero or taking the square root of a negative number.'
+        - '`x` and `÷` can now be used as alternatives to `*` and `/`.'
+        - '`ln(x)` is now an alias for `log(x, e)`.'
+        - '`sq` is now an alias for `sqrt`.'
+        - 'Fixed some broken error messages.'
     19:
       changes:
         - 'Deleted message events are now stored in the database rather than in memory.'

@@ -6,14 +6,36 @@ module Commands
       a.arg :equation, String
     end
 
+    CONSTANTS = {
+      pi:  Math::PI,
+      tau: Math::PI * 2,
+      e:   Math::E,
+    }
+
+    SYMBOL_REPLACEMENTS = {
+      /÷/ => '/',
+      / x / => ' * ',
+    }
+
+    Dentaku.aliases = {
+      sqrt: ['sq'],
+      # not technically mathematically accurate, but ln = log if no second arg
+      log: ['ln'], 
+    }
+
     def call(equation:)
-      result = Dentaku!(equation)
+      make_replacements(equation)
+      result = Dentaku!(equation, **CONSTANTS)
       print_result(result)
     rescue => e
       print_error(e)
     end
 
     private
+
+    def make_replacements(equation)
+      SYMBOL_REPLACEMENTS.each { |inp, out| equation.gsub!(inp, out) }
+    end
 
     def print_result(result)
       embed do |e|
@@ -24,8 +46,6 @@ module Commands
     end
 
     def print_error(error)
-      Porygon::LOGGER.error(error)
-
       message = get_error_message(error)
 
       embed do |e|
@@ -64,6 +84,10 @@ module Commands
         else
           t('errors.unknown')
         end
+      when ZeroDivisionError
+        t('errors.div_zero')
+      when Math::DomainError
+        t('errors.domain')
       else
         t('errors.unknown')
       end
