@@ -23,7 +23,7 @@ module Commands
     private
 
     def describe(poll)
-      poll.map { |opt, i| "#{LETTERS[i]} #{opt.humanize}" }&.join("\n")
+      poll.map { |opt, i| "#{LETTERS[i]} #{opt}" }&.join("\n")
     end
 
     def react_to(message, poll)

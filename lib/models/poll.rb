@@ -4,6 +4,9 @@ class Poll
   class << self
     def from_argument(error, arg, *)
       question, *options = arg.split(/\s*\|\s*/)
+      
+      options.map!(&:humanize)
+      options.uniq!
 
       return error[:one_option]                 if options.size == 1
       return error[:too_many_options, max: MAX] if options.size > MAX
