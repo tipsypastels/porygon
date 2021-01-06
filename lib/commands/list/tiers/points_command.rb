@@ -40,11 +40,11 @@ module Commands
         e.color = Porygon::COLORS.info
         e.title = t('scoreboard.name')
 
-        entries.each_with_index do |entry, i|
+        entries.each do |entry|
           member = server.member(entry[:user_id])
           username = member&.display_name || t('scoreboard.unknown')
 
-          e.field("##{i + 1} — #{username}", entry[:points])
+          e.field(username, entry[:points])
         end
       end
     end
