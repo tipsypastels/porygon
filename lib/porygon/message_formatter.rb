@@ -29,6 +29,8 @@ module Porygon
     EVERYONE_OR_HERE = /@(?:here|everyone)/
 
     def clean_everyone_and_here(text)
+      return text unless text.respond_to? :gsub
+      
       text.gsub(EVERYONE_OR_HERE, '')
     end
   end

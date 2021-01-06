@@ -628,6 +628,24 @@ en:
       deleted:
         title: "Deleted!"
         desc: "Please have a nice day."
+    points:
+      _name: Show Points
+      _desc: Shows points for a specified member, or the top 10 members if no name is provided.
+      _examples:
+        -
+        - dakota
+      member:
+        points: Points
+        tier_state: 
+          name: "Has %{name}"
+          'yes': ':white_check_mark: Yes.'
+          'will_be_removed': ':clock130: For now. Will be removed on next tick due to declining points.'
+          'will_be_added': ':clock130: Not yet. Will be added on next tick due to increasing points.'
+          'no': ':x: No.'
+        footer: 'Ticks run approximately every 12 hours.'
+      scoreboard:
+        name: Scoreboard
+        unknown: '<unknown>'
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
@@ -746,6 +764,9 @@ en:
     fc:
       name: Friend Codes
       desc: Commands to set and view friend codes.
+    tiers:
+      name: Tiers
+      desc: Commands to view tier points.
   porygon:
     internals:
       startup:

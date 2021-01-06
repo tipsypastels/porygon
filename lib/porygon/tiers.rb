@@ -53,7 +53,29 @@ module Porygon
       def garbage_collect
         DailyPoint.garbage_collect
       end
-      
+
+      def fetch(member)
+        DailyPoint
+          .where(user_id: member.id, server_id: member.server.id, date: date_range)
+          .sum(:points) || 0 
+      end
+
+      def top(server, limit)
+        DailyPoint.select(:user_id, Sequel.lit('SUM(points) AS points'))
+                  .where(server_id: server.id, date: date_range)
+                  .group(:user_id)
+                  .order(Sequel.desc(:points))
+                  .limit(limit)
+      end
+
+      def delete(server, user)
+        DailyPoint.where(user_id: user.id, server_id: server.id).destroy
+      end
+
+      def date_range
+        RANGE.ago..Time.now
+      end
+
       private
       
       def points_for(message)

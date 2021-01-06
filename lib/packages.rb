@@ -3,6 +3,7 @@ module Packages
 
   SERVER_LOCKS = HashWithIndifferentAccess.new({
     duck: [ServerIds::DUCK, ServerIds::TEST],
+    tiers: [Porygon::Tiers::SERVER],
   })
 
   SUPER_GLOBALS = HashWithIndifferentAccess.new({

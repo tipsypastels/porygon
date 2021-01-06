@@ -60,7 +60,7 @@ module Porygon
       end
 
       def date
-        Tiers::RANGE.ago..Time.now
+        Tiers.date_range
       end
 
       def points(member)
