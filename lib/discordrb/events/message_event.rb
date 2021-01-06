@@ -6,6 +6,7 @@ module Discordrb
 
         handle_command
         handle_caching
+        handle_points
       end
 
       private
@@ -16,6 +17,10 @@ module Discordrb
 
       def handle_caching
         message.cache_in_db!
+      end
+
+      def handle_points
+        Porygon::Tiers.handle(message)
       end
     end
   end

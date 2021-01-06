@@ -6,6 +6,14 @@ module Porygon
           notify :cycle_activity
         end
 
+        def save_tiers
+          notify :save_tiers
+        end
+
+        def tick_tiers
+          notify :tick_tiers
+        end
+
         private
 
         def notify(action, **payload)

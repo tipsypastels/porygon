@@ -5,6 +5,12 @@ module Porygon
         cycle_activity: proc {
           Bot.cycle_activity
         },
+        save_tiers: proc {
+          Tiers.save
+        },
+        tick_tiers: proc {
+          Tiers.tick
+        },
       }
 
       MISSING = proc do

@@ -47,3 +47,23 @@ namespace :check do
     end
   end
 end
+
+namespace :tiers do
+  task :save do
+    LOAD_PORY[]
+
+    Porygon::MessageBus::Input.save_tiers
+  end
+
+  task :tick do
+    LOAD_PORY[]
+
+    Porygon::MessageBus::Input.tick_tiers
+  end
+
+  task :trash do
+    LOAD_PORY[]
+
+    Porygon::Tiers::DailyPoint.garbage_collect
+  end
+end
