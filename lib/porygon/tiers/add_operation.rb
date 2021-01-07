@@ -33,6 +33,8 @@ module Porygon
       end
 
       def save
+        member.uncache_points
+
         if entry
           entry.update(points: entry.points + points)
         else

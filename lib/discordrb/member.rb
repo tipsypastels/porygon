@@ -49,5 +49,9 @@ module Discordrb
     def past_points_threshold?
       points >= Porygon::Tiers::POINTS
     end
+
+    def uncache_points
+      @points = nil
+    end
   end
 end
