@@ -25,7 +25,7 @@ module Porygon
         @member = member
         @points = points
 
-        persist_until_next_sweep
+        persist_until_next_save
       end
 
       def inspect
@@ -42,7 +42,7 @@ module Porygon
 
       private
 
-      def persist_until_next_sweep
+      def persist_until_next_save
         CACHE[[server.id, member.id]] = self
       end
 

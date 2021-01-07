@@ -645,7 +645,6 @@ en:
         footer: 'Ticks run approximately every 12 hours.'
       scoreboard:
         name: Scoreboard
-        unknown: '<unknown>'
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
