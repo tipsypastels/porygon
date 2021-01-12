@@ -8,6 +8,7 @@ Startup.log :load_gems do
   require 'discordrb'
   require 'fast_blank'
   require 'shellwords'
+  require 'stackprof'
   require 'zeitwerk'
   require 'byebug'
   require 'sequel'

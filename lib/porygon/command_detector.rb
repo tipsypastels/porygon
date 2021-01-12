@@ -1,15 +1,15 @@
 module Porygon
   class CommandDetector
-    def self.detect(message)
-      new(message).detect
+    def self.detect(message, content = message.content.dup)
+      new(message, content).detect
     end
 
     attr_reader :message, :content
     delegate :prefix, to: :Bot
 
-    def initialize(message)
+    def initialize(message, content = message.content.dup)
       @message = message
-      @content = message.content.dup
+      @content = content
     end
     
     def detect
