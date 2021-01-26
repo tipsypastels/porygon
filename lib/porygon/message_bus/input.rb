@@ -2,18 +2,18 @@ module Porygon
   module MessageBus 
     module Input
       class << self
-        def cycle_activity
-          notify :cycle_activity
-        end
+        MACROS = %i[
+          cycle_activity
+          tick_tiers
+          next_cycle_tiers
+        ]
 
-        def save_tiers
-          notify :save_tiers
+        MACROS.each do |macro|
+          define_method macro do
+            notify macro
+          end
         end
-
-        def tick_tiers
-          notify :tick_tiers
-        end
-
+        
         private
 
         def notify(action, **payload)

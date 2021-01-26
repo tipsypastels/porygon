@@ -41,17 +41,5 @@ module Discordrb
     def server_ignored?
       IgnoredUser.server_ignore_status(self).present?
     end
-
-    def points
-      @points ||= Porygon::Tiers.fetch(self)
-    end
-
-    def past_points_threshold?
-      points >= Porygon::Tiers::POINTS
-    end
-
-    def uncache_points
-      @points = nil
-    end
   end
 end

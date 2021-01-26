@@ -4,12 +4,10 @@ module Porygon
     if Porygon.development?
       ROLE   = 775261617805459486
       SERVER = ServerIds::TEST
-      RANGE  = 1.day
       POINTS = 10
     else
       ROLE   = 531984098038775842
       SERVER = ServerIds::POKE
-      RANGE  = 2.weeks
       POINTS = 350
     end
 
@@ -39,41 +37,23 @@ module Porygon
         return if message.author.bot_account?
         return if (points = points_for(message)).zero?
 
-        AddOperation.add(message.server, message.author, points)
+        MemberPoint.add(message.server, message.author, points)
       end
 
-      def save
-        AddOperation.save
+      def next_cycle
+        MemberPoint.cycle
       end
 
       def tick
         TickOperation.tick
       end
 
-      def garbage_collect
-        DailyPoint.garbage_collect
-      end
-
       def fetch(member)
-        DailyPoint
-          .where(user_id: member.id, server_id: member.server.id, date: date_range)
-          .sum(:points) || 0 
+        MemberPoint.fetch(member)
       end
 
       def top(server, limit)
-        DailyPoint.select(:user_id, Sequel.lit('SUM(points) AS points'))
-                  .where(server_id: server.id, date: date_range)
-                  .group(:user_id)
-                  .order(Sequel.desc(:points))
-                  .limit(limit)
-      end
-
-      def delete(server, user)
-        DailyPoint.where(user_id: user.id, server_id: server.id).destroy
-      end
-
-      def date_range
-        RANGE.ago..Time.now
+        MemberPoint.top(server, limit)
       end
 
       private

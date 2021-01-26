@@ -24,7 +24,6 @@ module EventLogging
       
       log_embed_for_kick
       remove_from_cache
-      remove_points
     end
 
     private
@@ -56,10 +55,6 @@ module EventLogging
 
     def remove_from_cache
       Bot.member_join_list.delete_user(server, user)
-    end
-
-    def remove_points
-      Porygon::Tiers.delete(server, user)
     end
 
     def kick

@@ -13,16 +13,18 @@ module Commands
     private
 
     def call_member_points(member)
+      points = Porygon::Tiers.fetch(member)
+
       embed do |e|
         e.color = Porygon::COLORS.info
         e.title = member.display_name
         e.thumb = member.avatar_url
 
-        e.field(t('member.points'), member.points)
+        e.field(t('member.points'), points)
         
         e.field(
           t('member.tier_state.name', name: role.name), 
-          t("member.tier_state.#{tier_state(member)}"),
+          t("member.tier_state.#{tier_state(member, points)}"),
         )
 
         e.footer = t('member.footer')
@@ -47,8 +49,8 @@ module Commands
       [false, false] => :no,
     }.freeze
 
-    def tier_state(member)
-      passes   = member.past_points_threshold? 
+    def tier_state(member, points)
+      passes   = points >= Porygon::Tiers::POINTS 
       has_role = member.role?(role)
       
       PREDS_TO_TIER_STATE.fetch([passes, has_role])

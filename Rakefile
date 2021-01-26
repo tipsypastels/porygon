@@ -49,21 +49,15 @@ namespace :check do
 end
 
 namespace :tiers do
-  task :save do
-    LOAD_PORY[]
-
-    Porygon::MessageBus::Input.save_tiers
-  end
-
   task :tick do
     LOAD_PORY[]
 
     Porygon::MessageBus::Input.tick_tiers
   end
 
-  task :trash do
+  task :next_cycle do
     LOAD_PORY[]
 
-    Porygon::Tiers::DailyPoint.garbage_collect
+    Porygon::MessageBus::Input.next_cycle_tiers
   end
 end

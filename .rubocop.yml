@@ -71,6 +71,7 @@ Style/Lambda:
 Style/BlockDelimiters:
   Enabled: true
   EnforcedStyle: braces_for_chaining
+  IgnoredMethods: ['lambda', 'proc', 'it', 'new']
 
 Layout/SpaceInLambdaLiteral:
   Enabled: true

@@ -2,22 +2,18 @@ module Porygon
   module MessageBus
     class Message
       HANDLERS = {
-        cycle_activity: proc {
+        cycle_activity: Handler.new {
           Bot.cycle_activity
         },
-        save_tiers: proc {
-          Tiers.save
+        next_cycle_tiers: Handler.new(log: true) {
+          Tiers.next_cycle
         },
-        tick_tiers: proc {
+        tick_tiers: Handler.new {
           Tiers.tick
         },
       }
 
-      HANDLERS.default_proc = proc do |_, action|
-        proc do
-          Porygon::LOGGER.task("Received unknown action: #{action}.")
-        end
-      end
+      HANDLERS.default = NullHandler.new
 
       attr_reader :pid, :payload
 
@@ -27,7 +23,7 @@ module Porygon
       end
 
       def handle
-        HANDLERS[action].call(payload)
+        HANDLERS[action].call(pid, action, payload)
       end
 
       private

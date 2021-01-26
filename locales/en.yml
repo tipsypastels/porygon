@@ -642,7 +642,7 @@ en:
           'will_be_removed': ':clock130: For now. Will be removed on next tick due to declining points.'
           'will_be_added': ':clock130: Not yet. Will be added on next tick due to increasing points.'
           'no': ':x: No.'
-        footer: 'Ticks run approximately every 12 hours.'
+        footer: 'Ticks run approximately every hour.'
       scoreboard:
         name: Scoreboard
   datetime:
