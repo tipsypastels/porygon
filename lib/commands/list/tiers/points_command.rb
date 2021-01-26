@@ -18,7 +18,7 @@ module Commands
       embed do |e|
         e.color = Porygon::COLORS.info
         e.title = member.display_name
-        e.thumb = member.avatar_url
+        # e.thumb = member.avatar_url
 
         e.field(t('member.points'), points)
         
