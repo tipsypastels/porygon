@@ -1,6 +1,6 @@
 set :output, './cron_log.log'
 
-every 1.hour do
+every 6.hours do
   rake 'tiers:tick'
 end
 
