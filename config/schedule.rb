@@ -4,7 +4,7 @@ every 6.hours do
   rake 'tiers:tick'
 end
 
-every 2.weeks do
+every 1.week do
   rake 'tiers:next_cycle'
 end
 

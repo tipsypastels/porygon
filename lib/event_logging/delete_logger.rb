@@ -13,8 +13,8 @@ module EventLogging
 
     def log
       return unless server
-      return unless message.author # left / banned
       return no_cache_fallback unless message
+      return unless message.author # left / banned
       return if message.from_porygon?
 
       Bot.stats.missing_deleted_messages.pass!
