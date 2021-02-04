@@ -23,6 +23,10 @@ module Porygon
     def alive?
       BotClass::CheckAlive.alive?
     end
+
+    def thread_local(value)
+      Concurrent::ThreadLocalVar.new(value)
+    end
   end
 
   COLORS   = ColorPalette.new

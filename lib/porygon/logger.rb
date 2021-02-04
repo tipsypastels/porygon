@@ -1,49 +1,37 @@
 module Porygon
   class Logger
-    TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+    DEFAULT_MODES = [
+      Mode.new(:unknown, :magenta),
+      Mode.new(:info, :blue),
+      Mode.new(:error, :red),
+      Mode.new(:warn, :yellow),
+      Mode.new(:fatal, :black),
+      Mode.new(:cache, -> s { s.black.on_cyan }),
+      Mode.new(:ratelimit, -> s { s.white.on_red }),
+      Mode.new(:task, -> s { s.black.on_green }),
+    ]
 
-    MODES = {
-      'UNKNOWN'   => :magenta,
-      'INFO'      => :blue,
-      'WARN'      => :yellow,
-      'ERROR'     => :red,
-      'FATAL'     => :black,
-      'CACHE'     => -> s { s.black.on_cyan },
-      'RATELIMIT' => -> s { s.white.on_red },
-      'TASK'      => -> s { s.black.on_green },
-    }
-
-    def initialize
-      @suppressed = SuppressList.new
+    def initialize(modes = DEFAULT_MODES)
+      @modes = modes.index_by(&:name)
+      @modes.each_value(&method(:add_shortcut_method))
     end
 
-    def suppress(*modes)
-      modes = modes.map { _1.to_s.upcase }
-      @suppressed.suppress(modes) { yield }
+    def suppress(*mode_names)
+      modes = mode_names.collect(&method(:mode))
+      modes.each(&:suppress!)
+      yield
+    ensure
+      modes.each(&:unsuppress!)
     end
 
-    MODES.each_key do |mode|
-      define_method(mode.downcase) { |message| log(mode, message) }
+    private
+
+    def add_shortcut_method(mode)
+      define_singleton_method(mode.name) { |msg| mode.log(msg) }
     end
 
-    def error(error)
-      if error.is_a?(Exception)
-        log('ERROR', error.inspect)
-        error.backtrace.each { |line| error(line) }
-      else
-        log('ERROR', error)
-      end
-    end
-
-    def log(mode, message)
-      mode = mode.to_s.upcase
-
-      return if mode.in? @suppressed
-
-      time = Time.now.strftime(TIME_FORMAT)
-      out  = "[#{mode} @ #{time}] #{message}"
-
-      puts MODES[mode].to_proc.call(out)
+    def mode(name)
+      @modes.fetch(name)
     end
   end
 end
