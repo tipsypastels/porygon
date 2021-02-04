@@ -10,7 +10,7 @@ module Discordrb
     end
 
     def log_exception(error)
-      Porygon::LOGGER.error(error)
+      Porygon::LOGGER.log(:error, error)
     end
   end
 end

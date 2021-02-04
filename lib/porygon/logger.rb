@@ -16,6 +16,10 @@ module Porygon
       @modes.each_value(&method(:add_shortcut_method))
     end
 
+    def log(mode_name, message)
+      mode(mode_name).log(message)
+    end
+
     def suppress(*mode_names)
       modes = mode_names.collect(&method(:mode))
       modes.each(&:suppress!)
