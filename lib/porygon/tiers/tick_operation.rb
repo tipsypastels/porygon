@@ -6,8 +6,10 @@ module Porygon
       end
 
       def tick
-        add_role_to_users_with_enough_points
-        remove_role_from_users_without_enough_points
+        Porygon::LOGGER.suppress(:ratelimit, :warn) do
+          add_role_to_users_with_enough_points
+          remove_role_from_users_without_enough_points
+        end
       end
 
       private

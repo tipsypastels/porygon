@@ -13,6 +13,15 @@ module Porygon
       'TASK'      => -> s { s.black.on_green },
     }
 
+    def initialize
+      @suppressed = SuppressList.new
+    end
+
+    def suppress(*modes)
+      modes = modes.map { _1.to_s.upcase }
+      @suppressed.suppress(modes) { yield }
+    end
+
     MODES.each_key do |mode|
       define_method(mode.downcase) { |message| log(mode, message) }
     end
@@ -28,6 +37,9 @@ module Porygon
 
     def log(mode, message)
       mode = mode.to_s.upcase
+
+      return if mode.in? @suppressed
+
       time = Time.now.strftime(TIME_FORMAT)
       out  = "[#{mode} @ #{time}] #{message}"
 
