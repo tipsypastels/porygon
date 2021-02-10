@@ -16,8 +16,6 @@ gem 'discordrb', '3.3.0' # check monkey patches before changing versions!
 
 # Development
 gem 'byebug'
-gem 'rubocop'
-gem 'rubocop-performance'
 gem 'stackprof'
 
 # Tasks & cron jobs

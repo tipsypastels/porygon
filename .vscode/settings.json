@@ -1,3 +1,4 @@
 {
-  "ruby.rubocop.configFilePath": "./.rubocop.yml"
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
 }
