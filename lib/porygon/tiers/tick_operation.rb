@@ -6,6 +6,8 @@ module Porygon
       end
 
       def tick
+        return unless server # can be nil if tick runs during a websocket close
+
         Porygon::LOGGER.suppress(:ratelimit, :warn) do
           add_role_to_users_with_enough_points
           remove_role_from_users_without_enough_points
