@@ -8,7 +8,7 @@ module Porygon
     else
       ROLE   = 531984098038775842
       SERVER = ServerIds::POKE
-      POINTS = 350
+      POINTS = 600
     end
 
     POINTS_PER_MESSAGE = Hash.new(1).tap do |hash|
