@@ -15,7 +15,7 @@ module EventLogging
       return unless server
       return no_cache_fallback unless message
       return unless message.author # left / banned
-      return if message.from_porygon?
+      return if message.author.bot_account?
 
       Bot.stats.missing_deleted_messages.pass!
       embed_deletion_message
