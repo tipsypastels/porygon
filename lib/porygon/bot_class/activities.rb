@@ -3,8 +3,6 @@ module Porygon
     module Activities
       extend ActiveSupport::Concern
       
-      ACTIVITIES = I18n.t('bot_activities')
-
       included do
         callback :cycle_activity, on: %i[connect reconnect]
       end
@@ -14,7 +12,7 @@ module Porygon
       end
 
       def cycle_activity
-        self.activity = ACTIVITIES.sample
+        self.activity = Porygon::ActivityMessage.sample
       end
     end
   end

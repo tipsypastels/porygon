@@ -104,6 +104,10 @@ en:
       _desc: Shows a log of cron activity.
       title: Cron Log
       empty: 'The cron log is empty!'
+    addactivitymessage:
+      _desc: Adds a message to Porygon's activity rotation.
+      title: Add Activity Message
+      done: Done!
     ping:
       _desc: Says hi from Porygon.
       title: ':sparkles: Pong! Porygon is online~'
@@ -931,3 +935,8 @@ en:
     - doing hot bot shit
     - playing with firequackers
     - hey got any grapes
+    - remaking the remakes
+    - duck duck goose
+    - daffy-duck
+    - watching an*me
+    - release the quacken!
