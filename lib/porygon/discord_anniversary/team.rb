@@ -1,6 +1,8 @@
 module Porygon
   module DiscordAnniversary
     class Team
+      include Porygon.i18n_scope('anniv.team')
+
       delegate :name, :color, to: :role
       delegate :server, :scoreboard_channel, to: module_parent
 
@@ -11,13 +13,11 @@ module Porygon
       end
 
       def update_scoreboard(is_winning: false)
-        crown = ' 👑' if is_winning
-
         embed = EmbedBuilder.build do |e|
           e.color = color
           e.title = name.upcase
           e.thumb = @asset_url
-          e.desc  = "#{MessageFormatter.bold(points)} Points#{crown}"
+          e.desc  = t(is_winning ? 'desc' : 'desc_winning', points: points)
         end
 
         scoreboard.edit('', embed)
