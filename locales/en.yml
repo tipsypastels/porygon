@@ -651,6 +651,11 @@ en:
         footer: 'Ticks run approximately every six hours.'
       scoreboard:
         name: Scoreboard
+    assignteam:
+      _name: Assign Team
+      _desc: Adds you to either Diamond or Pearl team randomly.
+      done: "Welcome to the %{team} team!"
+      already_has: "You are already on a team! :P"
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"

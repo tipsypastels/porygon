@@ -44,7 +44,7 @@ module Porygon
       case value
       when NilClass
         # pass
-      when Color
+      when Color, Discordrb::ColourRGB
         @hash[:color] = value.to_i
       else
         @hash[:color] = value
