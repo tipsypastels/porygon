@@ -18,6 +18,7 @@ module Porygon
     def to_h
       @hash
     end
+    alias to_hash to_h
 
     def attachments
       @attachments.presence

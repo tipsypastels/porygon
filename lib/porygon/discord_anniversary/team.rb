@@ -1,12 +1,20 @@
 module Porygon
   module DiscordAnniversary
-    class Team
-      attr_reader :role_id, :name
+    Team = Struct.new(:role_id, :emoji_id, keyword_init: true) do
       delegate :name, :color, to: :role
 
-      def initialize(role_id, emoji_id)
-        @role_id = role_id
-        @emoji_id = emoji_id
+      def points
+        record&.[](:points) || 0
+      end
+
+      def points=(points)
+        return dataset.delete if points <= 0
+
+        if dataset.count > 0
+          dataset.update(points: points)
+        else
+          dataset.insert(role_id: role_id, points: points)
+        end
       end
 
       def include?(member)
@@ -21,6 +29,10 @@ module Porygon
         name
       end
 
+      def into_embed(embed)
+        embed.field(name.upcase, "**#{points}** #{emoji}")
+      end
+
       private
 
       def role
@@ -33,6 +45,14 @@ module Porygon
 
       def server
         @server ||= Bot.servers[DiscordAnniversary::SERVER]
+      end
+
+      def record
+        dataset.first
+      end
+
+      def dataset
+        Database[:anniv_team_points].where(role_id: role_id)
       end
     end
   end
