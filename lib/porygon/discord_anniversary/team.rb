@@ -10,19 +10,21 @@ module Porygon
         @asset_url = asset_url
       end
 
-      def update_scoreboard
+      def update_scoreboard(is_winning: false)
+        crown = ' 👑' if is_winning
+
         embed = EmbedBuilder.build do |e|
           e.color = color
           e.title = name.upcase
           e.thumb = @asset_url
-          e.desc  = "#{MessageFormatter.bold(points)} Points"
+          e.desc  = "#{MessageFormatter.bold(points)} Points#{crown}"
         end
 
         scoreboard.edit('', embed)
       end
 
       def points
-        record&.[](:points) || 0
+        @points ||= record&.[](:points) || 0
       end
 
       def points=(points)
@@ -33,6 +35,8 @@ module Porygon
         else
           dataset.insert(role_id: @role_id, points: points)
         end
+
+        force_points_query
       end
 
       def include?(member)
@@ -48,6 +52,10 @@ module Porygon
       end
 
       private
+
+      def force_points_query
+        @points = nil
+      end
 
       def scoreboard
         @scoreboard ||= scoreboard_channel.load_message(@scoreboard_id)

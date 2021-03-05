@@ -36,6 +36,10 @@ module Porygon
       TEAMS = Teams.new TEAM_DIAMOND, TEAM_PEARL
     end
 
+    def team(name)
+      TEAMS[name]
+    end
+
     def scoreboard_update
       TEAMS.update_scoreboards
     end
