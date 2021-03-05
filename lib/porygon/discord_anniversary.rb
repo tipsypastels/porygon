@@ -1,27 +1,51 @@
 module Porygon
   module DiscordAnniversary
+    module_function
+
     if Porygon.development?
       SERVER = ServerIds::TEST
       ROLE = 777629541740314645
-      
-      SCOREBOARD = Scoreboard.new \
-        message_id: 817490905224445972, 
-        channel_id: 775276838045220914
+      SCOREBOARD = 775276838045220914
 
-      TEAMS = Teams.new \
-        Team.new(role_id: 817479186435670086, emoji_id: 817483827898220574),
-        Team.new(role_id: 817479192252776458, emoji_id: 817483868529098863)
+      TEAM_DIAMOND = Team.new \
+        role_id:  817479186435670086,
+        scoreboard_id: 817522355239911446,
+        asset_url: 'https://i.imgur.com/MgZ442q.png'
+
+      TEAM_PEARL = Team.new \
+        role_id: 817479192252776458,
+        scoreboard_id: 817522355965394966,
+        asset_url: 'https://i.imgur.com/rphXYpt.png'
+
+      TEAMS = Teams.new TEAM_DIAMOND, TEAM_PEARL
     else
       SERVER = ServerIds::POKE
       ROLE = 817469902272462850
+      SCOREBOARD = 817473503724699688
 
-      SCOREBOARD = Scoreboard.new \
-        message_id: 817490736328867870, 
-        channel_id: 817473503724699688
+      TEAM_DIAMOND = Team.new \
+        role_id: 817460530280923176,
+        scoreboard_id: 817522244594827335,
+        asset_url: 'https://i.imgur.com/MgZ442q.png'
 
-      TEAMS = Teams.new \
-        Team.new(role_id: 817460530280923176, emoji_id: 817489034997268480),
-        Team.new(role_id: 817460533841100880, emoji_id: 817489047576379394)
+      TEAM_PEARL = Team.new \
+        role_id: 817460533841100880,
+        scoreboard_id: 817522272427966505,
+        asset_url: 'https://i.imgur.com/rphXYpt.png'
+
+      TEAMS = Teams.new TEAM_DIAMOND, TEAM_PEARL
+    end
+
+    def scoreboard_update
+      TEAMS.update_scoreboards
+    end
+
+    def scoreboard_channel
+      server.channels.find { |ch| ch.id == SCOREBOARD }
+    end
+
+    def server
+      Bot.servers[SERVER]
     end
   end
 end

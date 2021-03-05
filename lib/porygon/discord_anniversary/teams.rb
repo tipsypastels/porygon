@@ -9,16 +9,9 @@ module Porygon
         @teams = teams
       end
 
-      def update_embed(message)
-        embed = EmbedBuilder.build do |e|
-          e.title = 'Scoreboard'
-
-          each do |team|
-            team.into_embed(e)
-          end
-        end
-
-        message.edit('', embed)
+      def update_scoreboards
+        each(&:update_scoreboard)
+        true
       end
 
       def find_by_name
