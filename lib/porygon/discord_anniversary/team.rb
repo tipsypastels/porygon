@@ -13,11 +13,13 @@ module Porygon
       end
 
       def update_scoreboard(is_winning: false)
+        t_key = is_winning ? 'desc_winning' : 'desc'
+
         embed = EmbedBuilder.build do |e|
           e.color = color
           e.title = name.upcase
           e.thumb = @asset_url
-          e.desc  = t(is_winning ? 'desc' : 'desc_winning', points: points)
+          e.desc  = t(t_key, points: points)
         end
 
         scoreboard.edit('', embed)

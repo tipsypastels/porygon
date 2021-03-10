@@ -4,7 +4,7 @@ module Porygon
 
     if Porygon.development?
       SERVER = ServerIds::TEST
-      ROLE = 777629541740314645
+      HELPER = 777629541740314645
       SCOREBOARD = 775276838045220914
 
       TEAM_DIAMOND = Team.new \
@@ -20,7 +20,7 @@ module Porygon
       TEAMS = Teams.new TEAM_DIAMOND, TEAM_PEARL
     else
       SERVER = ServerIds::POKE
-      ROLE = 817469902272462850
+      HELPER = 817469902272462850
       SCOREBOARD = 817473503724699688
 
       TEAM_DIAMOND = Team.new \
@@ -31,7 +31,7 @@ module Porygon
       TEAM_PEARL = Team.new \
         role_id: 817460533841100880,
         scoreboard_id: 817522272427966505,
-        asset_url: 'https://i.imgur.com/rphXYpt.png'
+        asset_url: 'https://i.imgur.com/rphXYpt.pn'
 
       TEAMS = Teams.new TEAM_DIAMOND, TEAM_PEARL
     end

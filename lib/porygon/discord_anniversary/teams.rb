@@ -18,7 +18,7 @@ module Porygon
       end
 
       def update_scoreboards
-        winner = find_winner() 
+        winner = find_winner()
         
         each do |team|
           team.update_scoreboard(is_winning: team == winner)

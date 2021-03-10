@@ -65,6 +65,9 @@ en:
             missing_console: "Please provide the name of the console the friend code is from. You can use `3ds`, `switch`, or `go`."
           friend_code/delete_console:
             invalid: "`%{arg}` isn't a console I can delete for. Please use `3ds`, `switch`, `go`, or `all` to delete all three at once."
+          commands/add_points_command/arg:
+            unknown_team: "`%{arg}` isn't a team that I know of."
+            invalid_amount: "`%{arg}` isn't an amount."
       unknown:
         title: Hmmm. That's an error.
   commands:
@@ -656,6 +659,13 @@ en:
       _desc: Adds you to either Diamond or Pearl team randomly.
       done: "Welcome to the %{team} team!"
       already_has: "You are already on a team! :P"
+    addpoints:
+      _name: Add Points
+      _desc: Adds points to the chosen team.
+      _args:
+        arg:
+          name: '[team] [amount]'
+      done: Points updated!
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
