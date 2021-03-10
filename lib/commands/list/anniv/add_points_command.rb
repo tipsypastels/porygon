@@ -4,7 +4,7 @@ module Commands
       def self.from_argument(error, arg, *)
         team_name, amount_str = arg.downcase.split(/\s+/)
         team_name, amount_str = amount_str, team_name if team_name.match?(/^-?\d+$/)
-        team_name = "#{team_name}s" unless team_name.end_with?('s')
+        team_name.delete_suffix!('s') # singularize
 
         team = Porygon::DiscordAnniversary.team(team_name)
         team or error[:unknown_team, arg: team_name]
