@@ -30,7 +30,10 @@ module Porygon
       end
 
       def points=(points)
-        return dataset.delete if points <= 0
+        if points <= 0
+          force_points_query
+          return dataset.delete
+        end
 
         if dataset.count > 0
           dataset.update(points: points)

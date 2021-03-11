@@ -43,7 +43,7 @@ module Porygon
       end
 
       def sample
-        rand.round.zero? ? @team1 : @team2
+        [@team1, @team2].sample # more accurate than rand
       end
     end
   end
