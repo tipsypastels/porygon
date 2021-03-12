@@ -31,7 +31,7 @@ module Porygon
       TEAM_PEARL = Team.new \
         role_id: 817460533841100880,
         scoreboard_id: 817522272427966505,
-        asset_url: 'https://i.imgur.com/rphXYpt.pn'
+        asset_url: 'https://i.imgur.com/rphXYpt.png'
 
       TEAMS = Teams.new TEAM_DIAMOND, TEAM_PEARL
     end
