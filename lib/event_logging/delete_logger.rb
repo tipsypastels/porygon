@@ -13,6 +13,7 @@ module EventLogging
 
     def log
       return unless server
+      return unless server.id != ServerIds::STAF
       return no_cache_fallback unless message
       return unless message.author # left / banned
       return if message.author.bot_account?

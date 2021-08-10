@@ -4,4 +4,5 @@ Database = Sequel::Database.connect \
   password: ENV['DB_PASSWORD'],
   database: ENV['DB']
 
+Database.extension :pg_json
 Database.test_connection
